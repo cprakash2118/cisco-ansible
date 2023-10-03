@@ -1,0 +1,17 @@
+---
+- name: Voult & Variable concepts 
+  hosts: all 
+  vars_files:
+     - vars.yml
+  tasks:
+     - name: Group Create 
+       ansible.builtin.group: 
+          name: "{{ group_name }}"
+          state: present 
+
+     - name: User Create 
+       ansible.builtin.user:
+          name: "{{user_name }}"
+          state: present 
+          password: "{{ password_val | password_hash('sha512')}}"
+
