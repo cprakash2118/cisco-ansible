@@ -1,0 +1,7 @@
+---
+- name: Display 
+  hosts: test 
+  tasks:
+    - name: DIsplay 
+      ansible.builtin.debug:
+          msg: "DIsplay"
