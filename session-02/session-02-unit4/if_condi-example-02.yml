@@ -1,0 +1,29 @@
+---
+- name: If condition 
+  hosts: dev
+  tasks:
+     - name: DIsplay-01 
+       when: true 
+       ansible.builtin.debug:
+          msg: "Task-01"
+       vars:
+          name02:  rsyslog
+
+
+     - name: DIsplay-02
+       ansible.builtin.debug:
+          msg: "Task-02"
+       when: false
+
+     - name: DIsplay-03
+       ansible.builtin.debug:
+          msg: "Task-03"
+       when: false
+
+     - name: DIsplay-04
+       ansible.builtin.debug:
+          msg: "Task-04"
+       #when: inventory_hostname in groups['dev']
+      
+
+

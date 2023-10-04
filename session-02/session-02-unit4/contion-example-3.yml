@@ -1,0 +1,10 @@
+---
+- name: DIsplay 
+  hosts: dev 
+  vars:
+     - value01: 10
+  tasks:
+    - name: DIsplay 
+      ansible.builtin.debug:
+         msg: "User present"
+      when: value01 is not defined 
