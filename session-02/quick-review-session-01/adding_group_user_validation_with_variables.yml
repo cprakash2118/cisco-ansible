@@ -1,0 +1,22 @@
+---
+- name: User & Group mgmt using variables.
+  hosts: dev
+  gather_facts: true
+  vars:
+    group_name: "middleware"
+    gid_no: 34543
+    user_name: "jack"
+  vars_files:
+     - root_pass_file.yml 
+  tasks:
+    - name: Group additon 
+      ansible.builtin.group:
+         name: "{{ group_name }}"
+         gid: "{{ gid_no }}"
+         state: present 
+      
+    - name: User addition 
+      ansible.builtin.user:
+         name: "{{ user_name }}"
+         state: present 
+         password: "{{ root_pass | password_hash('sha512') }}"

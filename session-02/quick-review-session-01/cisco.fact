@@ -1,0 +1,5 @@
+[general_new]
+package = cisco_httpd
+service = cisco_httpd
+state = cisco_started
+enabled = cisco_true
