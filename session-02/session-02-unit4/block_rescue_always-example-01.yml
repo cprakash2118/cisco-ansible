@@ -1,0 +1,33 @@
+---
+- name: Block & rescue 
+  hosts: dev
+  tasks:
+     - name: Block start here 
+       block:
+           - name: Block Task-01 
+             ansible.builtin.yum:
+                 name: 123 
+                 state: present 
+             ignore_errors: yes 
+           
+           - name: Block Task-02 
+             ansible.builtin.service:
+                 name: 456
+                 state: started 
+                 enabled: yes 
+             #ignore_errors: yes 
+     
+       rescue:
+           - name: Rescue - task-3 
+             ansible.builtin.debug:
+                 msg: "This is task-03"
+             failed_when: yes
+
+       always:
+           - name: Always - task-04
+             ansible.builtin.debug:
+                 msg: "This is task-04"
+
+             
+
+

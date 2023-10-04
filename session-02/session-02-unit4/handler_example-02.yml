@@ -1,0 +1,42 @@
+---
+- name: Handlers example 
+  hosts: dev
+  force_handlers: true 
+  tasks:
+    - name: DIsplay task-01
+      ansible.builtin.debug:
+          msg: "Task-01 - done Apache config change" 
+      changed_when: true 
+      notify:
+        - restart apache service 
+
+    - name: DIsplay task-02
+      ansible.builtin.debug:
+          msg: "Task-02 - done" 
+      changed_when: true 
+
+
+    - name: DIsplay task-03
+      ansible.builtin.debug:
+          msg: "Task-03 - done" 
+      changed_when: true 
+      notify:
+        - restart rsyslog service 
+
+    - name: DIsplay task-03
+      ansible.builtin.debug:
+          msg: "Task-03 - done" 
+      failed_when: true 
+      
+
+  handlers:
+     - name: restart apache service
+       ansible.builtin.service:
+          name: httpd
+          state: restarted 
+
+     - name: restart rsyslog service
+       ansible.builtin.service:
+          name: rsyslog
+          state: restarted
+
