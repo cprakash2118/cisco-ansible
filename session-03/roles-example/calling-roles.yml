@@ -1,0 +1,5 @@
+---
+- name: Calling roles
+  hosts: dev
+  roles:
+     - example-roles 

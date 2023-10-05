@@ -1,0 +1,4 @@
+---
+# vars file for example-roles
+var01: example-roles-01-1st-var
+var02: example-roles-01-2nd-var

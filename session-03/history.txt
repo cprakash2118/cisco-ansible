@@ -1,0 +1,1000 @@
+  338  ssh servera -l root
+  339  cp -rpv loop_example-01.yml loop_example-03.yml 
+  340  vim loop_example-03.yml 
+  341  ansible-navigator run -m stdout loop_example-03.yml --syntax
+  342  ansible-navigator run -m stdout loop_example-03.yml 
+  343  vim loop_example-03.yml 
+  344  ansible-navigator run -m stdout loop_example-03.yml 
+  345  vim loop_example-03.yml 
+  346  ansible dev -m setup |less
+  347  vim loop_example-03.yml 
+  348  ansible-navigator run -m stdout loop_example-03.yml 
+  349  vim loop_example-03.yml 
+  350  ansible-navigator run -m stdout loop_example-03.yml 
+  351  vim loop_example-03.yml 
+  352  ansible-navigator run -m stdout loop_example-03.yml 
+  353  vim loop_example-03.yml 
+  354  ansible-navigator run -m stdout loop_example-03.yml 
+  355  vim loop_example-03.yml 
+  356  podman images
+  357  podman ps
+  358  ansible-vault view --help | grep file
+  359  ll
+  360  cd work/
+  361  pwd
+  362  ll
+  363  cd cisco-ansible/
+  364  pwd
+  365  ll
+  366  mkdir ansible-setup-and-config-files
+  367  cp -rpv ansible.cfg ansible-navigator.yml inventory ansible-setup-and-config-files/
+  368  ll
+  369  mkdir single-play-examples
+  370  cp -rpv ansible.cfg ansible-navigator.yml inventory single-play-examples/
+  371  vim playbook.yml 
+  372  vim playbook-2.yml 
+  373  mv playbook.yml playbook-2.yml single-play-examples/
+  374  ll
+  375  grep -ir become 
+  376  vim playbook-variable-example-02.yml
+  377  mkdir multi-play-examples 
+  378  cp -rpv ansible.cfg ansible-navigator.yml inventory multi-play-examples/
+  379  mv playbook-variable-example-02.yml multi-play-examples/
+  380  ll
+  381  mkdir variable-concepts 
+  382  mv variable-concepts variable-concepts-examples
+  383  vim display-msg-example01.yml 
+  384  mkdir display-message-debug-example
+  385  cp -rpv ansible.cfg ansible-navigator.yml inventory display-message-debug-example/
+  386  mv display-m* display-message-debug-example/
+  387  tree
+  388  ls
+  389  ll
+  390  tree display-message-debug-example/
+  391  ls
+  392  mkdir register-example
+  393  mv register_example-variable0* register-example/
+  394  ll
+  395  grep -ir index.html * 
+  396  ll
+  397  mv playbook-variable-example-01.yml index.html variable-concepts-examples/
+  398  ll
+  399  mkdir ansible-vault-example
+  400  mv ansible.cfg ansible-navigator.yml inventory mypin.txt root_pass* var* ansible-vault-example/
+  401  ll
+  402  rm -rf ansible-navigator.log 
+  403  ll
+  404  vim user_group_mgmt.yml 
+  405  git branch 
+  406  git add .
+  407  git commit -m "update"
+  408  git push 
+  409  ll
+  410  mkdir session-01 
+  411  mv ansible-* multi-play-examples register-example single-play-examples session-01/
+  412  ll
+  413  mv display-message-debug-example session-01/
+  414  mv user_group_mgmt.yml  session-01/
+  415  git add .
+  416  git commit -m "updated-session-01"
+  417  git push
+  418  ll
+  419  mkdir session-02
+  420  ll
+  421  cd session-02/
+  422  pwd
+  423  ll
+  424  mkdir quick-review-session-01
+  425  cd quick-review-session-01/
+  426  pwd
+  427  ll
+  428  pwd
+  429  touch inventory ansible.cfg ansible-navigator.yml 
+  430  file * 
+  431  vim inventory 
+  432  ansible allmyservers --list-hosts
+  433  ansible allmyservers -i inventory --list-hosts
+  434  cat inventory 
+  435  ansible all -i inventory --list-hosts
+  436  ssh servera -l student 
+  437  ll
+  438  file * 
+  439  vim inventory 
+  440  ansible web -i inventory --list-hosts
+  441  ansible db -i inventory --list-hosts
+  442  ansible all -i inventory --list-hosts
+  443  ansible localhost -i inventory --list-hosts
+  444  ansible ungrouped -i inventory --list-hosts
+  445  vim inventory 
+  446  ansible ungrouped -i inventory --list-hosts
+  447  vim inventory 
+  448  ansible all -i inventory --list-hosts
+  449  #ansible all -i inventory --list-hosts
+  450  ansible all -i inventory -m ping 
+  451  ping -c 2 servera
+  452  vim inventory 
+  453  ansible all -i inventory -m command -a "uptime"
+  454  ansible all -i inventory -m command -a "uname -r"
+  455  ansible all -i inventory -m command -a "uname -r ; uptime"
+  456  ansible all -i inventory -m shell -a "uname -r ; uptime"
+  457  ansible all -i inventory -m shell -a "useradd user100"
+  458  ansible all -i inventory -m shell -a "useradd user100" -b -u devops 
+  459  ansible all -i inventory -m shell -a "useradd user101" -b -u student -K 
+  460  ansible --help | grep "\-b"
+  461  ansible --help | grep "\-K"
+  462  ansible --help | grep "key"
+  463  #ansible all -i inventory -m shell -a "useradd user101" -b -u student -K 
+  464  ansible all -i inventory -m user -a "name=user102 state=present uid=123456" -b -u devops 
+  465  #ansible all -i inventory -m user -a "name=user102 state=present uid=123456" -b -u devops 
+  466  ll
+  467  vim ansible.cfg 
+  468  cat /etc/ansible/ansible.cfg 
+  469  vim ansible.cfg 
+  470  ll
+  471  file *
+  472  vim ansible-navigator.yml 
+  473  vim -O inventory ansible.cfg ansible-navigator.yml 
+  474  ll
+  475  #ansible all -i inventory -m user -a "name=user102 state=present uid=123456" -b -u devops 
+  476  vim adding_user.yml 
+  477  vim ansible-navigator.yml 
+  478  podman images
+  479  ll
+  480  vim adding_user.yml 
+  481  ansible-navigator doc -m stdout ansible.builtin.user
+  482  vim adding_user.yml 
+  483  ansible-navigator run -m stdout adding_user.yml --syntax
+  484  ansible-navigator run adding_user.yml 
+  485  ansible-navigator run -m stdout adding_user.yml 
+  486  vim adding_user.yml 
+  487  vim adding_group_user.yml 
+  488  vim -O adding_user.yml adding_group_user.yml 
+  489  cd /usr/bin/
+  490  ls
+  491  cd /usr/sbin/
+  492  ls
+  493  pwd
+  494  cd
+  495  cd -
+  496  cd 
+  497  cd work/
+  498  ll
+  499  cd cisco-ansible/
+  500  ll
+  501  cd session-0
+  502  cd session-02/
+  503  ll
+  504  cd quick-review-session-01/
+  505  ll
+  506  vim -O adding_user.yml adding_group_user.yml 
+  507  ansible-navigator run adding_user.yml 
+  508  ll
+  509  vim adding_group_user_validation.yml 
+  510  ansible-navigator run adding_group_user_validation.yml -m stdout --syntax 
+  511  vim adding_group_user_validation.yml 
+  512  ansible-navigator run adding_group_user_validation.yml -m stdout --syntax 
+  513  vim adding_group_user_validation.yml 
+  514  ansible-navigator run adding_group_user_validation.yml -m stdout --syntax 
+  515  ansible-navigator run adding_group_user_validation.yml -m stdout 
+  516  vim adding_group_user_validation.yml 
+  517  ansible-navigator run adding_group_user_validation.yml -m stdout 
+  518  vim adding_group_user_validation.yml 
+  519  ssh servera -l root 
+  520  vim adding_group_user_validation.yml 
+  521  ansible-navigator run adding_group_user_validation.yml -m stdout 
+  522  vim adding_group_user_validation.yml 
+  523  vim adding_group_user.yml 
+  524  vim -O adding_group_user.yml adding_group_user_validation.yml 
+  525  ll
+  526  vim adding_group_user_validation_with_variables.yml 
+  527  vim -O root_pass_file.yml adding_group_user_validation_with_variables.yml
+  528  vim adding_group_user_validation_with_variables.yml 
+  529  ansible-vault --help
+  530  ansible-vault create  root_pass_file.yml
+  531  cat root_pass_file.yml 
+  532  ansible-vault view  root_pass_file.yml
+  533  vim mypin.txt
+  534  ansible-vault view  root_pass_file.yml --vault-password-file=mypin.txt
+  535  cat mypin.txt 
+  536  ansible-navigator run adding_group_user_validation_with_variables.yml -m stdout 
+  537  ansible-playbook --help | grep vault 
+  538  ansible-navigator run adding_group_user_validation_with_variables.yml -m stdout --vault-password-file=mypin.txt 
+  539  vim adding_group_user_validation_with_variables.yml
+  540  ansible-vault view  root_pass_file.yml --vault-password-file=mypin.txt
+  541  cat mypin.txt 
+  542  #ansible-navigator run adding_group_user_validation_with_variables.yml -m stdout --vault-password-file=mypin.txt 
+  543  cat adding_group_user_validation_with_variables.yml
+  544  vim adding_group_user_validation_with_variables.yml
+  545  ll
+  546  vim ansible_facts-example-01.yml 
+  547  ansible-navigator run adding_group_user_validation_with_variables.yml -m stdout --vault-password-file=mypin.txt 
+  548  ansible dev -m setup |less
+  549  vim adding_group_user_validation_with_variables.yml
+  550  ansible-navigator run adding_group_user_validation_with_variables.yml -m stdout --vault-password-file=mypin.txt 
+  551  vim adding_group_user_validation_with_variables.yml
+  552  ansible-navigator run adding_group_user_validation_with_variables.yml -m stdout --vault-password-file=mypin.txt 
+  553  vim adding_group_user_validation_with_variables.yml
+  554  ansible-navigator run adding_group_user_validation_with_variables.yml -m stdout --vault-password-file=mypin.txt 
+  555  vim adding_group_user_validation_with_variables.yml
+  556  ansible-navigator run adding_group_user_validation_with_variables.yml -m stdout --vault-password-file=mypin.txt 
+  557  vim adding_group_user_validation_with_variables.yml
+  558  vim facts_var_calling.yml 
+  559  ansible dev -m setup |less
+  560  vim facts_var_calling.yml 
+  561  ansible-navigator run -m stdout facts_var_calling.yml --syntax
+  562  ansible-navigator run -m stdout facts_var_calling.yml 
+  563  ansible-navigator run -m stdout facts_var_calling.yml --syntax
+  564  vim facts_var_calling.yml 
+  565  wq
+  566  ansible-navigator run -m stdout facts_var_calling.yml --syntax
+  567  ansible-navigator run -m stdout facts_var_calling.yml 
+  568  vim facts_var_calling.yml 
+  569  ansible dev -m setup |head -10
+  570  cat facts_var_calling.yml 
+  571  ll
+  572  vim installing_facts.yml
+  573  vim custom.facts
+  574  vim installing-facts.yml 
+  575  ansible-navigator doc -m stdout ansible.builtin.file
+  576  vim installing-facts.yml 
+  577  vim -O custom.facts installing-facts.yml 
+  578  ansible all -m setup |less
+  579  ansible all -m setup |grep httpd
+  580  ansible-navigator run -m stdout installing-facts.yml --syntax 
+  581  ansible-navigator run -m stdout installing-facts.yml
+  582  ansible all -m setup |grep httpd
+  583  ansible all -m setup |less
+  584  ssh servera -l root
+  585  ll
+  586  mv custom.facts custom.fact
+  587  ansible-navigator run -m stdout installing-facts.yml
+  588  vim installing-facts.yml 
+  589  ansible-navigator run -m stdout installing-facts.yml
+  590  ansible all -m setup |grep httpd
+  591  vim -O custom.fact installing-facts.yml 
+  592  ll
+  593  cp -rpv custom.fact cisco.fact
+  594  vim cisco.fact 
+  595  vim -O custom.fact installing-facts.yml 
+  596  ssh serverc -l root
+  597  vim -O custom.fact installing-facts.yml 
+  598  vim use_custom-fact.yml 
+  599  ansible-navigator run use_custom-fact.yml -m stdout 
+  600  vim use_custom-fact.yml 
+  601  ansible-navigator run use_custom-fact.yml -m stdout 
+  602  vim -O custom.fact installing-facts.yml use_custom-fact.yml 
+  603  cd ..
+  604  git branch 
+  605  git add .
+  606  git status 
+  607  git commit -m "session-02"
+  608  git push 
+  609  vim -O custom.fact installing-facts.yml use_custom-fact.yml 
+  610  cd -
+  611  ll
+  612  vim -O custom.fact installing-facts.yml use_custom-fact.yml 
+  613  ll
+  614  cd ..
+  615  ll
+  616  mkdir session-02-unit4 
+  617  cp -rpv quick-review-session-01/ansible.cfg session-02-unit4/
+  618  cp -rpv quick-review-session-01/ansible-navigator.yml session-02-unit4/
+  619  cp -rpv quick-review-session-01/inventory session-02-unit4/
+  620  cd session-02-unit4/
+  621  pwd
+  622  ll
+  623  cd ..
+  624  tree
+  625  ll
+  626  cd session-02/
+  627  ll
+  628  cd session-02-unit4/
+  629  pwd
+  630  ll
+  631  for x in {1..5}; do echo $x; sleep 1; done
+  632  ll
+  633  vim loop_example-list_as_input.yml 
+  634  for x in {1..5}; do echo $x; sleep 1; done
+  635  vim loop_example-list_as_input.yml 
+  636  cp -rpv loop_example-list_as_input.yml loop_example-list_as_input-2.yml 
+  637  vim loop_example-list_as_input-2.yml 
+  638  vim -O loop_example-list_as_input.yml loop_example-list_as_input-2.yml 
+  639  cp -rpv loop_example-list_as_input-2.yml loop_example-list_as_input-3.yml
+  640  vim loop_example-list_as_input-3.yml 
+  641  vim mylist.yml 
+  642  vim loop_example-list_as_input-3.yml 
+  643  vim -O loop_example-list_as_input.yml loop_example-list_as_input-2.yml loop_example-list_as_input-3.yml 
+  644  vim -O mylist.yml loop_example-list_as_input-3.yml 
+  645  ll
+  646  ansible-navigator run -m stdout 
+  647  export alias ans="ansible-navigator run -m stdout"
+  648  ansible-navigator run -m stdout loop_example-list_as_input.yml 
+  649  ansible-navigator run -m stdout loop_example-list_as_input-2.yml 
+  650  ansible-navigator run -m stdout loop_example-list_as_input-3.yml 
+  651  vim -O mylist.yml loop_example-list_as_input-3.yml 
+  652  vim dict_loop_example-01.yml 
+  653  ansible-navigator run -m stdout dict_loop_example-01.yml --syntax 
+  654  ansible-navigator run -m stdout dict_loop_example-01.yml 
+  655  vim dict_loop_example-01.yml 
+  656  cp -rpv dict_loop_example-01.yml dict_loop_example-01-if_condition.yml 
+  657  vim dict_loop_example-01-if_condition.yml 
+  658  vim if_condi-example-02.yml 
+  659  ansible-navigator run -m stdout if_condi-example-02.yml --syntax
+  660  ansible-navigator run -m stdout if_condi-example-02.yml 
+  661  vim if_condi-example-02.yml 
+  662  ansible-navigator run -m stdout if_condi-example-02.yml 
+  663  vim if_condi-example-02.yml 
+  664  ansible-navigator run -m stdout if_condi-example-02.yml 
+  665  vim if_condi-example-02.yml 
+  666  ll
+  667  ls -lrth 
+  668  vim dict_loop_example-01-if_condition.yml
+  669  ansible-navigator run -m stdout dict_loop_example-01-if_condition.yml 
+  670  vim dict_loop_example-01-if_condition.yml
+  671  vim if_condi-example-03.yml 
+  672  ansible-navigator run -m stdout if_condi-example-03.yml --syntax
+  673  ansible-navigator run -m stdout if_condi-example-03.yml 
+  674  vim if_condi-example-03.yml 
+  675  user_output.changed
+  676  vim if_condi-example-03.yml 
+  677  ansible-navigator run -m stdout if_condi-example-03.yml 
+  678  vim if_condi-example-03.yml 
+  679  ansible-navigator run -m stdout if_condi-example-03.yml 
+  680  vim if_condi-example-03.yml 
+  681  ansible-navigator run -m stdout if_condi-example-03.yml 
+  682  vim if_condi-example-03.yml 
+  683  ansible-navigator run -m stdout if_condi-example-03.yml 
+  684  vim if_condi-example-03.yml 
+  685  ansible-navigator run -m stdout if_condi-example-03.yml 
+  686  vim if_condi-example-03.yml 
+  687  vim contion-example-3.yml 
+  688  ansible-navigator run -m stdout contion-example-3.yml 
+  689  vim contion-example-3.yml 
+  690  cp -rpv contion-example-3.yml contion-example-4.yml 
+  691  vim contion-example-4.yml 
+  692  ansible-playbook run -m stdout contion-example-4.yml 
+  693  ansible-navigator run -m stdout contion-example-4.yml 
+  694  vim contion-example-4.yml 
+  695  ansible-navigator run -m stdout contion-example-4.yml 
+  696  vim contion-example-4.yml 
+  697  ansible-navigator run -m stdout contion-example-4.yml 
+  698  vim contion-example-4.yml 
+  699  ansible-navigator run -m stdout contion-example-4.yml 
+  700  vim contion-example-4.yml 
+  701  ansible-navigator run -m stdout contion-example-4.yml 
+  702  vim contion-example-4.yml 
+  703  ansible-navigator run -m stdout contion-example-4.yml 
+  704  vim contion-example-4.yml 
+  705  ll
+  706  vim contion-example-4.yml 
+  707  git status 
+  708  cd ..
+  709  git status 
+  710  git add .
+  711  git status 
+  712  git commit -m "Loop_and_conditions"
+  713  git push 
+  714  vim contion-example-4.yml 
+  715  cd -
+  716  vim contion-example-4.yml 
+  717  cd ..
+  718  tree
+  719  ll
+  720  cd session-02/
+  721  pwd
+  722  ll
+  723  cd session-02-unit4/
+  724  ll
+  725  vim handler_example-01.yml 
+  726  ansible-navigator run -m stdout handler_example-01.yml 
+  727  vim handler_example-01.yml 
+  728  ansible-navigator run -m stdout handler_example-01.yml 
+  729  vim handler_example-01.yml 
+  730  ansible-navigator run -m stdout handler_example-01.yml 
+  731  vim handler_example-01.yml 
+  732  ansible-navigator run -m stdout handler_example-01.yml 
+  733  vim handler_example-01.yml 
+  734  cp -rpv handler_example-01.yml handler_example-02.yml 
+  735  vim handler_example-02.yml 
+  736  ansible-navigator run -m stdout handler_example-02.yml 
+  737  vim handler_example-02.yml 
+  738  ansible-navigator run -m stdout handler_example-02.yml 
+  739  vim handler_example-02.yml 
+  740  ansible-navigator run -m stdout handler_example-02.yml 
+  741  vim handler_example-02.yml 
+  742  ansible-navigator run -m stdout handler_example-02.yml 
+  743  vim handler_example-02.yml 
+  744  vim block_rescue_always-example-01.yml 
+  745  ansible-navigator run -m stdout block_rescue_always-example-01.yml 
+  746  vim block_rescue_always-example-01.yml 
+  747  ansible-navigator run -m stdout block_rescue_always-example-01.yml 
+  748  vim block_rescue_always-example-01.yml 
+  749  ansible-navigator run -m stdout block_rescue_always-example-01.yml 
+  750  vim block_rescue_always-example-01.yml 
+  751  ansible-navigator run -m stdout block_rescue_always-example-01.yml 
+  752  vim block_rescue_always-example-01.yml 
+  753  cd ..
+  754  ll
+  755  cd ..
+  756  ll
+  757  git add .
+  758  git commit -m "update"
+  759  git push 
+  760  tree
+  761  cd work/cisco-ansible/
+  762  ll
+  763  mkdir session-03 
+  764  cp -rpv session-02/session-02-unit4/ansible.cfg session-03/
+  765  cp -rpv session-02/session-02-unit4/ansible-navigator.yml session-03/
+  766  cp -rpv session-02/session-02-unit4/inventory session-03/
+  767  cd session-03/
+  768  pwd
+  769  ll
+  770  vim myhttpd-config-change.conf 
+  771  git add .
+  772  git commit -m "file"
+  773  git push 
+  774  ll
+  775  vim apache_deployment_config_change.yml 
+  776  #yum install httpd firewalld 
+  777  #yum install httpd 
+  778  #yum install firewalld 
+  779  su - 
+  780  vim apache_deployment_config_change.yml 
+  781  ll
+  782  vim apache_deployment_config_change.yml 
+  783  vim -O myhttpd-config-change.conf  apache_deployment_config_change.yml 
+  784  ll
+  785  vim stat_example.yml 
+  786  ansible-navigator doc -m stdout ansible.builtin.stat
+  787  vim stat_example.yml 
+  788  cat inventory 
+  789  vim stat_example.yml 
+  790  ansible-navigator run -m stdout stat_example.yml 
+  791  #check_path_output.stat.exists == false
+  792  vim stat_example.yml 
+  793  ansible-navigator doc -m stdout ansible.builtin.file
+  794  vim stat_example.yml 
+  795  ansible-navigator run -m stdout stat_example.yml 
+  796  vim stat_example.yml 
+  797  ll
+  798  vim stat_example.yml myhttpd-config-change.conf 
+  799  vim -O stat_example.yml myhttpd-config-change.conf 
+  800  vim stat_example.yml 
+  801  vim apache_deployment_config_change.yml 
+  802  vim -O myhttpd-config-change.conf apache_deployment_config_change.yml 
+  803  vim apache_deployment_config_change.yml 
+  804  ansible-navigator doc -m stdout ansible.posix.firewalld
+  805  vim apache_deployment_config_change.yml 
+  806  ansible-navigator doc -m stdout ansible.posix.firewalld
+  807  vim apache_deployment_config_change.yml 
+  808  ansible-navigator run -m stdout apache_deployment_config_change.yml --syntax 
+  809  cat inventory 
+  810  vim apache_deployment_config_change.yml 
+  811  #ansible-navigator run -m stdout apache_deployment_config_change.yml
+  812  curl http://servera.lab.example.com 
+  813  ansible-navigator run -m stdout apache_deployment_config_change.yml
+  814  curl http://servera.lab.example.com 
+  815  vim apache_deployment_config_change.yml 
+  816  ansible-navigator run -m stdout apache_deployment_config_change.yml
+  817  curl http://servera.lab.example.com 
+  818  git add .
+  819  git commit -m "update"
+  820  git push 
+  821  curl http://servera.lab.example.com 
+  822  ll
+  823  vim apache_deployment_config_change.yml 
+  824  vim myhttpd-config-change.conf 
+  825  ll
+  826  vim myhttpd-config-change.conf 
+  827  ll
+  828  vim file_example.j2
+  829  vim file_example.yml 
+  830  ansible-navigator doc -m stdout ansible.builtin.template
+  831  vim file_example.yml 
+  832  vim file_example.j2
+  833  vim -O file_example.j2 file_example.yml 
+  834  ll
+  835  cp -rpv myhttpd-config-change.conf myhttpd-config-change-conf.j2
+  836  vim myhttpd-config-change-conf.j2 
+  837  vim -O file_example.j2 file_example.yml 
+  838  ansible-navigator run -m stdout file_example.yml --syntax 
+  839  #ansible-navigator run -m stdout file_example.yml 
+  840  vim -O file_example.j2 file_example.yml 
+  841  vim file_example.yml 
+  842  ansible-navigator run -m stdout file_example.yml 
+  843  #ansible all -m shell -a "cat /tmp[
+  844  vim file_example.yml 
+  845  ansible all -m shell -a "cat /tmp/file_example"
+  846  ssh serverd -l root
+  847  vim -O file_example.j2 file_example.yml 
+  848  vim file_example.yml 
+  849  ll
+  850  mkdir apache-deploy-using-jinja
+  851  cp -rpv ansible.cfg ansible-navigator.yml inventory myhttpd-config-change-conf.j2 apache_deployment_config_change.yml apache-deploy-using-jinja/
+  852  cd apache-deploy-using-jinja/ll
+  853  cd apache-deploy-using-jinja/
+  854  ll
+  855  vim myhttpd-config-change-conf.j2
+  856  vim apache_deployment_config_change.yml 
+  857  ll
+  858  vim apache_deployment_config_change.yml 
+  859  ansible-navigator run -m stdout apache_deployment_config_change.yml --syntax 
+  860  ansible-navigator run -m stdout apache_deployment_config_change.yml 
+  861  curl http://servera.lab.example.com 
+  862  curl http://serverb.lab.example.com 
+  863  curl http://serverc.lab.example.com 
+  864  curl http://serverd.lab.example.com 
+  865  curl http://serverd
+  866  vim myhttpd-config-change-conf.j2 apache_deployment_config_change.yml 
+  867  vim -O  myhttpd-config-change-conf.j2 apache_deployment_config_change.yml 
+  868  vim -O  apache_deployment_config_change.yml myhttpd-config-change-conf.j2 
+  869  pwd
+  870  mkdir 2nd-example
+  871  ll
+  872  cd 2nd-example/
+  873  pwd
+  874  ll
+  875  cat hwreport.empty 
+  876  ll
+  877  vim hwreport.yaml 
+  878  ansible-navigator run -m stdout hwreport.yaml --syntax 
+  879  cp -rpv ../inventory .
+  880  cp -rpv ../ansible.cfg .
+  881  cp -rpv ../ansible-navigator.yml .
+  882  ansible-navigator run -m stdout hwreport.yaml --syntax 
+  883  ansible-navigator run -m stdout hwreport.yaml 
+  884  ssh servera -l root
+  885  ssh utility -l root
+  886  vim inventory 
+  887  ansible-navigator run -m stdout hwreport.yaml 
+  888  ssh utility -l root
+  889  ll
+  890  vim hwreport-2.j2 
+  891  ll
+  892  cat inventory 
+  893  cd ..
+  894  ll
+  895  cd ..
+  896  git add .
+  897  ll
+  898  git commit -m "update"
+  899  git push 
+  900  tree
+  901  cat /etc/hosts 
+  902  ll
+  903  cd session-03/
+  904  pwd
+  905  ll
+  906  cd apache-deploy-using-jinja/
+  907  ll
+  908  mkdir 3rd-example/
+  909  cd 3rd-example/
+  910  pwd
+  911  ll
+  912  pwd
+  913  cp -rpv ../ansible.cfg .
+  914  cp -rpv ../ansible-navigator.yml  .
+  915  cp -rpv ../inventory .
+  916  ll
+  917  vim gen_hosts.yml 
+  918  vim hosts.j2
+  919  cp -rpv hosts-2.j2 
+  920  cp -rpv hosts.j2 hosts-2.j2 
+  921  vim hosts-2.j2 
+  922  vim /tmp/hosts
+  923  ll
+  924  vim hosts-2.j2 
+  925  vim gen_hosts.yml 
+  926  cat inventory 
+  927  cat gen_hosts.yml 
+  928  ssh serverc -l root 
+  929  ansible-navigator run -m stdout gen_hosts.yml --syntax 
+  930  ansible-navigator run -m stdout gen_hosts.yml
+  931  ssh serverc -l root 
+  932  vim hosts-2.j2 
+  933  vim inventory 
+  934  ansible-navigator run -m stdout gen_hosts.yml
+  935  vim gen_hosts.yml 
+  936  ansible-navigator run -m stdout gen_hosts.yml
+  937  ssh serverd -l root
+  938  ll
+  939  cd ..
+  940  git add .
+  941  git commit -m "update"
+  942  git push 
+  943  cd ..
+  944  ll
+  945  ansible-galaxy role init apache 
+  946  tree apache/
+  947  ll
+  948  rm -rf apache 
+  949  git clone https://github.com/cprakash2118/RH294v9
+  950  ll
+  951  mv RH294v9 RH294v9-Additonal-playbooks 
+  952  ll
+  953  grep -ir featch * 
+  954  grep -ir fetch * 
+  955  ll
+  956  cd RH294v9-Additonal-playbooks/
+  957  ll
+  958  grep -ir lineinfile
+  959  ll
+  960  cd MOre-example-PLaybooks/
+  961  ll
+  962  ls
+  963  grep -ir lineinfile
+  964  vim stat_example-01.yml
+  965  cp -rpv stat_example-01.yml ~/work/cisco-ansible/session-03/
+  966  pwd
+  967  cd /home/student/work/cisco-ansible/
+  968  ll
+  969  cd session-03/
+  970  ll
+  971  vim stat_example.yml 
+  972  mv stat_example-01.yml stat_fetch_lineinfile_etc_example-01.yml
+  973  vim stat_fetch_lineinfile_etc_example-01.yml
+  974  ll
+  975  cd ..
+  976  ll
+  977  tree RH294v9-Additonal-playbooks
+  978  ll
+  979  cd session-03/
+  980  ll
+  981  cd apache-deploy-using-jinja/
+  982  ll
+  983  cd ..
+  984  lll
+  985  ll
+  986  pwd
+  987  ll
+  988  ls -lrth 
+  989  vim stat_fetch_lineinfile_etc_example-01.yml 
+  990  ansible-navigator doc -m stdout ansible.builtin.copy
+  991  vim file.txt
+  992  mv file.txt file.yml 
+  993  vim file.yml 
+  994  ansible-navigator doc -m stdout ansible.builtin.copy
+  995  vim file.yml 
+  996  ssh serverd -l root
+  997  vim file.yml 
+  998  ansible-navigator run -m stdout file.yml --syntax 
+  999  ansible-navigator run -m stdout file.yml 
+ 1000  ssh serverc -l root
+ 1001  ll
+ 1002  vim stat_fetch_lineinfile_etc_example-01.yml 
+ 1003  vim example-facth.yml
+ 1004  ansible-navigator run -m stdout example-facth.yml 
+ 1005  ll
+ 1006  ls -lrth 
+ 1007  tree hwreport_workstaion.txt/
+ 1008  ll
+ 1009  vim stat_fetch_lineinfile_etc_example-01.yml 
+ 1010  cat /etc/sysconfig/selinux 
+ 1011  vim stat_fetch_lineinfile_etc_example-01.yml 
+ 1012  vim file-example.yml 
+ 1013  ls -ldZ /var/
+ 1014  ls -ldZ /tmp/
+ 1015  vim file-example.yml 
+ 1016  cat /etc/sysconfig/selinux 
+ 1017  cat /etc/sysconfig/selinux |less
+ 1018  vim file-example.yml 
+ 1019  vim stat_fetch_lineinfile_etc_example-01.yml 
+ 1020  vim fetch-example.yml
+ 1021  ls -lrth 
+ 1022  ansible-navigator run -m stdout fetch-example.yml 
+ 1023  ls -lrth 
+ 1024  tree current-passwd/
+ 1025  vim fetch-example.yml 
+ 1026  ansible-navigator run -m stdout fetch-example.yml 
+ 1027  tree current-passwd/
+ 1028  cat fetch-example.yml 
+ 1029  vim stat_fetch_lineinfile_etc_example-01.yml 
+ 1030  vim lineinfile-example.yml 
+ 1031  ssh serverc -l root
+ 1032  ansible-navigator run -m stdout lineinfile-example.yml --syntax
+ 1033  ansible-navigator run -m stdout lineinfile-example.yml 
+ 1034  ssh serverc -l root
+ 1035  vim lineinfile-example.yml 
+ 1036  ll
+ 1037  cat ansible-navigator.yml 
+ 1038  cat ansible-navigator.yml > /home/student/.ansible-navigator.yml
+ 1039  cat /home/student/.ansible-navigator.yml
+ 1040  cat ansible-navigator.yml 
+ 1041  cat lineinfile-example.yml 
+ 1042  vim lineinfile-example.yml 
+ 1043  ansible-navigator run -m stdout lineinfile-example.yml 
+ 1044  vim lineinfile-example.yml 
+ 1045  vim stat_fetch_lineinfile_etc_example-01.yml 
+ 1046  vim sync-example.yml 
+ 1047  tree /home/student/work/
+ 1048  vim sync-example.yml 
+ 1049  ssh serverc -l root
+ 1050  vim sync-example.yml 
+ 1051  ansible-navigator run -m stdout sync-example.yml 
+ 1052  ssh serverc -l root 
+ 1053  ssh serverd -l root 
+ 1054  ssh servera -l root 
+ 1055  pwd
+ 1056  cd /home/student/work/
+ 1057  ll
+ 1058  cd cisco-ansible/
+ 1059  ll
+ 1060  ssh servera -l root 
+ 1061  ll
+ 1062  cd session-03/
+ 1063  ll
+ 1064  vim sync-example.yml 
+ 1065  ansible-navigator run -m stdout sync-example.yml 
+ 1066  vim sync-example.yml 
+ 1067  vim stat_fetch_lineinfile_etc_example-01.yml 
+ 1068  ll
+ 1069  cd ..
+ 1070  ll
+ 1071  git branch 
+ 1072  git add .
+ 1073  git commit -m "update"
+ 1074  git push 
+ 1075  ll
+ 1076  cd session-03/
+ 1077  lll
+ 1078  ll
+ 1079  mkdir roles-example
+ 1080  cp -rpv ansible.cfg ansible-navigator.yml inventory roles-example/
+ 1081  cd roles-example/
+ 1082  ll
+ 1083  ansible-galaxy --help
+ 1084  ansible-galaxy role --help 
+ 1085  ansible-galaxy role init --help 
+ 1086  #ansible-galaxy role init --init-path=roles
+ 1087  ll
+ 1088  mkdir roles 
+ 1089  vim ansible.cfg 
+ 1090  ls -lrth 
+ 1091  ansible-galaxy role init --init-path=roles apache 
+ 1092  ll
+ 1093  tree roles/
+ 1094  ansible-galaxy role init --init-path=roles firewalld
+ 1095  tree roles/
+ 1096  tree roles/apache/
+ 1097  pwd
+ 1098  ll
+ 1099  #ansible-galaxy role init --init-path=roles firewalld
+ 1100  cat ansible.cfg 
+ 1101  #ansible-galaxy role init --init-path=roles apache
+ 1102  tree roles/apache/
+ 1103  pwd
+ 1104  ll
+ 1105  cd roles/
+ 1106  ll
+ 1107  cd apache/
+ 1108  pwd
+ 1109  ll
+ 1110  pwd
+ 1111  ll
+ 1112  vim tasks/main.yml 
+ 1113  cd ..
+ 1114  ll
+ 1115  cp -rpv ../myhttpd-config-change-conf.j2 roles/apache/templates/
+ 1116  cd roles/
+ 1117  tree apache/
+ 1118  vim apache/tasks/main.yml 
+ 1119  vim ../../apache_deployment_config_change.yml 
+ 1120  vim apache/tasks/main.yml 
+ 1121  tree apache/
+ 1122  vim apache/tasks/main.yml 
+ 1123  vim apache/files/index.html
+ 1124  vim apache/tasks/main.yml 
+ 1125  vim apache/templates/index-html.j2
+ 1126  vim apache/tasks/main.yml 
+ 1127  vim apache/handlers/main.yml 
+ 1128  vim apache/tasks/main.yml 
+ 1129  vim apache/handlers/main.yml 
+ 1130  cd apache/
+ 1131  ll
+ 1132  vim -O tasks/main.yml handlers/main.yml templates/myhttpd-config-change-conf.j2 
+ 1133  vim vars/main.yml 
+ 1134  vim -O vars/main.yml tasks/main.yml 
+ 1135  vim tasks/main.yml 
+ 1136  cd ..
+ 1137  vim firewalld/tasks/main.yml 
+ 1138  cat apache/tasks/main.yml >> firewalld/tasks/main.yml
+ 1139  vim firewalld/tasks/main.yml 
+ 1140  cat apache/vars/main.yml >> firewalld/vars/main.yml 
+ 1141  vim firewalld/vars/main.yml
+ 1142  vim firewalld/tasks/main.yml 
+ 1143  ansible-navigator doc -m stdout ansible.posix.firewalld 
+ 1144  vim firewalld/tasks/main.yml 
+ 1145  ansible-navigator doc -m stdout ansible.posix.firewalld 
+ 1146  vim firewalld/tasks/main.yml 
+ 1147  vim firewalld/vars/main.yml 
+ 1148  vim apache/meta/main.yml 
+ 1149  ll
+ 1150  cd ..
+ 1151  ll
+ 1152  vim main.yml 
+ 1153  vim roles/apache/meta/main.yml 
+ 1154  ll
+ 1155  ansible-navigator run -m stdout main.yml --syntax 
+ 1156  ansible all -m ping 
+ 1157  vim inventory 
+ 1158  ansible all -m shell -a "uptime"
+ 1159  ansible-navigator run -m stdout main.yml
+ 1160  vim roles/apache/templates/myhttpd-config-change-conf.j2 
+ 1161  vim roles/apache/tasks/main.yml 
+ 1162  curl http://serverb
+ 1163  curl http://serverc
+ 1164  curl http://serverd
+ 1165  ansible-navigator run -m stdout main.yml
+ 1166  vim roles/apache/tasks/main.yml 
+ 1167  vim ../apache_deployment_config_change.yml 
+ 1168  vim roles/apache/tasks/main.yml 
+ 1169  vim roles/apache/vars/main.yml 
+ 1170  vim roles/apache/tasks/main.yml 
+ 1171  ansible-navigator run -m stdout main.yml
+ 1172  ssh serverb -l root
+ 1173  vim roles/apache/tasks/main.yml 
+ 1174  ansible-navigator run -m stdout main.yml
+ 1175  curl http://servera
+ 1176  curl http://serverb
+ 1177  curl http://serverc
+ 1178  curl http://serverd
+ 1179  ssh servera -l root
+ 1180  curl http://serverd
+ 1181  curl http://servera
+ 1182  vim main.yml 
+ 1183  ansible-navigator run -m stdout main.yml
+ 1184  vim main.yml 
+ 1185  ansible-navigator run -m stdout main.yml
+ 1186  vim roles/apache/tasks/main.yml 
+ 1187  ll
+ 1188  cd ..
+ 1189  git add .
+ 1190  git commit -m "update"
+ 1191  git push 
+ 1192  git branch 
+ 1193  git push 
+ 1194  ll
+ 1195  cd roles-example/
+ 1196  ll
+ 1197  vim roles/apache/tasks/main.yml 
+ 1198  ll
+ 1199  ls -l roles/
+ 1200  cd ap
+ 1201  cd roles/
+ 1202  ll
+ 1203  tar -czf apache.tar.gz apache 
+ 1204  ll
+ 1205  tar -czf firewalld.tar.gz firewalld 
+ 1206  ll
+ 1207  ssh servera -l root
+ 1208  #scp *.tar.gz  root@servera:/var/www/html/repos/
+ 1209  ssh servera -l root
+ 1210  ll
+ 1211  cd ..
+ 1212  ll
+ 1213  cd  roles/
+ 1214  ll
+ 1215  scp -rv *.tar.gz root@servera.lab.example.com:/var/www/html/roles/
+ 1216  ssh servera -l root 
+ 1217  ll
+ 1218  rm -rf * 
+ 1219  ll
+ 1220  cd ..
+ 1221  ll
+ 1222  vim installrole.yml 
+ 1223  setenforce 0
+ 1224  vim installrole.yml 
+ 1225  ssh servera -l root
+ 1226  ssh servera -l root 
+ 1227  ll
+ 1228  cd  roles/
+ 1229  ll
+ 1230  ssh servera -l root  
+ 1231  su - 
+ 1232  ll
+ 1233  pwd
+ 1234  ll
+ 1235  cd ..
+ 1236  ll
+ 1237  vim installrole.yml 
+ 1238  ll
+ 1239  tree
+ 1240  ansible-galaxy install -p installrole.yml 
+ 1241  ansible-galaxy install -r installrole.yml 
+ 1242  tree
+ 1243  rm -rf roles/* 
+ 1244  tree
+ 1245  ansible-galaxy install -r installrole.yml 
+ 1246  ansible-navigator run -m stdout main.yml 
+ 1247  ll
+ 1248  cat installrole.yml 
+ 1249  history 
+ 1250  vim setup.sh
+ 1251  rm -rf roles/* 
+ 1252  tree
+ 1253  chmod 755 setup.sh 
+ 1254  ./setup.sh 
+ 1255  cat setup.sh 
+ 1256  cat installrole.yml 
+ 1257  vim setup.sh 
+ 1258  rm -rf roles/* 
+ 1259  tree
+ 1260  ./setup.sh 
+ 1261  tree
+ 1262  ll
+ 1263  vim path-example.yml 
+ 1264  sudo su -
+ 1265  vim path-example.yml 
+ 1266  ansible-navigator doc -m stdout ansible.builtin.reboot 
+ 1267  vim path-example.yml 
+ 1268* ansible-playbook run -m stdout path-example.yml --syntax A
+ 1269  ansible-navigatorrun -m stdout path-example.yml --syntax 
+ 1270  ansible-navigator run -m stdout path-example.yml --syntax 
+ 1271  ansible-navigator run -m stdout path-example.yml 
+ 1272  ansible-navigator doc -m stdout ansible.builtin.reboot 
+ 1273  ls -lrth 
+ 1274  pwd
+ 1275  ll
+ 1276  cd ..
+ 1277  cd -
+ 1278  vim path-example.yml 
+ 1279  ansible-navigator run -m stdout path-example.yml 
+ 1280  ll
+ 1281  ansible-galaxy --help 
+ 1282  ansible-galaxy role init --help 
+ 1283  ansible-galaxy role init --init-path=roles example-roles 
+ 1284  tree roles/example-roles/
+ 1285  vim roles/example-roles/tasks/main.yml 
+ 1286  vim -O roles/example-roles/vars/main.yml roles/example-roles/tasks/main.yml 
+ 1287  vim calling-roles.yml 
+ 1288  vim -O roles/example-roles/vars/main.yml roles/example-roles/tasks/main.yml calling-roles.yml 
+ 1289  ansible-navigator run -m stdout calling-roles.yml --syntax 
+ 1290  vim main.yml 
+ 1291  vim calling-roles.yml 
+ 1292  tree 
+ 1293  vim calling-roles.yml 
+ 1294  ansible-navigator run -m stdout calling-roles.yml --syntax 
+ 1295  ansible-navigator run -m stdout calling-roles.yml 
+ 1296  su - 
+ 1297  cd roles/
+ 1298  ll
+ 1299  tar -czf example-roles.tar.gz example-roles 
+ 1300  ll
+ 1301  su 
+ 1302  ll
+ 1303  rm -rf example-roles/
+ 1304  ll
+ 1305  cd ..
+ 1306  l
+ 1307  ll
+ 1308  cp -rpv installrole.yml installrole-example-roles.yml 
+ 1309  vim installrole-example-roles.yml 
+ 1310  ll
+ 1311  tree roles/
+ 1312  ansible-galaxy install -r installrole-example-roles.yml 
+ 1313  tree
+ 1314  vim installrole-example-roles.yml 
+ 1315  ls -l /var/www/html/roles/example-roles.tar.gz 
+ 1316  vim installrole-example-roles.yml 
+ 1317  su - 
+ 1318  vim installrole-example-roles.yml 
+ 1319  su - 
+ 1320  ll
+ 1321  ansible-galaxy install -r installrole-example-roles.yml 
+ 1322  ansible-navigator run -m stdout calling-roles.yml 
+ 1323  cd /tmp/
+ 1324  cd -
+ 1325  ll
+ 1326  cd roles/
+ 1327  ll
+ 1328  git clone https://github.com/030/ansible-firefox
+ 1329  ll
+ 1330  tree ansible-firefox/
+ 1331  ansible-galaxy search oracle 
+ 1332  pwd
+ 1333  cd ..
+ 1334  ll
+ 1335  cd ..
+ 1336  ll
+ 1337  history > history.txt

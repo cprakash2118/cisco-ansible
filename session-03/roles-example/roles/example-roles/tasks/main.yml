@@ -1,0 +1,11 @@
+---
+# tasks file for example-roles
+- name: Display-01
+  ansible.builtin.debug:
+     msg: "task-01 - from example-roles -- {{var01}}"
+
+- name: Display-02
+  ansible.builtin.debug:
+     msg: "task-02 - from example-roles -- {{ var02}}"
+
+

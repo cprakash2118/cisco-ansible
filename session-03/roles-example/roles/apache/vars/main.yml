@@ -1,6 +1,0 @@
----
-# vars file for apache
-apache_package_name: httpd
-apache_service_name: httpd
-check_path: "/var/www/html/{{inventory_hostname}}"
-

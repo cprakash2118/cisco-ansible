@@ -1,6 +1,0 @@
----
-# vars file for firewalld
-firewalld_package_name: firewalld 
-firewalld_service_name: firewalld 
-apache_svc: http
-
