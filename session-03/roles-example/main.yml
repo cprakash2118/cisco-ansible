@@ -1,0 +1,20 @@
+---
+- name: Role calling 
+  force_handlers: yes 
+  hosts: all 
+  pre_tasks:
+     - name: Pre-tasks01
+       ansible.builtin.debug:
+          msg: "Pre-tasks-01 \n"
+  roles:
+     - apache 
+  tasks:
+     - name: Tasks01
+       ansible.builtin.debug:
+          msg: "Tasks-01 \n"
+  post_tasks: 
+     - name: Post-tasks01
+       ansible.builtin.debug:
+          msg: "Post-tasks-01 \n"
+
+

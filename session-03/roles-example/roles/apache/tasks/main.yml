@@ -1,0 +1,37 @@
+---
+# tasks file for apache
+- name: INstall required packages - {{ apache_package_name }} 
+  ansible.builtin.yum:
+      name: "{{ apache_package_name }}"
+      state: present 
+
+- name: STart and enable required service. - {{ apache_service_name }}
+  ansible.builtin.service:
+      name: "{{ apache_service_name }}"
+      state: started 
+      enabled: true 
+
+- name: Apache config changes.
+  ansible.builtin.template:
+     src: myhttpd-config-change-conf.j2
+     dest: /etc/httpd/conf.d/myhttp.conf 
+  notify:
+      - restart apache 
+
+- name: Check the dir
+  ansible.builtin.stat:
+     path: "{{ check_path }}"
+  register: check_path_output
+        
+- name: Check and Create dir.
+  ansible.builtin.file:
+     path: "{{ check_path }}"
+     state: directory
+  when: check_path_output.stat.exists == false
+
+
+- name: Application deployment - index.html 
+  ansible.builtin.template:
+      src: index-html.j2
+      dest: /var/www/html/{{inventory_hostname}}/index.html 
+...
