@@ -1,0 +1,16 @@
+---
+- name: Serverb cli to GUI 
+  hosts: serverb.lab.example.com 
+  tasks:
+     - name: Server with GUI
+       ansible.builtin.yum:
+          name: "@Server with GUI"
+          state: present 
+
+     - name: Move default CLI target to GUI.
+       #ansible.builtin.shell: systemctl set-default graphical.target
+       ansible.builtin.shell: systemctl set-default multi-user.target
+
+     - name: Reboot the system 
+       ansible.builtin.reboot:
+         reboot_timeout: 120 

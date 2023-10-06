@@ -1,0 +1,45 @@
+---
+- name: View storage configuration
+  hosts: webservers
+
+  tasks:
+
+    - name: Retrieve physical volumes
+      ansible.builtin.command: pvs
+      register: pv_output
+
+    - name: Display physical volumes
+      ansible.builtin.debug:
+        msg: "{{ pv_output['stdout_lines'] }}"
+
+    - name: Retrieve volume groups
+      ansible.builtin.command: vgs
+      register: vg_output
+
+    - name: Display volume groups
+      ansible.builtin.debug:
+        msg: "{{ vg_output['stdout_lines'] }}"
+
+    - name: Retrieve logical volumes
+      ansible.builtin.command: lvs
+      register: lv_output
+
+    - name: Display logical volumes
+      ansible.builtin.debug:
+        msg: "{{ lv_output['stdout_lines'] }}"
+
+    - name: Retrieve mounted logical volumes
+      ansible.builtin.shell: "mount | grep lv"
+      register: mount_output
+
+    - name: Display mounted logical volumes
+      ansible.builtin.debug:
+        msg: "{{ mount_output['stdout_lines'] }}"
+
+    - name: Retrieve /etc/fstab contents
+      ansible.builtin.command: cat /etc/fstab
+      register: fstab_output
+
+    - name: Display /etc/fstab contents
+      ansible.builtin.debug:
+        msg: "{{ fstab_output['stdout_lines'] }}"

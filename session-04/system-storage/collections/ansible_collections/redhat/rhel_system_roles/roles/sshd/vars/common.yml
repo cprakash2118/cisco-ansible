@@ -1,0 +1,6 @@
+__sshd_skip_virt_env:
+  - docker
+  - podman
+  - container
+  - containerd
+  - VirtualPC

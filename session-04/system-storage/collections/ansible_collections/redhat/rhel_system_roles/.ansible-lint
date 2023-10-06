@@ -1,0 +1,18 @@
+exclude_paths:
+- tests/roles/
+skip_list:
+- '106'
+- '208'
+- '306'
+- '403'
+- '502'
+- '602'
+- '701'
+- '303'
+- ignore-errors
+- var-naming
+- '305'
+- fqcn-builtins
+warn_list:
+- '306'
+- load-failure

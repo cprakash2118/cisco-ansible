@@ -1,0 +1,783 @@
+# SPDX-License-Identifier: MIT
+---
+- name: Create all kinds of resources in a cluster
+  hosts: all
+  vars_files: vars/main.yml
+  vars:
+    ha_cluster_cluster_name: test-cluster
+    ha_cluster_fence_agent_packages:
+      - fence-virt
+  # Make cluster not try starting any resources. Due to missing resource
+  # daemons, container services and images, the cluster would get stuck
+  # otherwise.
+    ha_cluster_cluster_properties:
+      - attrs:
+          - name: maintenance-mode
+            value: "true"
+          - name: stonith-enabled
+            value: "false"
+          - name: stop-all-resources
+            value: "true"
+    ha_cluster_resource_primitives:
+      - id: xvm-no-attrs
+        agent: stonith:fence_xvm
+      - id: xvm-empty-attrs1
+        agent: 'stonith:fence_xvm'
+        instance_attrs:
+        meta_attrs:
+        operations:
+      - id: xvm-empty-attrs2
+        agent: 'stonith:fence_xvm'
+        instance_attrs:
+          - attrs:
+        meta_attrs:
+          - attrs:
+        # Pcs requires action and at least one option to be defined for an
+        # operation. Therefore, there are no tests for partially defined
+        # operations.
+      - id: xvm-with-attrs
+        agent: 'stonith:fence_xvm'
+        instance_attrs:
+          - attrs:
+              - name: pcmk_host_list
+                value: node1 node2
+              - name: delay
+                value: 1
+        meta_attrs:
+          - attrs:
+              - name: target-role
+                value: Stopped
+              - name: an-attr
+                value: a value
+        operations:
+          - action: monitor
+            attrs:
+              - name: timeout
+                value: 13
+              - name: interval
+                value: 26
+          - action: monitor
+            attrs:
+              - name: timeout
+                value: '14s'
+              - name: interval
+                value: '28s'
+
+      - id: dummy-no-attrs
+        agent: 'ocf:pacemaker:Dummy'
+      - id: dummy-empty-attrs1
+        agent: 'ocf:pacemaker:Dummy'
+        instance_attrs:
+        meta_attrs:
+        operations:
+      - id: dummy-empty-attrs2
+        agent: 'ocf:pacemaker:Dummy'
+        instance_attrs:
+          - attrs:
+        meta_attrs:
+          - attrs:
+        # Pcs requires action and at least one option to be defined for an
+        # operation. Therefore, there are no tests for partially defined
+        # operations.
+      - id: dummy-with-attrs1
+        agent: 'ocf:pacemaker:Dummy'
+        instance_attrs:
+          - attrs:
+              - name: fake
+                value: fake value
+        meta_attrs:
+          - attrs:
+              - name: target-role
+                value: Stopped
+        operations:
+          - action: monitor
+            attrs:
+              - name: timeout
+                value: '1min'
+      - id: dummy-with-attrs2
+        agent: 'ocf:pacemaker:Dummy'
+        instance_attrs:
+          - attrs:
+              - name: fake
+                value: fake value
+              - name: passwd
+                value: passwd value1
+        meta_attrs:
+          - attrs:
+              - name: target-role
+                value: Stopped
+              - name: an-attr
+                value: a value
+        operations:
+          - action: monitor
+            attrs:
+              - name: timeout
+                value: 13
+              - name: interval
+                value: 26
+          - action: monitor
+            attrs:
+              - name: timeout
+                value: 14
+              - name: interval
+                value: 28
+
+      - id: dummy-1a
+        agent: 'ocf:pacemaker:Dummy'
+      - id: dummy-1b
+        agent: 'ocf:pacemaker:Dummy'
+      - id: dummy-2a
+        agent: 'ocf:pacemaker:Dummy'
+      - id: dummy-3a
+        agent: 'ocf:pacemaker:Dummy'
+      - id: dummy-4a
+        agent: 'ocf:pacemaker:Dummy'
+
+      - id: dummy-clone-no-options
+        agent: 'ocf:pacemaker:Dummy'
+      - id: dummy-clone-promotable
+        agent: 'ocf:pacemaker:Dummy'
+      - id: dummy-clone-id
+        agent: 'ocf:pacemaker:Dummy'
+      - id: dummy-clone-empty-attrs1
+        agent: 'ocf:pacemaker:Dummy'
+      - id: dummy-clone-empty-attrs2
+        agent: 'ocf:pacemaker:Dummy'
+      - id: dummy-clone-with-attrs1
+        agent: 'ocf:pacemaker:Dummy'
+      - id: dummy-clone-with-attrs2
+        agent: 'ocf:pacemaker:Dummy'
+
+      - id: dummy-bundle
+        agent: 'ocf:pacemaker:Dummy'
+
+    ha_cluster_resource_groups:
+      - id: group1
+        resource_ids:
+          - dummy-1a
+          - dummy-1b
+      - id: group2
+        resource_ids:
+          - dummy-2a
+        meta_attrs:
+      - id: group3
+        resource_ids:
+          - dummy-3a
+        meta_attrs:
+          - attrs:
+      - id: group4
+        resource_ids:
+          - dummy-4a
+        meta_attrs:
+          - attrs:
+              - name: target-role
+                value: Stopped
+              - name: an-attr
+                value: a value
+
+    ha_cluster_resource_clones:
+      - resource_id: dummy-clone-no-options
+      - resource_id: dummy-clone-promotable
+        promotable: yes
+      - resource_id: dummy-clone-id
+        id: custom-clone-id1
+      - resource_id: dummy-clone-empty-attrs1
+        meta_attrs:
+      - resource_id: dummy-clone-empty-attrs2
+        meta_attrs:
+          - attrs:
+      - resource_id: dummy-clone-with-attrs1
+        meta_attrs:
+          - attrs:
+              - name: target-role
+                value: Stopped
+      - resource_id: dummy-clone-with-attrs2
+        promotable: yes
+        id: custom-clone-id2
+        meta_attrs:
+          - attrs:
+              - name: target-role
+                value: Stopped
+              - name: an-attr
+                value: a value
+      - resource_id: group3
+
+    ha_cluster_resource_bundles:
+      - id: bundle-minimal
+        container:
+          type: docker
+          options:
+            - name: image
+              value: my:image1
+      - id: bundle-minimal-with-resource
+        resource_id: dummy-bundle
+        container:
+          type: docker
+          options:
+            - name: image
+              value: my:image1
+        network_options:
+          - name: control-port
+            value: 3121
+      - id: bundle-all-options
+        container:
+          type: docker
+          options:
+            - name: image
+              value: my:image1
+            - name: replicas
+              value: 2
+        network_options:
+          - name: control-port
+            value: 3121
+          - name: host-netmask
+            value: 32
+        port_map:
+          -   - name: port # yamllint disable-line rule:hyphens
+                value: 23456
+          -   - name: port # yamllint disable-line rule:hyphens
+                value: 34567
+              - name: internal-port
+                value: 45678
+        storage_map:
+          -   - name: source-dir # yamllint disable-line rule:hyphens
+                value: /tmp/source1
+              - name: target-dir
+                value: /tmp/target1
+          -   - name: source-dir # yamllint disable-line rule:hyphens
+                value: /tmp/source2
+              - name: target-dir
+                value: /tmp/target2
+        meta_attrs:
+          - attrs:
+              - name: target-role
+                value: Stopped
+              - name: an-attr
+                value: a value
+
+  tasks:
+    - block:
+        - name: Set up test environment
+          include_role:
+            name: redhat.rhel_system_roles.ha_cluster
+            tasks_from: test_setup.yml
+
+        - name: Run HA Cluster role
+          include_role:
+            name: redhat.rhel_system_roles.ha_cluster
+
+        - name: Fetch cluster versions of cluster components
+          include_tasks: tasks/fetch_versions.yml
+
+      # yamllint disable rule:line-length
+        - block:
+            - name: Fetch stonith configuration from the cluster
+              command:
+                cmd: pcs stonith config
+              register: __test_pcs_stonith_config
+              changed_when: no
+
+            - name: Print real stonith configuration
+              debug:
+                var: __test_pcs_stonith_config.stdout_lines
+
+            - name: Print expected stonith configuration
+              debug:
+                var: __test_expected_lines | select | list
+
+            - name: Check stonith configuration
+              assert:
+                that:
+                  - __test_pcs_stonith_config.stdout_lines == __test_expected_lines | select | list
+          when:
+            - '"pcmk.resource.config.output-formats" not in __test_pcs_capabilities'
+          vars:
+            __test_expected_lines:
+              - ' Resource: xvm-no-attrs (class=stonith type=fence_xvm)'
+              - '  Operations: monitor interval=60s (xvm-no-attrs-monitor-interval-60s)'
+              - ' Resource: xvm-empty-attrs1 (class=stonith type=fence_xvm)'
+              - '  Operations: monitor interval=60s (xvm-empty-attrs1-monitor-interval-60s)'
+              - ' Resource: xvm-empty-attrs2 (class=stonith type=fence_xvm)'
+              - '  Operations: monitor interval=60s (xvm-empty-attrs2-monitor-interval-60s)'
+              - ' Resource: xvm-with-attrs (class=stonith type=fence_xvm)'
+              - '  Attributes: delay=1 pcmk_host_list="node1 node2"'
+              - '  Meta Attrs: an-attr="a value" target-role=Stopped'
+              - '  Operations: monitor interval=26 timeout=13 (xvm-with-attrs-monitor-interval-26)'
+              - '              monitor interval=28s timeout=14s (xvm-with-attrs-monitor-interval-28s)'
+
+        - block:
+            - name: Fetch stonith configuration from the cluster
+              command:
+                cmd: pcs --output-format=json stonith config
+              register: __test_pcs_stonith_config
+              changed_when: no
+
+            - name: Print real stonith configuration
+              debug:
+                var: __test_pcs_stonith_config.stdout | from_json
+
+            - name: Print expected stonith configuration
+              debug:
+                var: __test_expected_lines | from_json
+
+            - name: Check stonith configuration
+              assert:
+                that:
+                  - __test_pcs_stonith_config.stdout | from_json == __test_expected_lines | from_json
+          when:
+            - "'pcmk.resource.config.output-formats' in __test_pcs_capabilities"
+          vars:
+            __test_expected_lines: >
+              {
+                  "primitives": [
+                      {
+                          "id": "xvm-no-attrs",
+                          "agent_name": {
+                              "standard": "stonith",
+                              "provider": null,
+                              "type": "fence_xvm"
+                          },
+                          "description": null,
+                          "operations": [
+                              {
+                                  "id": "xvm-no-attrs-monitor-interval-60s",
+                                  "name": "monitor",
+                                  "interval": "60s",
+                                  "description": null,
+                                  "start_delay": null,
+                                  "interval_origin": null,
+                                  "timeout": null,
+                                  "enabled": null,
+                                  "record_pending": null,
+                                  "role": null,
+                                  "on_fail": null,
+                                  "meta_attributes": [],
+                                  "instance_attributes": []
+                              }
+                          ],
+                          "meta_attributes": [],
+                          "instance_attributes": [],
+                          "utilization": []
+                      },
+                      {
+                          "id": "xvm-empty-attrs1",
+                          "agent_name": {
+                              "standard": "stonith",
+                              "provider": null,
+                              "type": "fence_xvm"
+                          },
+                          "description": null,
+                          "operations": [
+                              {
+                                  "id": "xvm-empty-attrs1-monitor-interval-60s",
+                                  "name": "monitor",
+                                  "interval": "60s",
+                                  "description": null,
+                                  "start_delay": null,
+                                  "interval_origin": null,
+                                  "timeout": null,
+                                  "enabled": null,
+                                  "record_pending": null,
+                                  "role": null,
+                                  "on_fail": null,
+                                  "meta_attributes": [],
+                                  "instance_attributes": []
+                              }
+                          ],
+                          "meta_attributes": [],
+                          "instance_attributes": [],
+                          "utilization": []
+                      },
+                      {
+                          "id": "xvm-empty-attrs2",
+                          "agent_name": {
+                              "standard": "stonith",
+                              "provider": null,
+                              "type": "fence_xvm"
+                          },
+                          "description": null,
+                          "operations": [
+                              {
+                                  "id": "xvm-empty-attrs2-monitor-interval-60s",
+                                  "name": "monitor",
+                                  "interval": "60s",
+                                  "description": null,
+                                  "start_delay": null,
+                                  "interval_origin": null,
+                                  "timeout": null,
+                                  "enabled": null,
+                                  "record_pending": null,
+                                  "role": null,
+                                  "on_fail": null,
+                                  "meta_attributes": [],
+                                  "instance_attributes": []
+                              }
+                          ],
+                          "meta_attributes": [],
+                          "instance_attributes": [],
+                          "utilization": []
+                      },
+                      {
+                          "id": "xvm-with-attrs",
+                          "agent_name": {
+                              "standard": "stonith",
+                              "provider": null,
+                              "type": "fence_xvm"
+                          },
+                          "description": null,
+                          "operations": [
+                              {
+                                  "id": "xvm-with-attrs-monitor-interval-26",
+                                  "name": "monitor",
+                                  "interval": "26",
+                                  "description": null,
+                                  "start_delay": null,
+                                  "interval_origin": null,
+                                  "timeout": "13",
+                                  "enabled": null,
+                                  "record_pending": null,
+                                  "role": null,
+                                  "on_fail": null,
+                                  "meta_attributes": [],
+                                  "instance_attributes": []
+                              },
+                              {
+                                  "id": "xvm-with-attrs-monitor-interval-28s",
+                                  "name": "monitor",
+                                  "interval": "28s",
+                                  "description": null,
+                                  "start_delay": null,
+                                  "interval_origin": null,
+                                  "timeout": "14s",
+                                  "enabled": null,
+                                  "record_pending": null,
+                                  "role": null,
+                                  "on_fail": null,
+                                  "meta_attributes": [],
+                                  "instance_attributes": []
+                              }
+                          ],
+                          "meta_attributes": [
+                              {
+                                  "id": "xvm-with-attrs-meta_attributes",
+                                  "options": {},
+                                  "rule": null,
+                                  "nvpairs": [
+                                      {
+                                          "id": "xvm-with-attrs-meta_attributes-an-attr",
+                                          "name": "an-attr",
+                                          "value": "a value"
+                                      },
+                                      {
+                                          "id": "xvm-with-attrs-meta_attributes-target-role",
+                                          "name": "target-role",
+                                          "value": "Stopped"
+                                      }
+                                  ]
+                              }
+                          ],
+                          "instance_attributes": [
+                              {
+                                  "id": "xvm-with-attrs-instance_attributes",
+                                  "options": {},
+                                  "rule": null,
+                                  "nvpairs": [
+                                      {
+                                          "id": "xvm-with-attrs-instance_attributes-delay",
+                                          "name": "delay",
+                                          "value": "1"
+                                      },
+                                      {
+                                          "id": "xvm-with-attrs-instance_attributes-pcmk_host_list",
+                                          "name": "pcmk_host_list",
+                                          "value": "node1 node2"
+                                      }
+                                  ]
+                              }
+                          ],
+                          "utilization": []
+                      }
+                  ],
+                  "clones": [],
+                  "groups": [],
+                  "bundles": []
+              }
+
+        - block:
+            - name: Fetch resource configuration from the cluster
+              command:
+                cmd: pcs resource config
+              register: __test_pcs_resource_config
+              changed_when: no
+
+            - name: Print real resource configuration
+              debug:
+                var: __test_pcs_resource_config.stdout_lines
+
+            - name: Print expected resource configuration
+              debug:
+                var: __test_expected_lines | select | list
+
+            - name: Check resource configuration
+              assert:
+                that:
+                  - __test_pcs_resource_config.stdout_lines == __test_expected_lines | select | list
+          when:
+            - '"pcmk.resource.config.output-formats" not in __test_pcs_capabilities'
+          vars:
+            __test_expected_lines:
+              - ' Bundle: bundle-minimal'
+              - '  Docker: image=my:image1'
+              - ' Bundle: bundle-minimal-with-resource'
+              - '  Docker: image=my:image1'
+              - '  Network: control-port=3121'
+              - '  Resource: dummy-bundle (class=ocf provider=pacemaker type=Dummy)'
+              - '   Operations: migrate_from interval=0s timeout=20s (dummy-bundle-migrate_from-interval-0s)'
+              - '               migrate_to interval=0s timeout=20s (dummy-bundle-migrate_to-interval-0s)'
+              - '               monitor interval=10s timeout=20s (dummy-bundle-monitor-interval-10s)'
+              - '               reload interval=0s timeout=20s (dummy-bundle-reload-interval-0s)'
+              - "{{ ansible_facts.packages['pacemaker'][0]['version'] is version('2.1', '>=') | ternary( '               reload-agent interval=0s timeout=20s (dummy-bundle-reload-agent-interval-0s)', '') }}"
+              - '               start interval=0s timeout=20s (dummy-bundle-start-interval-0s)'
+              - '               stop interval=0s timeout=20s (dummy-bundle-stop-interval-0s)'
+              - ' Bundle: bundle-all-options'
+              - '  Docker: image=my:image1 replicas=2'
+              - '  Network: control-port=3121 host-netmask=32'
+              - '  Port Mapping:'
+              - '   port=23456 (bundle-all-options-port-map-23456)'
+              - '   internal-port=45678 port=34567 (bundle-all-options-port-map-34567)'
+              - '  Storage Mapping:'
+              - '   source-dir=/tmp/source1 target-dir=/tmp/target1 (bundle-all-options-storage-map)'
+              - '   source-dir=/tmp/source2 target-dir=/tmp/target2 (bundle-all-options-storage-map-1)'
+              - '  Meta Attrs: an-attr="a value" target-role=Stopped'
+              - ' Resource: dummy-no-attrs (class=ocf provider=pacemaker type=Dummy)'
+              - '  Operations: migrate_from interval=0s timeout=20s (dummy-no-attrs-migrate_from-interval-0s)'
+              - '              migrate_to interval=0s timeout=20s (dummy-no-attrs-migrate_to-interval-0s)'
+              - '              monitor interval=10s timeout=20s (dummy-no-attrs-monitor-interval-10s)'
+              - '              reload interval=0s timeout=20s (dummy-no-attrs-reload-interval-0s)'
+              - "{{ ansible_facts.packages['pacemaker'][0]['version'] is version('2.1', '>=') | ternary( '              reload-agent interval=0s timeout=20s (dummy-no-attrs-reload-agent-interval-0s)', '') }}"
+              - '              start interval=0s timeout=20s (dummy-no-attrs-start-interval-0s)'
+              - '              stop interval=0s timeout=20s (dummy-no-attrs-stop-interval-0s)'
+              - ' Resource: dummy-empty-attrs1 (class=ocf provider=pacemaker type=Dummy)'
+              - '  Operations: migrate_from interval=0s timeout=20s (dummy-empty-attrs1-migrate_from-interval-0s)'
+              - '              migrate_to interval=0s timeout=20s (dummy-empty-attrs1-migrate_to-interval-0s)'
+              - '              monitor interval=10s timeout=20s (dummy-empty-attrs1-monitor-interval-10s)'
+              - '              reload interval=0s timeout=20s (dummy-empty-attrs1-reload-interval-0s)'
+              - "{{ ansible_facts.packages['pacemaker'][0]['version'] is version('2.1', '>=') | ternary( '              reload-agent interval=0s timeout=20s (dummy-empty-attrs1-reload-agent-interval-0s)', '') }}"
+              - '              start interval=0s timeout=20s (dummy-empty-attrs1-start-interval-0s)'
+              - '              stop interval=0s timeout=20s (dummy-empty-attrs1-stop-interval-0s)'
+              - ' Resource: dummy-empty-attrs2 (class=ocf provider=pacemaker type=Dummy)'
+              - '  Operations: migrate_from interval=0s timeout=20s (dummy-empty-attrs2-migrate_from-interval-0s)'
+              - '              migrate_to interval=0s timeout=20s (dummy-empty-attrs2-migrate_to-interval-0s)'
+              - '              monitor interval=10s timeout=20s (dummy-empty-attrs2-monitor-interval-10s)'
+              - '              reload interval=0s timeout=20s (dummy-empty-attrs2-reload-interval-0s)'
+              - "{{ ansible_facts.packages['pacemaker'][0]['version'] is version('2.1', '>=') | ternary( '              reload-agent interval=0s timeout=20s (dummy-empty-attrs2-reload-agent-interval-0s)', '') }}"
+              - '              start interval=0s timeout=20s (dummy-empty-attrs2-start-interval-0s)'
+              - '              stop interval=0s timeout=20s (dummy-empty-attrs2-stop-interval-0s)'
+              - ' Resource: dummy-with-attrs1 (class=ocf provider=pacemaker type=Dummy)'
+              - '  Attributes: fake="fake value"'
+              - '  Meta Attrs: target-role=Stopped'
+              - '  Operations: migrate_from interval=0s timeout=20s (dummy-with-attrs1-migrate_from-interval-0s)'
+              - '              migrate_to interval=0s timeout=20s (dummy-with-attrs1-migrate_to-interval-0s)'
+              - '              monitor interval=60s timeout=1min (dummy-with-attrs1-monitor-interval-60s)'
+              - '              reload interval=0s timeout=20s (dummy-with-attrs1-reload-interval-0s)'
+              - "{{ ansible_facts.packages['pacemaker'][0]['version'] is version('2.1', '>=') | ternary( '              reload-agent interval=0s timeout=20s (dummy-with-attrs1-reload-agent-interval-0s)', '') }}"
+              - '              start interval=0s timeout=20s (dummy-with-attrs1-start-interval-0s)'
+              - '              stop interval=0s timeout=20s (dummy-with-attrs1-stop-interval-0s)'
+              - ' Resource: dummy-with-attrs2 (class=ocf provider=pacemaker type=Dummy)'
+              - '  Attributes: fake="fake value" passwd="passwd value1"'
+              - '  Meta Attrs: an-attr="a value" target-role=Stopped'
+              - '  Operations: migrate_from interval=0s timeout=20s (dummy-with-attrs2-migrate_from-interval-0s)'
+              - '              migrate_to interval=0s timeout=20s (dummy-with-attrs2-migrate_to-interval-0s)'
+              - '              monitor interval=26 timeout=13 (dummy-with-attrs2-monitor-interval-26)'
+              - '              monitor interval=28 timeout=14 (dummy-with-attrs2-monitor-interval-28)'
+              - '              reload interval=0s timeout=20s (dummy-with-attrs2-reload-interval-0s)'
+              - "{{ ansible_facts.packages['pacemaker'][0]['version'] is version('2.1', '>=') | ternary( '              reload-agent interval=0s timeout=20s (dummy-with-attrs2-reload-agent-interval-0s)', '') }}"
+              - '              start interval=0s timeout=20s (dummy-with-attrs2-start-interval-0s)'
+              - '              stop interval=0s timeout=20s (dummy-with-attrs2-stop-interval-0s)'
+              - ' Group: group1'
+              - '  Resource: dummy-1a (class=ocf provider=pacemaker type=Dummy)'
+              - '   Operations: migrate_from interval=0s timeout=20s (dummy-1a-migrate_from-interval-0s)'
+              - '               migrate_to interval=0s timeout=20s (dummy-1a-migrate_to-interval-0s)'
+              - '               monitor interval=10s timeout=20s (dummy-1a-monitor-interval-10s)'
+              - '               reload interval=0s timeout=20s (dummy-1a-reload-interval-0s)'
+              - "{{ ansible_facts.packages['pacemaker'][0]['version'] is version('2.1', '>=') | ternary( '               reload-agent interval=0s timeout=20s (dummy-1a-reload-agent-interval-0s)', '') }}"
+              - '               start interval=0s timeout=20s (dummy-1a-start-interval-0s)'
+              - '               stop interval=0s timeout=20s (dummy-1a-stop-interval-0s)'
+              - '  Resource: dummy-1b (class=ocf provider=pacemaker type=Dummy)'
+              - '   Operations: migrate_from interval=0s timeout=20s (dummy-1b-migrate_from-interval-0s)'
+              - '               migrate_to interval=0s timeout=20s (dummy-1b-migrate_to-interval-0s)'
+              - '               monitor interval=10s timeout=20s (dummy-1b-monitor-interval-10s)'
+              - '               reload interval=0s timeout=20s (dummy-1b-reload-interval-0s)'
+              - "{{ ansible_facts.packages['pacemaker'][0]['version'] is version('2.1', '>=') | ternary( '               reload-agent interval=0s timeout=20s (dummy-1b-reload-agent-interval-0s)', '') }}"
+              - '               start interval=0s timeout=20s (dummy-1b-start-interval-0s)'
+              - '               stop interval=0s timeout=20s (dummy-1b-stop-interval-0s)'
+              - ' Group: group2'
+              - '  Resource: dummy-2a (class=ocf provider=pacemaker type=Dummy)'
+              - '   Operations: migrate_from interval=0s timeout=20s (dummy-2a-migrate_from-interval-0s)'
+              - '               migrate_to interval=0s timeout=20s (dummy-2a-migrate_to-interval-0s)'
+              - '               monitor interval=10s timeout=20s (dummy-2a-monitor-interval-10s)'
+              - '               reload interval=0s timeout=20s (dummy-2a-reload-interval-0s)'
+              - "{{ ansible_facts.packages['pacemaker'][0]['version'] is version('2.1', '>=') | ternary( '               reload-agent interval=0s timeout=20s (dummy-2a-reload-agent-interval-0s)', '') }}"
+              - '               start interval=0s timeout=20s (dummy-2a-start-interval-0s)'
+              - '               stop interval=0s timeout=20s (dummy-2a-stop-interval-0s)'
+              - ' Group: group4'
+              - '  Meta Attrs: an-attr="a value" target-role=Stopped'
+              - '  Resource: dummy-4a (class=ocf provider=pacemaker type=Dummy)'
+              - '   Operations: migrate_from interval=0s timeout=20s (dummy-4a-migrate_from-interval-0s)'
+              - '               migrate_to interval=0s timeout=20s (dummy-4a-migrate_to-interval-0s)'
+              - '               monitor interval=10s timeout=20s (dummy-4a-monitor-interval-10s)'
+              - '               reload interval=0s timeout=20s (dummy-4a-reload-interval-0s)'
+              - "{{ ansible_facts.packages['pacemaker'][0]['version'] is version('2.1', '>=') | ternary( '               reload-agent interval=0s timeout=20s (dummy-4a-reload-agent-interval-0s)', '') }}"
+              - '               start interval=0s timeout=20s (dummy-4a-start-interval-0s)'
+              - '               stop interval=0s timeout=20s (dummy-4a-stop-interval-0s)'
+              - ' Clone: dummy-clone-no-options-clone'
+              - '  Resource: dummy-clone-no-options (class=ocf provider=pacemaker type=Dummy)'
+              - '   Operations: migrate_from interval=0s timeout=20s (dummy-clone-no-options-migrate_from-interval-0s)'
+              - '               migrate_to interval=0s timeout=20s (dummy-clone-no-options-migrate_to-interval-0s)'
+              - '               monitor interval=10s timeout=20s (dummy-clone-no-options-monitor-interval-10s)'
+              - '               reload interval=0s timeout=20s (dummy-clone-no-options-reload-interval-0s)'
+              - "{{ ansible_facts.packages['pacemaker'][0]['version'] is version('2.1', '>=') | ternary( '               reload-agent interval=0s timeout=20s (dummy-clone-no-options-reload-agent-interval-0s)', '') }}"
+              - '               start interval=0s timeout=20s (dummy-clone-no-options-start-interval-0s)'
+              - '               stop interval=0s timeout=20s (dummy-clone-no-options-stop-interval-0s)'
+              - ' Clone: dummy-clone-promotable-clone'
+              - '  Meta Attrs: promotable=true'
+              - '  Resource: dummy-clone-promotable (class=ocf provider=pacemaker type=Dummy)'
+              - '   Operations: migrate_from interval=0s timeout=20s (dummy-clone-promotable-migrate_from-interval-0s)'
+              - '               migrate_to interval=0s timeout=20s (dummy-clone-promotable-migrate_to-interval-0s)'
+              - '               monitor interval=10s timeout=20s (dummy-clone-promotable-monitor-interval-10s)'
+              - '               reload interval=0s timeout=20s (dummy-clone-promotable-reload-interval-0s)'
+              - "{{ ansible_facts.packages['pacemaker'][0]['version'] is version('2.1', '>=') | ternary( '               reload-agent interval=0s timeout=20s (dummy-clone-promotable-reload-agent-interval-0s)', '') }}"
+              - '               start interval=0s timeout=20s (dummy-clone-promotable-start-interval-0s)'
+              - '               stop interval=0s timeout=20s (dummy-clone-promotable-stop-interval-0s)'
+              - ' Clone: {{ ("pcmk.resource.clone.custom-id" in __test_pcs_capabilities) | ternary("custom-clone-id1", "dummy-clone-id-clone") }}'
+              - '  Resource: dummy-clone-id (class=ocf provider=pacemaker type=Dummy)'
+              - '   Operations: migrate_from interval=0s timeout=20s (dummy-clone-id-migrate_from-interval-0s)'
+              - '               migrate_to interval=0s timeout=20s (dummy-clone-id-migrate_to-interval-0s)'
+              - '               monitor interval=10s timeout=20s (dummy-clone-id-monitor-interval-10s)'
+              - '               reload interval=0s timeout=20s (dummy-clone-id-reload-interval-0s)'
+              - "{{ ansible_facts.packages['pacemaker'][0]['version'] is version('2.1', '>=') | ternary( '               reload-agent interval=0s timeout=20s (dummy-clone-id-reload-agent-interval-0s)', '') }}"
+              - '               start interval=0s timeout=20s (dummy-clone-id-start-interval-0s)'
+              - '               stop interval=0s timeout=20s (dummy-clone-id-stop-interval-0s)'
+              - ' Clone: dummy-clone-empty-attrs1-clone'
+              - '  Resource: dummy-clone-empty-attrs1 (class=ocf provider=pacemaker type=Dummy)'
+              - '   Operations: migrate_from interval=0s timeout=20s (dummy-clone-empty-attrs1-migrate_from-interval-0s)'
+              - '               migrate_to interval=0s timeout=20s (dummy-clone-empty-attrs1-migrate_to-interval-0s)'
+              - '               monitor interval=10s timeout=20s (dummy-clone-empty-attrs1-monitor-interval-10s)'
+              - '               reload interval=0s timeout=20s (dummy-clone-empty-attrs1-reload-interval-0s)'
+              - "{{ ansible_facts.packages['pacemaker'][0]['version'] is version('2.1', '>=') | ternary( '               reload-agent interval=0s timeout=20s (dummy-clone-empty-attrs1-reload-agent-interval-0s)', '') }}"
+              - '               start interval=0s timeout=20s (dummy-clone-empty-attrs1-start-interval-0s)'
+              - '               stop interval=0s timeout=20s (dummy-clone-empty-attrs1-stop-interval-0s)'
+              - ' Clone: dummy-clone-empty-attrs2-clone'
+              - '  Resource: dummy-clone-empty-attrs2 (class=ocf provider=pacemaker type=Dummy)'
+              - '   Operations: migrate_from interval=0s timeout=20s (dummy-clone-empty-attrs2-migrate_from-interval-0s)'
+              - '               migrate_to interval=0s timeout=20s (dummy-clone-empty-attrs2-migrate_to-interval-0s)'
+              - '               monitor interval=10s timeout=20s (dummy-clone-empty-attrs2-monitor-interval-10s)'
+              - '               reload interval=0s timeout=20s (dummy-clone-empty-attrs2-reload-interval-0s)'
+              - "{{ ansible_facts.packages['pacemaker'][0]['version'] is version('2.1', '>=') | ternary( '               reload-agent interval=0s timeout=20s (dummy-clone-empty-attrs2-reload-agent-interval-0s)', '') }}"
+              - '               start interval=0s timeout=20s (dummy-clone-empty-attrs2-start-interval-0s)'
+              - '               stop interval=0s timeout=20s (dummy-clone-empty-attrs2-stop-interval-0s)'
+              - ' Clone: dummy-clone-with-attrs1-clone'
+              - '  Meta Attrs: target-role=Stopped'
+              - '  Resource: dummy-clone-with-attrs1 (class=ocf provider=pacemaker type=Dummy)'
+              - '   Operations: migrate_from interval=0s timeout=20s (dummy-clone-with-attrs1-migrate_from-interval-0s)'
+              - '               migrate_to interval=0s timeout=20s (dummy-clone-with-attrs1-migrate_to-interval-0s)'
+              - '               monitor interval=10s timeout=20s (dummy-clone-with-attrs1-monitor-interval-10s)'
+              - '               reload interval=0s timeout=20s (dummy-clone-with-attrs1-reload-interval-0s)'
+              - "{{ ansible_facts.packages['pacemaker'][0]['version'] is version('2.1', '>=') | ternary( '               reload-agent interval=0s timeout=20s (dummy-clone-with-attrs1-reload-agent-interval-0s)', '') }}"
+              - '               start interval=0s timeout=20s (dummy-clone-with-attrs1-start-interval-0s)'
+              - '               stop interval=0s timeout=20s (dummy-clone-with-attrs1-stop-interval-0s)'
+              - ' Clone: {{ ("pcmk.resource.promotable.custom-id" in __test_pcs_capabilities) | ternary("custom-clone-id2", "dummy-clone-with-attrs2-clone") }}'
+              - '  Meta Attrs: an-attr="a value" promotable=true target-role=Stopped'
+              - '  Resource: dummy-clone-with-attrs2 (class=ocf provider=pacemaker type=Dummy)'
+              - '   Operations: migrate_from interval=0s timeout=20s (dummy-clone-with-attrs2-migrate_from-interval-0s)'
+              - '               migrate_to interval=0s timeout=20s (dummy-clone-with-attrs2-migrate_to-interval-0s)'
+              - '               monitor interval=10s timeout=20s (dummy-clone-with-attrs2-monitor-interval-10s)'
+              - '               reload interval=0s timeout=20s (dummy-clone-with-attrs2-reload-interval-0s)'
+              - "{{ ansible_facts.packages['pacemaker'][0]['version'] is version('2.1', '>=') | ternary( '               reload-agent interval=0s timeout=20s (dummy-clone-with-attrs2-reload-agent-interval-0s)', '') }}"
+              - '               start interval=0s timeout=20s (dummy-clone-with-attrs2-start-interval-0s)'
+              - '               stop interval=0s timeout=20s (dummy-clone-with-attrs2-stop-interval-0s)'
+              - ' Clone: group3-clone'
+              - '  Group: group3'
+              - '   Resource: dummy-3a (class=ocf provider=pacemaker type=Dummy)'
+              - '    Operations: migrate_from interval=0s timeout=20s (dummy-3a-migrate_from-interval-0s)'
+              - '                migrate_to interval=0s timeout=20s (dummy-3a-migrate_to-interval-0s)'
+              - '                monitor interval=10s timeout=20s (dummy-3a-monitor-interval-10s)'
+              - '                reload interval=0s timeout=20s (dummy-3a-reload-interval-0s)'
+              - "{{ ansible_facts.packages['pacemaker'][0]['version'] is version('2.1', '>=') | ternary( '                reload-agent interval=0s timeout=20s (dummy-3a-reload-agent-interval-0s)', '') }}"
+              - '                start interval=0s timeout=20s (dummy-3a-start-interval-0s)'
+              - '                stop interval=0s timeout=20s (dummy-3a-stop-interval-0s)'
+
+        - block:
+            - name: Fetch resource configuration from the cluster
+              command:
+                cmd: pcs --output-format=json resource config
+              register: __test_pcs_resource_config
+              changed_when: no
+
+            - name: Print real resource configuration
+              debug:
+                var: __test_pcs_resource_config.stdout | from_json
+
+            - name: Print expected resource configuration
+              debug:
+                var: __test_expected_lines | from_json
+
+            - name: Check resource configuration
+              assert:
+                that:
+                  - __test_pcs_resource_config.stdout | from_json == __test_expected_lines | from_json
+          when:
+            - "'pcmk.resource.config.output-formats' in __test_pcs_capabilities"
+          vars:
+            __test_expected_lines: ' { "primitives": [ { "agent_name": { "provider": "pacemaker", "standard": "ocf", "type": "Dummy" }, "description": null, "id": "dummy-bundle", "instance_attributes": [], "meta_attributes": [], "operations": [ { "description": null, "enabled": null, "id": "dummy-bundle-migrate_from-interval-0s", "instance_attributes": [], "interval": "0s", "interval_origin": null, "meta_attributes": [], "name": "migrate_from", "on_fail": null, "record_pending": null, "role": null, "start_delay": null, "timeout": "20s" }, { "description": null, "enabled": null, "id": "dummy-bundle-migrate_to-interval-0s", "instance_attributes": [], "interval": "0s", "interval_origin": null, "meta_attributes": [], "name": "migrate_to", "on_fail": null, "record_pending": null, "role": null, "start_delay": null, "timeout": "20s" }, { "description": null, "enabled": null, "id": "dummy-bundle-monitor-interval-10s", "instance_attributes": [], "interval": "10s", "interval_origin": null, "meta_attributes": [], "name":
+              "monitor", "on_fail": null, "record_pending": null, "role": null, "start_delay": null, "timeout": "20s" }, { "description": null, "enabled": null, "id": "dummy-bundle-reload-interval-0s", "instance_attributes": [], "interval": "0s", "interval_origin": null, "meta_attributes": [], "name": "reload", "on_fail": null, "record_pending": null, "role": null, "start_delay": null, "timeout": "20s" }, {% if ansible_facts.packages["pacemaker"][0]["version"] is version("2.1", ">=") %} { "description": null, "enabled": null, "id": "dummy-bundle-reload-agent-interval-0s", "instance_attributes": [], "interval": "0s", "interval_origin": null, "meta_attributes": [], "name": "reload-agent", "on_fail": null, "record_pending": null, "role": null, "start_delay": null, "timeout": "20s" }, {% endif %} { "description": null, "enabled": null, "id": "dummy-bundle-start-interval-0s", "instance_attributes": [], "interval": "0s", "interval_origin": null, "meta_attributes": [], "name": "start", "on_fail": null, "record_pending":
+              null, "role": null, "start_delay": null, "timeout": "20s" }, { "description": null, "enabled": null, "id": "dummy-bundle-stop-interval-0s", "instance_attributes": [], "interval": "0s", "interval_origin": null, "meta_attributes": [], "name": "stop", "on_fail": null, "record_pending": null, "role": null, "start_delay": null, "timeout": "20s" } ], "utilization": [] }, { "id": "dummy-no-attrs", "agent_name": { "standard": "ocf", "provider": "pacemaker", "type": "Dummy" }, "description": null, "operations": [ { "id": "dummy-no-attrs-migrate_from-interval-0s", "name": "migrate_from", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-no-attrs-migrate_to-interval-0s", "name": "migrate_to", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending":
+              null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-no-attrs-monitor-interval-10s", "name": "monitor", "interval": "10s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-no-attrs-reload-interval-0s", "name": "reload", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% if ansible_facts.packages["pacemaker"][0]["version"] is version("2.1", ">=") %} { "id": "dummy-no-attrs-reload-agent-interval-0s", "name": "reload-agent", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes":
+              [], "instance_attributes": [] }, {% endif %} { "id": "dummy-no-attrs-start-interval-0s", "name": "start", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-no-attrs-stop-interval-0s", "name": "stop", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] } ], "meta_attributes": [], "instance_attributes": [], "utilization": [] }, { "id": "dummy-empty-attrs1", "agent_name": { "standard": "ocf", "provider": "pacemaker", "type": "Dummy" }, "description": null, "operations": [ { "id": "dummy-empty-attrs1-migrate_from-interval-0s", "name": "migrate_from", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout":
+              "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-empty-attrs1-migrate_to-interval-0s", "name": "migrate_to", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-empty-attrs1-monitor-interval-10s", "name": "monitor", "interval": "10s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-empty-attrs1-reload-interval-0s", "name": "reload", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes":
+              [] }, {% if ansible_facts.packages["pacemaker"][0]["version"] is version("2.1", ">=") %} { "id": "dummy-empty-attrs1-reload-agent-interval-0s", "name": "reload-agent", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% endif %} { "id": "dummy-empty-attrs1-start-interval-0s", "name": "start", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-empty-attrs1-stop-interval-0s", "name": "stop", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] } ], "meta_attributes":
+              [], "instance_attributes": [], "utilization": [] }, { "id": "dummy-empty-attrs2", "agent_name": { "standard": "ocf", "provider": "pacemaker", "type": "Dummy" }, "description": null, "operations": [ { "id": "dummy-empty-attrs2-migrate_from-interval-0s", "name": "migrate_from", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-empty-attrs2-migrate_to-interval-0s", "name": "migrate_to", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-empty-attrs2-monitor-interval-10s", "name": "monitor", "interval": "10s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending":
+              null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-empty-attrs2-reload-interval-0s", "name": "reload", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% if ansible_facts.packages["pacemaker"][0]["version"] is version("2.1", ">=") %} { "id": "dummy-empty-attrs2-reload-agent-interval-0s", "name": "reload-agent", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% endif %} { "id": "dummy-empty-attrs2-start-interval-0s", "name": "start", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail":
+              null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-empty-attrs2-stop-interval-0s", "name": "stop", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] } ], "meta_attributes": [], "instance_attributes": [], "utilization": [] }, { "id": "dummy-with-attrs1", "agent_name": { "standard": "ocf", "provider": "pacemaker", "type": "Dummy" }, "description": null, "operations": [ { "id": "dummy-with-attrs1-migrate_from-interval-0s", "name": "migrate_from", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-with-attrs1-migrate_to-interval-0s", "name": "migrate_to", "interval": "0s", "description": null, "start_delay": null, "interval_origin":
+              null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-with-attrs1-monitor-interval-60s", "name": "monitor", "interval": "60s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "1min", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-with-attrs1-reload-interval-0s", "name": "reload", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% if ansible_facts.packages["pacemaker"][0]["version"] is version("2.1", ">=") %} { "id": "dummy-with-attrs1-reload-agent-interval-0s", "name": "reload-agent", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled":
+              null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% endif %} { "id": "dummy-with-attrs1-start-interval-0s", "name": "start", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-with-attrs1-stop-interval-0s", "name": "stop", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] } ], "meta_attributes": [ { "id": "dummy-with-attrs1-meta_attributes", "options": {}, "rule": null, "nvpairs": [ { "id": "dummy-with-attrs1-meta_attributes-target-role", "name": "target-role", "value": "Stopped" } ] } ], "instance_attributes": [ { "id": "dummy-with-attrs1-instance_attributes", "options": {},
+              "rule": null, "nvpairs": [ { "id": "dummy-with-attrs1-instance_attributes-fake", "name": "fake", "value": "fake value" } ] } ], "utilization": [] }, { "id": "dummy-with-attrs2", "agent_name": { "standard": "ocf", "provider": "pacemaker", "type": "Dummy" }, "description": null, "operations": [ { "id": "dummy-with-attrs2-migrate_from-interval-0s", "name": "migrate_from", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-with-attrs2-migrate_to-interval-0s", "name": "migrate_to", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-with-attrs2-monitor-interval-26", "name": "monitor", "interval": "26", "description": null, "start_delay":
+              null, "interval_origin": null, "timeout": "13", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-with-attrs2-monitor-interval-28", "name": "monitor", "interval": "28", "description": null, "start_delay": null, "interval_origin": null, "timeout": "14", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-with-attrs2-reload-interval-0s", "name": "reload", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% if ansible_facts.packages["pacemaker"][0]["version"] is version("2.1", ">=") %} { "id": "dummy-with-attrs2-reload-agent-interval-0s", "name": "reload-agent", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout":
+              "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% endif %} { "id": "dummy-with-attrs2-start-interval-0s", "name": "start", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-with-attrs2-stop-interval-0s", "name": "stop", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] } ], "meta_attributes": [ { "id": "dummy-with-attrs2-meta_attributes", "options": {}, "rule": null, "nvpairs": [ { "id": "dummy-with-attrs2-meta_attributes-an-attr", "name": "an-attr", "value": "a value" }, { "id": "dummy-with-attrs2-meta_attributes-target-role", "name": "target-role", "value":
+              "Stopped" } ] } ], "instance_attributes": [ { "id": "dummy-with-attrs2-instance_attributes", "options": {}, "rule": null, "nvpairs": [ { "id": "dummy-with-attrs2-instance_attributes-fake", "name": "fake", "value": "fake value" }, { "id": "dummy-with-attrs2-instance_attributes-passwd", "name": "passwd", "value": "passwd value1" } ] } ], "utilization": [] }, { "id": "dummy-1a", "agent_name": { "standard": "ocf", "provider": "pacemaker", "type": "Dummy" }, "description": null, "operations": [ { "id": "dummy-1a-migrate_from-interval-0s", "name": "migrate_from", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-1a-migrate_to-interval-0s", "name": "migrate_to", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null,
+              "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-1a-monitor-interval-10s", "name": "monitor", "interval": "10s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-1a-reload-interval-0s", "name": "reload", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% if ansible_facts.packages["pacemaker"][0]["version"] is version("2.1", ">=") %} { "id": "dummy-1a-reload-agent-interval-0s", "name": "reload-agent", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes":
+              [] }, {% endif %} { "id": "dummy-1a-start-interval-0s", "name": "start", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-1a-stop-interval-0s", "name": "stop", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] } ], "meta_attributes": [], "instance_attributes": [], "utilization": [] }, { "id": "dummy-1b", "agent_name": { "standard": "ocf", "provider": "pacemaker", "type": "Dummy" }, "description": null, "operations": [ { "id": "dummy-1b-migrate_from-interval-0s", "name": "migrate_from", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role":
+              null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-1b-migrate_to-interval-0s", "name": "migrate_to", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-1b-monitor-interval-10s", "name": "monitor", "interval": "10s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-1b-reload-interval-0s", "name": "reload", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% if ansible_facts.packages["pacemaker"][0]["version"] is version("2.1",
+              ">=") %} { "id": "dummy-1b-reload-agent-interval-0s", "name": "reload-agent", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% endif %} { "id": "dummy-1b-start-interval-0s", "name": "start", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-1b-stop-interval-0s", "name": "stop", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] } ], "meta_attributes": [], "instance_attributes": [], "utilization": [] }, { "id": "dummy-2a", "agent_name": { "standard": "ocf", "provider":
+              "pacemaker", "type": "Dummy" }, "description": null, "operations": [ { "id": "dummy-2a-migrate_from-interval-0s", "name": "migrate_from", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-2a-migrate_to-interval-0s", "name": "migrate_to", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-2a-monitor-interval-10s", "name": "monitor", "interval": "10s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-2a-reload-interval-0s", "name": "reload", "interval":
+              "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% if ansible_facts.packages["pacemaker"][0]["version"] is version("2.1", ">=") %} { "id": "dummy-2a-reload-agent-interval-0s", "name": "reload-agent", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% endif %} { "id": "dummy-2a-start-interval-0s", "name": "start", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-2a-stop-interval-0s", "name": "stop", "interval": "0s", "description": null, "start_delay": null, "interval_origin":
+              null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] } ], "meta_attributes": [], "instance_attributes": [], "utilization": [] }, { "id": "dummy-4a", "agent_name": { "standard": "ocf", "provider": "pacemaker", "type": "Dummy" }, "description": null, "operations": [ { "id": "dummy-4a-migrate_from-interval-0s", "name": "migrate_from", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-4a-migrate_to-interval-0s", "name": "migrate_to", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-4a-monitor-interval-10s", "name": "monitor", "interval":
+              "10s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-4a-reload-interval-0s", "name": "reload", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% if ansible_facts.packages["pacemaker"][0]["version"] is version("2.1", ">=") %} { "id": "dummy-4a-reload-agent-interval-0s", "name": "reload-agent", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% endif %} { "id": "dummy-4a-start-interval-0s", "name": "start", "interval": "0s", "description": null, "start_delay": null, "interval_origin":
+              null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-4a-stop-interval-0s", "name": "stop", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] } ], "meta_attributes": [], "instance_attributes": [], "utilization": [] }, { "id": "dummy-clone-no-options", "agent_name": { "standard": "ocf", "provider": "pacemaker", "type": "Dummy" }, "description": null, "operations": [ { "id": "dummy-clone-no-options-migrate_from-interval-0s", "name": "migrate_from", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-no-options-migrate_to-interval-0s",
+              "name": "migrate_to", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-no-options-monitor-interval-10s", "name": "monitor", "interval": "10s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-no-options-reload-interval-0s", "name": "reload", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% if ansible_facts.packages["pacemaker"][0]["version"] is version("2.1", ">=") %} { "id": "dummy-clone-no-options-reload-agent-interval-0s", "name": "reload-agent",
+              "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% endif %} { "id": "dummy-clone-no-options-start-interval-0s", "name": "start", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-no-options-stop-interval-0s", "name": "stop", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] } ], "meta_attributes": [], "instance_attributes": [], "utilization": [] }, { "id": "dummy-clone-promotable", "agent_name": { "standard": "ocf", "provider": "pacemaker", "type": "Dummy"
+              }, "description": null, "operations": [ { "id": "dummy-clone-promotable-migrate_from-interval-0s", "name": "migrate_from", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-promotable-migrate_to-interval-0s", "name": "migrate_to", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-promotable-monitor-interval-10s", "name": "monitor", "interval": "10s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-promotable-reload-interval-0s",
+              "name": "reload", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% if ansible_facts.packages["pacemaker"][0]["version"] is version("2.1", ">=") %} { "id": "dummy-clone-promotable-reload-agent-interval-0s", "name": "reload-agent", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% endif %} { "id": "dummy-clone-promotable-start-interval-0s", "name": "start", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-promotable-stop-interval-0s", "name": "stop",
+              "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] } ], "meta_attributes": [], "instance_attributes": [], "utilization": [] }, { "id": "dummy-clone-id", "agent_name": { "standard": "ocf", "provider": "pacemaker", "type": "Dummy" }, "description": null, "operations": [ { "id": "dummy-clone-id-migrate_from-interval-0s", "name": "migrate_from", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-id-migrate_to-interval-0s", "name": "migrate_to", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [],
+              "instance_attributes": [] }, { "id": "dummy-clone-id-monitor-interval-10s", "name": "monitor", "interval": "10s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-id-reload-interval-0s", "name": "reload", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% if ansible_facts.packages["pacemaker"][0]["version"] is version("2.1", ">=") %} { "id": "dummy-clone-id-reload-agent-interval-0s", "name": "reload-agent", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% endif %}
+              { "id": "dummy-clone-id-start-interval-0s", "name": "start", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-id-stop-interval-0s", "name": "stop", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] } ], "meta_attributes": [], "instance_attributes": [], "utilization": [] }, { "id": "dummy-clone-empty-attrs1", "agent_name": { "standard": "ocf", "provider": "pacemaker", "type": "Dummy" }, "description": null, "operations": [ { "id": "dummy-clone-empty-attrs1-migrate_from-interval-0s", "name": "migrate_from", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending":
+              null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-empty-attrs1-migrate_to-interval-0s", "name": "migrate_to", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-empty-attrs1-monitor-interval-10s", "name": "monitor", "interval": "10s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-empty-attrs1-reload-interval-0s", "name": "reload", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% if ansible_facts.packages["pacemaker"][0]["version"]
+              is version("2.1", ">=") %} { "id": "dummy-clone-empty-attrs1-reload-agent-interval-0s", "name": "reload-agent", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% endif %} { "id": "dummy-clone-empty-attrs1-start-interval-0s", "name": "start", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-empty-attrs1-stop-interval-0s", "name": "stop", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] } ], "meta_attributes": [], "instance_attributes": [], "utilization":
+              [] }, { "id": "dummy-clone-empty-attrs2", "agent_name": { "standard": "ocf", "provider": "pacemaker", "type": "Dummy" }, "description": null, "operations": [ { "id": "dummy-clone-empty-attrs2-migrate_from-interval-0s", "name": "migrate_from", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-empty-attrs2-migrate_to-interval-0s", "name": "migrate_to", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-empty-attrs2-monitor-interval-10s", "name": "monitor", "interval": "10s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null,
+              "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-empty-attrs2-reload-interval-0s", "name": "reload", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% if ansible_facts.packages["pacemaker"][0]["version"] is version("2.1", ">=") %} { "id": "dummy-clone-empty-attrs2-reload-agent-interval-0s", "name": "reload-agent", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% endif %} { "id": "dummy-clone-empty-attrs2-start-interval-0s", "name": "start", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail":
+              null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-empty-attrs2-stop-interval-0s", "name": "stop", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] } ], "meta_attributes": [], "instance_attributes": [], "utilization": [] }, { "id": "dummy-clone-with-attrs1", "agent_name": { "standard": "ocf", "provider": "pacemaker", "type": "Dummy" }, "description": null, "operations": [ { "id": "dummy-clone-with-attrs1-migrate_from-interval-0s", "name": "migrate_from", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-with-attrs1-migrate_to-interval-0s", "name": "migrate_to", "interval": "0s", "description": null, "start_delay":
+              null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-with-attrs1-monitor-interval-10s", "name": "monitor", "interval": "10s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-with-attrs1-reload-interval-0s", "name": "reload", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% if ansible_facts.packages["pacemaker"][0]["version"] is version("2.1", ">=") %} { "id": "dummy-clone-with-attrs1-reload-agent-interval-0s", "name": "reload-agent", "interval": "0s", "description": null, "start_delay": null, "interval_origin":
+              null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% endif %} { "id": "dummy-clone-with-attrs1-start-interval-0s", "name": "start", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-with-attrs1-stop-interval-0s", "name": "stop", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] } ], "meta_attributes": [], "instance_attributes": [], "utilization": [] }, { "id": "dummy-clone-with-attrs2", "agent_name": { "standard": "ocf", "provider": "pacemaker", "type": "Dummy" }, "description": null, "operations": [ { "id": "dummy-clone-with-attrs2-migrate_from-interval-0s",
+              "name": "migrate_from", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-with-attrs2-migrate_to-interval-0s", "name": "migrate_to", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-with-attrs2-monitor-interval-10s", "name": "monitor", "interval": "10s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-with-attrs2-reload-interval-0s", "name": "reload", "interval": "0s", "description": null, "start_delay": null, "interval_origin":
+              null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% if ansible_facts.packages["pacemaker"][0]["version"] is version("2.1", ">=") %} { "id": "dummy-clone-with-attrs2-reload-agent-interval-0s", "name": "reload-agent", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% endif %} { "id": "dummy-clone-with-attrs2-start-interval-0s", "name": "start", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-with-attrs2-stop-interval-0s", "name": "stop", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout":
+              "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] } ], "meta_attributes": [], "instance_attributes": [], "utilization": [] }, { "id": "dummy-3a", "agent_name": { "standard": "ocf", "provider": "pacemaker", "type": "Dummy" }, "description": null, "operations": [ { "id": "dummy-3a-migrate_from-interval-0s", "name": "migrate_from", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-3a-migrate_to-interval-0s", "name": "migrate_to", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-3a-monitor-interval-10s", "name": "monitor", "interval": "10s", "description":
+              null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-3a-reload-interval-0s", "name": "reload", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% if ansible_facts.packages["pacemaker"][0]["version"] is version("2.1", ">=") %} { "id": "dummy-3a-reload-agent-interval-0s", "name": "reload-agent", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, {% endif %} { "id": "dummy-3a-start-interval-0s", "name": "start", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout":
+              "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-3a-stop-interval-0s", "name": "stop", "interval": "0s", "description": null, "start_delay": null, "interval_origin": null, "timeout": "20s", "enabled": null, "record_pending": null, "role": null, "on_fail": null, "meta_attributes": [], "instance_attributes": [] } ], "meta_attributes": [], "instance_attributes": [], "utilization": [] } ], "clones": [ { "id": "dummy-clone-no-options-clone", "description": null, "member_id": "dummy-clone-no-options", "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-promotable-clone", "description": null, "member_id": "dummy-clone-promotable", "meta_attributes": [ { "id": "dummy-clone-promotable-clone-meta_attributes", "options": {}, "rule": null, "nvpairs": [ { "id": "dummy-clone-promotable-clone-meta_attributes-promotable", "name": "promotable", "value": "true" } ] } ], "instance_attributes": [] },
+              { "id": "custom-clone-id1", "description": null, "member_id": "dummy-clone-id", "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-empty-attrs1-clone", "description": null, "member_id": "dummy-clone-empty-attrs1", "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-empty-attrs2-clone", "description": null, "member_id": "dummy-clone-empty-attrs2", "meta_attributes": [], "instance_attributes": [] }, { "id": "dummy-clone-with-attrs1-clone", "description": null, "member_id": "dummy-clone-with-attrs1", "meta_attributes": [ { "id": "dummy-clone-with-attrs1-clone-meta_attributes", "options": {}, "rule": null, "nvpairs": [ { "id": "dummy-clone-with-attrs1-clone-meta_attributes-target-role", "name": "target-role", "value": "Stopped" } ] } ], "instance_attributes": [] }, { "id": "custom-clone-id2", "description": null, "member_id": "dummy-clone-with-attrs2", "meta_attributes": [ { "id": "custom-clone-id2-meta_attributes", "options": {}, "rule": null, "nvpairs": [
+              { "id": "custom-clone-id2-meta_attributes-an-attr", "name": "an-attr", "value": "a value" }, { "id": "custom-clone-id2-meta_attributes-promotable", "name": "promotable", "value": "true" }, { "id": "custom-clone-id2-meta_attributes-target-role", "name": "target-role", "value": "Stopped" } ] } ], "instance_attributes": [] }, { "id": "group3-clone", "description": null, "member_id": "group3", "meta_attributes": [], "instance_attributes": [] } ], "groups": [ { "id": "group1", "description": null, "member_ids": [ "dummy-1a", "dummy-1b" ], "meta_attributes": [], "instance_attributes": [] }, { "id": "group2", "description": null, "member_ids": [ "dummy-2a" ], "meta_attributes": [], "instance_attributes": [] }, { "id": "group4", "description": null, "member_ids": [ "dummy-4a" ], "meta_attributes": [ { "id": "group4-meta_attributes", "options": {}, "rule": null, "nvpairs": [ { "id": "group4-meta_attributes-an-attr", "name": "an-attr", "value": "a value" }, { "id": "group4-meta_attributes-target-role", "name":
+              "target-role", "value": "Stopped" } ] } ], "instance_attributes": [] }, { "id": "group3", "description": null, "member_ids": [ "dummy-3a" ], "meta_attributes": [], "instance_attributes": [] } ], "bundles": [ { "container_options": { "image": "my:image1", "network": null, "options": null, "promoted_max": null, "replicas": null, "replicas_per_host": null, "run_command": null }, "container_type": "docker", "description": null, "id": "bundle-minimal", "instance_attributes": [], "member_id": null, "meta_attributes": [], "network": null, "port_mappings": [], "storage_mappings": [] }, { "container_options": { "image": "my:image1", "network": null, "options": null, "promoted_max": null, "replicas": null, "replicas_per_host": null, "run_command": null }, "container_type": "docker", "description": null, "id": "bundle-minimal-with-resource", "instance_attributes": [], "member_id": "dummy-bundle", "meta_attributes": [], "network": { "add_host": null, "control_port": 3121, "host_interface": null, "host_netmask":
+              null, "ip_range_start": null }, "port_mappings": [], "storage_mappings": [] }, { "container_options": { "image": "my:image1", "network": null, "options": null, "promoted_max": null, "replicas": 2, "replicas_per_host": null, "run_command": null }, "container_type": "docker", "description": null, "id": "bundle-all-options", "instance_attributes": [], "member_id": null, "meta_attributes": [ { "id": "bundle-all-options-meta_attributes", "nvpairs": [ { "id": "bundle-all-options-meta_attributes-an-attr", "name": "an-attr", "value": "a value" }, { "id": "bundle-all-options-meta_attributes-target-role", "name": "target-role", "value": "Stopped" } ], "options": {}, "rule": null } ], "network": { "add_host": null, "control_port": 3121, "host_interface": null, "host_netmask": 32, "ip_range_start": null }, "port_mappings": [ { "id": "bundle-all-options-port-map-23456", "internal_port": null, "port": 23456, "range": null }, { "id": "bundle-all-options-port-map-34567", "internal_port": 45678, "port": 34567, "range":
+              null } ], "storage_mappings": [ { "id": "bundle-all-options-storage-map", "options": null, "source_dir": "/tmp/source1", "source_dir_root": null, "target_dir": "/tmp/target1" }, { "id": "bundle-all-options-storage-map-1", "options": null, "source_dir": "/tmp/source2", "source_dir_root": null, "target_dir": "/tmp/target2" } ] } ] } '
+    # yamllint enable rule:line-length
+
+      tags: tests::verify

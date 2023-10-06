@@ -1,0 +1,7 @@
+---
+network_connections:
+ - name: eth1
+   type: ethernet
+   ip:
+    address:
+     - 172.25.250.30/24

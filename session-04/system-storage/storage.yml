@@ -1,0 +1,23 @@
+---
+- name: Configure storage on webservers
+  hosts: webservers
+  roles:
+    - name: redhat.rhel_system_roles.storage
+      storage_pools:
+        - name: apache-vg
+          type: lvm
+          disks:
+             - /dev/vdb
+
+          volumes:
+             - name: content-lv
+               size: 64m
+               mount_point: "/var/www"
+               fs_type: xfs
+               state: present
+            
+             - name: logs-lv
+               size: 128m
+               mount_point: "/var/log/httpd"
+               fs_type: xfs
+               state: present

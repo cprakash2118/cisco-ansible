@@ -1,0 +1,627 @@
+- name: Ensure that the roles runs with default parameters
+  hosts: all
+  become: true
+
+  tasks:
+    - import_role:
+        name: redhat.rhel_system_roles.firewall
+
+    - name: Test firewalld posix compatibility
+      block:
+
+    # INIT TEST
+
+        - name: Remove custom zone
+          command: firewall-cmd --permanent --delete-zone=custom
+          register: result
+          failed_when: result.failed and "INVALID_ZONE" not in result.stderr
+
+        - name: Reset internal zone to defaults
+          command: firewall-cmd --permanent --load-zone-defaults=internal
+          register: result
+          failed_when: result.failed and "NO_DEFAULTS" not in result.stderr
+
+        - name: Reset trusted zone to defaults
+          command: firewall-cmd --permanent --load-zone-defaults=trusted
+          register: result
+          failed_when: result.failed and "NO_DEFAULTS" not in result.stderr
+
+        - name: Reset dmz zone to defaults
+          command: firewall-cmd --permanent --load-zone-defaults=dmz
+          register: result
+          failed_when: result.failed and "NO_DEFAULTS" not in result.stderr
+
+        - name: Reset drop zone to defaults
+          command: firewall-cmd --permanent --load-zone-defaults=drop
+          register: result
+          failed_when: result.failed and "NO_DEFAULTS" not in result.stderr
+
+        - name: Reset public zone to defaults
+          command: firewall-cmd --permanent --load-zone-defaults=public
+          register: result
+          failed_when: result.failed and "NO_DEFAULTS" not in result.stderr
+
+        - name: Reset default zone to defaults
+          shell:
+            cmd: |
+              zone=$(firewall-cmd --get-default-zone)
+              firewall-cmd --permanent --load-zone-defaults=$zone
+          register: result
+          failed_when: result.failed and "NO_DEFAULTS" not in result.stderr
+
+        - name: Create custom zone
+          command: firewall-cmd --permanent --new-zone=custom
+          register: result
+          failed_when: result.failed or not result.changed
+
+        - name: Reload firewalld
+          command: firewall-cmd --reload
+          register: result
+          failed_when: result.failed or not result.changed
+
+    # TEST
+
+        - name: Permit traffic in default zone for https service
+          redhat.rhel_system_roles.firewall_lib:
+            service: https
+            permanent: yes
+            state: enabled
+          register: result
+          failed_when: result.failed or not result.changed
+
+        - name: Permit traffic in default zone for https service, again
+          redhat.rhel_system_roles.firewall_lib:
+            service: https
+            permanent: yes
+            state: enabled
+          register: result
+          failed_when: result.failed or result.changed
+
+        - name: Permit traffic in default zone on port 8081/tcp
+          redhat.rhel_system_roles.firewall_lib:
+            port: 8081/tcp
+            permanent: yes
+            state: enabled
+          register: result
+          failed_when: result.failed or not result.changed
+
+        - name: Permit traffic in default zone on port 8081/tcp, again
+          redhat.rhel_system_roles.firewall_lib:
+            port: 8081/tcp
+            permanent: yes
+            state: enabled
+          register: result
+          failed_when: result.failed or result.changed
+
+        - name: Allow port 161-162/udp in permanent default zone
+          redhat.rhel_system_roles.firewall_lib:
+            port: 161-162/udp
+            permanent: yes
+            state: enabled
+          register: result
+          failed_when: result.failed or not result.changed
+
+        - name: Allow port 161-162/udp in permanent default zone, again
+          redhat.rhel_system_roles.firewall_lib:
+            port: 161-162/udp
+            permanent: yes
+            state: enabled
+          register: result
+          failed_when: result.failed or result.changed
+
+        - name: Do not permit traffic in default zone on port 8081/tcp
+          redhat.rhel_system_roles.firewall_lib:
+            port: 8081/tcp
+            permanent: yes
+            state: disabled
+          register: result
+          failed_when: result.failed or not result.changed
+
+        - name: Do not permit traffic in default zone on port 8081/tcp, again
+          redhat.rhel_system_roles.firewall_lib:
+            port: 8081/tcp
+            permanent: yes
+            state: disabled
+          register: result
+          failed_when: result.failed or result.changed
+
+        - name: Allow service http in permanent dmz zone
+          redhat.rhel_system_roles.firewall_lib:
+            zone: dmz
+            service: http
+            permanent: yes
+            state: enabled
+          register: result
+          failed_when: result.failed or not result.changed
+
+        - name: Allow service http in permanent dmz zone, again
+          redhat.rhel_system_roles.firewall_lib:
+            zone: dmz
+            service: http
+            permanent: yes
+            state: enabled
+          register: result
+          failed_when: result.failed or result.changed
+
+        - name: Allow service ftp with limitation using rich rule in permanent default zone
+          redhat.rhel_system_roles.firewall_lib:
+            rich_rule: rule service name="ftp" audit limit value="1/m" accept
+            permanent: yes
+            state: enabled
+          register: result
+          failed_when: result.failed or not result.changed
+
+        - name: Allow service ftp with limitation using rich rule in permanent default zone, again
+          redhat.rhel_system_roles.firewall_lib:
+            rich_rule: rule service name="ftp" audit limit value="1/m" accept
+            permanent: yes
+            state: enabled
+          register: result
+          failed_when: result.failed or result.changed
+
+        - name: Allow source 192.0.2.0/24 in internal zone
+          redhat.rhel_system_roles.firewall_lib:
+            source: 192.0.2.0/24
+            zone: internal
+            permanent: true
+            state: enabled
+          register: result
+          failed_when: result.failed or not result.changed
+
+        - name: Allow source 192.0.2.0/24 in internal zone, again
+          redhat.rhel_system_roles.firewall_lib:
+            source: 192.0.2.0/24
+            permanent: true
+            zone: internal
+            state: enabled
+          register: result
+          failed_when: result.failed or result.changed
+
+        - name: Allow interface eth2 in permanent trusted zone
+          redhat.rhel_system_roles.firewall_lib:
+            zone: trusted
+            interface: eth2
+            permanent: yes
+            state: enabled
+          register: result
+          failed_when: result.failed or not result.changed
+
+        - name: Allow interface eth2 in permanent trusted zone, again
+          redhat.rhel_system_roles.firewall_lib:
+            zone: trusted
+            interface: eth2
+            permanent: yes
+            state: enabled
+          register: result
+          failed_when: result.failed or result.changed
+
+        - name: Allow masquerading in permament dmz zone
+          redhat.rhel_system_roles.firewall_lib:
+            masquerade: yes
+            permanent: yes
+            zone: dmz
+          register: result
+          failed_when: result.failed or not result.changed
+
+        - name: Allow masquerading in permament dmz zone, again
+          redhat.rhel_system_roles.firewall_lib:
+            masquerade: yes
+            permanent: yes
+            zone: dmz
+          register: result
+          failed_when: result.failed or result.changed
+
+        - name: Ensure permanent custom zone exists (no change)
+          redhat.rhel_system_roles.firewall_lib:
+            zone: custom
+            state: enabled
+            permanent: yes
+          register: result
+          failed_when: result.failed or result.changed
+
+        - name: Ensure ICMP block inversion in permanent drop zone
+          redhat.rhel_system_roles.firewall_lib:
+            zone: drop
+            permanent: yes
+            icmp_block_inversion: yes
+          register: result
+          failed_when: result.failed or not result.changed
+
+        - name: Ensure ICMP block inversion in permanent drop zone, again
+          redhat.rhel_system_roles.firewall_lib:
+            zone: drop
+            permanent: yes
+            icmp_block_inversion: yes
+          register: result
+          failed_when: result.failed or result.changed
+
+        - name: Block ICMP echo-request in permanent drop zone
+          redhat.rhel_system_roles.firewall_lib:
+            zone: drop
+            state: enabled
+            permanent: yes
+            icmp_block: echo-request
+          register: result
+          failed_when: result.failed or not result.changed
+
+        - name: Block ICMP echo-request in permanent drop zone, again
+          redhat.rhel_system_roles.firewall_lib:
+            zone: drop
+            state: enabled
+            permanent: yes
+            icmp_block: echo-request
+          register: result
+          failed_when: result.failed or result.changed
+
+        - name: Ensure default target in permanent internal zone (no change)
+          redhat.rhel_system_roles.firewall_lib:
+            zone: internal
+            state: enabled
+            permanent: yes
+            target: default
+          register: result
+          failed_when: result.failed or result.changed
+
+        - name: Ensure target ACCEPT in permanent internal zone
+          redhat.rhel_system_roles.firewall_lib:
+            zone: internal
+            state: enabled
+            permanent: yes
+            target: ACCEPT
+          register: result
+          failed_when: result.failed or not result.changed
+
+        - name: Ensure target ACCEPT in permanent internal zone, again
+          redhat.rhel_system_roles.firewall_lib:
+            zone: internal
+            state: enabled
+            permanent: yes
+            target: ACCEPT
+          register: result
+          failed_when: result.failed or result.changed
+
+        - name: Ensure default target in permanent internal zone
+          redhat.rhel_system_roles.firewall_lib:
+            zone: internal
+            state: enabled
+            permanent: yes
+            target: default
+          register: result
+          failed_when: result.failed or not result.changed
+
+        - name: Ensure default target in permanent internal zone, again
+          redhat.rhel_system_roles.firewall_lib:
+            zone: internal
+            state: enabled
+            permanent: yes
+            target: default
+          register: result
+          failed_when: result.failed or result.changed
+
+        - name: Redirect port 443 to 8443 with Rich Rule in permanent and runtime public zone
+          redhat.rhel_system_roles.firewall_lib:
+            rich_rule: rule family=ipv4 forward-port port=443 protocol=tcp to-port=8443
+            zone: public
+            permanent: yes
+            runtime: yes
+            state: enabled
+          register: result
+          failed_when: result.failed or not result.changed
+
+        - name: Redirect port 443 to 8443 with Rich Rule in permanent and runtime public zone, again
+          redhat.rhel_system_roles.firewall_lib:
+            rich_rule: rule family=ipv4 forward-port port=443 protocol=tcp to-port=8443
+            zone: public
+            permanent: yes
+            runtime: yes
+            state: enabled
+          register: result
+          failed_when: result.failed or result.changed
+
+        - name: Firewalld custom zone
+          redhat.rhel_system_roles.firewall_lib:
+            zone: customzone
+            state: present
+            permanent: yes
+            runtime: yes
+          register: result
+
+        - name: assert firewalld custom zone
+          assert:
+            that:
+              - result is changed
+
+        - name: Add masquerade to custom zone
+          redhat.rhel_system_roles.firewall_lib:
+            masquerade: yes
+            zone: customzone
+            state: enabled
+            permanent: yes
+            runtime: yes
+          register: result
+          failed_when: result is failed or result is not changed
+
+        - name: Add masquerade to custom zone, again
+          redhat.rhel_system_roles.firewall_lib:
+            masquerade: yes
+            zone: customzone
+            state: enabled
+            permanent: yes
+            runtime: yes
+          register: result
+          failed_when: result is failed or result is changed
+
+        - name: Set the default zone to something other than dmz
+          command: firewall-cmd --set-default-zone public
+
+        - name: set default zone
+          redhat.rhel_system_roles.firewall_lib:
+            set_default_zone: dmz
+            state: enabled
+          register: result
+          failed_when: result is failed or result is not changed
+
+        - name: set default zone, again
+          redhat.rhel_system_roles.firewall_lib:
+            set_default_zone: dmz
+            state: enabled
+          register: result
+          failed_when: result is failed or result is changed
+
+        - name: add multiple custom services
+          redhat.rhel_system_roles.firewall_lib:
+            service:
+              - custom
+              - another_custom
+            permanent: yes
+            state: present
+          register: result
+          failed_when: result is not failed or result is changed
+
+        - name: add custom service without details
+          redhat.rhel_system_roles.firewall_lib:
+            service: customservice
+            permanent: yes
+            state: present
+          register: result
+          failed_when: result is failed or result is not changed
+
+        - name: add custom service that already exists
+          redhat.rhel_system_roles.firewall_lib:
+            service: customservice
+            permanent: yes
+            state: present
+          register: result
+          failed_when: result is failed or result is changed
+
+        - name: add description to custom service
+          redhat.rhel_system_roles.firewall_lib:
+            service: customservice
+            description: "This is a custom service that does absolutely nothing"
+            permanent: yes
+            state: present
+          register: result
+          failed_when: result is failed or result is not changed
+
+        - name: add short description to custom service
+          redhat.rhel_system_roles.firewall_lib:
+            service: customservice
+            short: "custom service"
+            permanent: yes
+            state: present
+          register: result
+          failed_when: result is failed or result is not changed
+
+        - name: add source_ports to custom service
+          redhat.rhel_system_roles.firewall_lib:
+            service: customservice
+            source_port: 333/tcp
+            permanent: yes
+            state: present
+          register: result
+          failed_when: result is failed or result is not changed
+
+        - name: add source_ports to custom service again
+          redhat.rhel_system_roles.firewall_lib:
+            service: customservice
+            source_port: 333/tcp
+            permanent: yes
+            state: present
+          register: result
+          failed_when: result is failed or result is changed
+
+        - name: add invalid protocol to custom service
+          redhat.rhel_system_roles.firewall_lib:
+            service: customservice
+            protocol: nonexistentprotocol
+            permanent: yes
+            state: present
+          register: result
+          failed_when: result is not failed or result is changed
+
+        - name: add valid protocol to custom service
+          redhat.rhel_system_roles.firewall_lib:
+            service: customservice
+            protocol: icmp
+            permanent: yes
+            state: present
+          register: result
+          failed_when: result is failed or result is not changed
+
+        - name: remove valid protocol from customservice
+          redhat.rhel_system_roles.firewall_lib:
+            service: customservice
+            protocol: icmp
+            permanent: yes
+            state: absent
+          register: result
+          failed_when: result is failed or result is not changed
+
+        - name: remove ports from custom service without deleting service
+          redhat.rhel_system_roles.firewall_lib:
+            service: customservice
+            source_port: 333/tcp
+            permanent: yes
+            state: absent
+          register: result
+          failed_when: result is failed or result is not changed
+
+        - name: add destination addresses
+          redhat.rhel_system_roles.firewall_lib:
+            service: customservice
+            destination:
+              - 146.19.6.63
+              - "aaaa:aaaa:aaaa:aaaa::"
+            state: present
+            permanent: yes
+          register: result
+          failed_when: result is failed or result is not changed
+
+        - name: delete custom service
+          redhat.rhel_system_roles.firewall_lib:
+            service: customservice
+            permanent: yes
+            state: absent
+          register: result
+          failed_when: result is failed or result is not changed
+
+        - name: delete custom service again
+          redhat.rhel_system_roles.firewall_lib:
+            service: customservice
+            permanent: yes
+            state: absent
+          register: result
+          failed_when: result is failed or result is changed
+
+        - name: add custom service with all the elements at once
+          redhat.rhel_system_roles.firewall_lib:
+            service: customservice
+            short: Custom service
+            port: 333/tcp
+            source_port: 333/tcp
+            protocol: ipv6
+            helper_module: nf_conntrack_ftp
+            description: Custom Service that does not do a single thing
+            destination:
+              - 123.45.6.78
+              - "aaaa:aaaa:aaaa:aaa:aaaa:aaaa:aaaa::"
+            permanent: yes
+            state: present
+          register: result
+          failed_when: result is failed or result is not changed
+
+        - name: add helper module that already is on customservice
+          redhat.rhel_system_roles.firewall_lib:
+            service: customservice
+            helper_module: nf_conntrack_ftp
+            permanent: yes
+            state: present
+          register: result
+          failed_when: result is failed or result is changed
+
+        - name: forward port 40 to 0.0.0.0:8080 (string)
+          redhat.rhel_system_roles.firewall_lib:
+            forward_port: 40/tcp;8080;0.0.0.0
+            state: enabled
+          register: result
+          failed_when: result is failed or result is not changed
+
+        - name: forward same port again (string)
+          redhat.rhel_system_roles.firewall_lib:
+            forward_port: 40/tcp;8080;0.0.0.0
+            state: enabled
+          register: result
+          failed_when: result is failed or result is changed
+
+        - name: disable forward port (string)
+          redhat.rhel_system_roles.firewall_lib:
+            forward_port: 40/tcp;8080;0.0.0.0
+            state: disabled
+          register: result
+          failed_when: result is failed or result is not changed
+
+        - name: forward port (dict form)
+          redhat.rhel_system_roles.firewall_lib:
+            forward_port:
+              port: 40
+              proto: tcp
+              toport: 8080
+              toaddr: 0.0.0.0
+            state: enabled
+          register: result
+          failed_when: result is failed or result is not changed
+
+        - name: forward port again (dict form)
+          redhat.rhel_system_roles.firewall_lib:
+            forward_port:
+              - port: 40
+                proto: tcp
+                toport: 8080
+                toaddr: 0.0.0.0
+            state: enabled
+          register: result
+          failed_when: result is failed or result is changed
+
+        - name: disable forward port (dict form)
+          redhat.rhel_system_roles.firewall_lib:
+            forward_port:
+              - port: 40
+                proto: tcp
+                toport: 8080
+                toaddr: 0.0.0.0
+            state: disabled
+          register: result
+          failed_when: result is failed or result is not changed
+
+      always:
+
+        - name: Cleanup
+          tags:
+            - tests::cleanup
+          block:
+        # CLEANUP: RESET TO ZONE DEFAULTS
+
+            - name: Remove custom zone
+              command: firewall-cmd --permanent --delete-zone=custom
+              register: result
+              failed_when: result.failed and "INVALID_ZONE" not in result.stderr
+
+            - name: Remove customzone zone
+              command: firewall-cmd --permanent --delete-zone=customzone
+              register: result
+              failed_when: result.failed and "INVALID_ZONE" not in result.stderr
+
+            - name: Reset internal zone to defaults
+              command: firewall-cmd --permanent --load-zone-defaults=internal
+              register: result
+              failed_when: result.failed and "NO_DEFAULTS" not in result.stderr
+
+            - name: Reset trusted zone to defaults
+              command: firewall-cmd --permanent --load-zone-defaults=trusted
+              register: result
+              failed_when: result.failed and "NO_DEFAULTS" not in result.stderr
+
+            - name: Reset dmz zone to defaults
+              command: firewall-cmd --permanent --load-zone-defaults=dmz
+              register: result
+              failed_when: result.failed and "NO_DEFAULTS" not in result.stderr
+
+            - name: Reset drop zone to defaults
+              command: firewall-cmd --permanent --load-zone-defaults=drop
+              register: result
+              failed_when: result.failed and "NO_DEFAULTS" not in result.stderr
+
+            - name: Reset public zone to defaults
+              command: firewall-cmd --permanent --load-zone-defaults=public
+              register: result
+              failed_when: result.failed and "NO_DEFAULTS" not in result.stderr
+
+            - name: Reset default zone to defaults
+              command: firewall-cmd --permanent --load-zone-defaults=public
+              register: result
+              failed_when: result.failed and "NO_DEFAULTS" not in result.stderr
+
+            - name: Reload firewalld
+              command: firewall-cmd --reload
+              register: result
+              failed_when: result.failed or not result.changed

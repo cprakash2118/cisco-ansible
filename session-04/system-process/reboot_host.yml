@@ -1,0 +1,9 @@
+---
+- name: Reboot hosts
+  hosts: webservers
+  become: true
+  tasks:
+    - name: Hosts are rebooted
+      ansible.builtin.reboot:
+        reboot_timeout: 12
+

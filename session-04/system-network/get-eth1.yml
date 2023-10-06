@@ -1,0 +1,9 @@
+---
+- name: Obtain network info for webservers
+  hosts: webservers
+
+  tasks:
+
+    - name: Display eth1 info
+      ansible.builtin.debug:
+        var: ansible_facts['eth1']['ipv4']

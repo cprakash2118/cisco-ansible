@@ -1,0 +1,683 @@
+2023-10-06 08:10:46,081 p=16 u=root n=ansible | {"/usr/share/ansible/collections/ansible_collections": {"amazon.aws": {"version": "3.2.0"}, "ansible.controller": {"version": "4.2.1"}, "ansible.netcommon": {"version": "3.0.0"}, "ansible.network": {"version": "1.2.0"}, "ansible.posix": {"version": "1.3.0"}, "ansible.security": {"version": "1.0.0"}, "ansible.utils": {"version": "2.6.1"}, "ansible.windows": {"version": "1.9.0"}, "ansible.yang": {"version": "1.0.0"}, "arista.eos": {"version": "5.0.0"}, "cisco.asa": {"version": "3.0.0"}, "cisco.ios": {"version": "3.0.0"}, "cisco.iosxr": {"version": "3.0.0"}, "cisco.nxos": {"version": "3.0.0"}, "cloud.common": {"version": "2.1.1"}, "frr.frr": {"version": "2.0.0"}, "ibm.qradar": {"version": "2.0.0"}, "junipernetworks.junos": {"version": "3.0.0"}, "kubernetes.core": {"version": "2.2.3"}, "openvswitch.openvswitch": {"version": "2.1.0"}, "redhat.insights": {"version": "1.0.7"}, "redhat.openshift": {"version": "2.1.0"}, "redhat.rhv": {"version": "1.6.5"}, "redhat.satellite": {"version": "3.3.0"}, "servicenow.itsm": {"version": "1.3.3"}, "splunk.es": {"version": "2.0.0"}, "trendmicro.deepsec": {"version": "2.0.0"}, "vmware.vmware_rest": {"version": "2.1.5"}, "vyos.vyos": {"version": "3.0.0"}}}
+2023-10-06 08:10:47,383 p=21 u=root n=ansible | ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  mapping values are not allowed in this context
+
+The error appears to be in '/home/student/troubleshoot-playbook/samba.yml': line 8, column 30, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+    install_state: installed
+    random_var: This is colon: test
+                             ^ here
+
+2023-10-06 08:11:27,770 p=16 u=root n=ansible | {"/usr/share/ansible/collections/ansible_collections": {"amazon.aws": {"version": "3.2.0"}, "ansible.controller": {"version": "4.2.1"}, "ansible.netcommon": {"version": "3.0.0"}, "ansible.network": {"version": "1.2.0"}, "ansible.posix": {"version": "1.3.0"}, "ansible.security": {"version": "1.0.0"}, "ansible.utils": {"version": "2.6.1"}, "ansible.windows": {"version": "1.9.0"}, "ansible.yang": {"version": "1.0.0"}, "arista.eos": {"version": "5.0.0"}, "cisco.asa": {"version": "3.0.0"}, "cisco.ios": {"version": "3.0.0"}, "cisco.iosxr": {"version": "3.0.0"}, "cisco.nxos": {"version": "3.0.0"}, "cloud.common": {"version": "2.1.1"}, "frr.frr": {"version": "2.0.0"}, "ibm.qradar": {"version": "2.0.0"}, "junipernetworks.junos": {"version": "3.0.0"}, "kubernetes.core": {"version": "2.2.3"}, "openvswitch.openvswitch": {"version": "2.1.0"}, "redhat.insights": {"version": "1.0.7"}, "redhat.openshift": {"version": "2.1.0"}, "redhat.rhv": {"version": "1.6.5"}, "redhat.satellite": {"version": "3.3.0"}, "servicenow.itsm": {"version": "1.3.3"}, "splunk.es": {"version": "2.0.0"}, "trendmicro.deepsec": {"version": "2.0.0"}, "vmware.vmware_rest": {"version": "2.1.5"}, "vyos.vyos": {"version": "3.0.0"}}}
+2023-10-06 08:11:28,947 p=21 u=root n=ansible | ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  did not find expected '-' indicator
+
+The error appears to be in '/home/student/troubleshoot-playbook/samba.yml': line 38, column 6, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+     - name: Deliver samba config
+     ^ here
+
+2023-10-06 08:12:02,765 p=16 u=root n=ansible | {"/usr/share/ansible/collections/ansible_collections": {"amazon.aws": {"version": "3.2.0"}, "ansible.controller": {"version": "4.2.1"}, "ansible.netcommon": {"version": "3.0.0"}, "ansible.network": {"version": "1.2.0"}, "ansible.posix": {"version": "1.3.0"}, "ansible.security": {"version": "1.0.0"}, "ansible.utils": {"version": "2.6.1"}, "ansible.windows": {"version": "1.9.0"}, "ansible.yang": {"version": "1.0.0"}, "arista.eos": {"version": "5.0.0"}, "cisco.asa": {"version": "3.0.0"}, "cisco.ios": {"version": "3.0.0"}, "cisco.iosxr": {"version": "3.0.0"}, "cisco.nxos": {"version": "3.0.0"}, "cloud.common": {"version": "2.1.1"}, "frr.frr": {"version": "2.0.0"}, "ibm.qradar": {"version": "2.0.0"}, "junipernetworks.junos": {"version": "3.0.0"}, "kubernetes.core": {"version": "2.2.3"}, "openvswitch.openvswitch": {"version": "2.1.0"}, "redhat.insights": {"version": "1.0.7"}, "redhat.openshift": {"version": "2.1.0"}, "redhat.rhv": {"version": "1.6.5"}, "redhat.satellite": {"version": "3.3.0"}, "servicenow.itsm": {"version": "1.3.3"}, "splunk.es": {"version": "2.0.0"}, "trendmicro.deepsec": {"version": "2.0.0"}, "vmware.vmware_rest": {"version": "2.1.5"}, "vyos.vyos": {"version": "3.0.0"}}}
+2023-10-06 08:12:03,961 p=21 u=root n=ansible | ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  found unacceptable key (unhashable type: 'AnsibleMapping')
+
+The error appears to be in '/home/student/troubleshoot-playbook/samba.yml': line 14, column 17, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+        name: samba
+        state: {{ install_state }}
+                ^ here
+We could be wrong, but this one looks like it might be an issue with
+missing quotes. Always quote template expression brackets when they
+start a value. For instance:
+
+    with_items:
+      - {{ foo }}
+
+Should be written as:
+
+    with_items:
+      - "{{ foo }}"
+
+2023-10-06 08:12:31,278 p=16 u=root n=ansible | {"/usr/share/ansible/collections/ansible_collections": {"amazon.aws": {"version": "3.2.0"}, "ansible.controller": {"version": "4.2.1"}, "ansible.netcommon": {"version": "3.0.0"}, "ansible.network": {"version": "1.2.0"}, "ansible.posix": {"version": "1.3.0"}, "ansible.security": {"version": "1.0.0"}, "ansible.utils": {"version": "2.6.1"}, "ansible.windows": {"version": "1.9.0"}, "ansible.yang": {"version": "1.0.0"}, "arista.eos": {"version": "5.0.0"}, "cisco.asa": {"version": "3.0.0"}, "cisco.ios": {"version": "3.0.0"}, "cisco.iosxr": {"version": "3.0.0"}, "cisco.nxos": {"version": "3.0.0"}, "cloud.common": {"version": "2.1.1"}, "frr.frr": {"version": "2.0.0"}, "ibm.qradar": {"version": "2.0.0"}, "junipernetworks.junos": {"version": "3.0.0"}, "kubernetes.core": {"version": "2.2.3"}, "openvswitch.openvswitch": {"version": "2.1.0"}, "redhat.insights": {"version": "1.0.7"}, "redhat.openshift": {"version": "2.1.0"}, "redhat.rhv": {"version": "1.6.5"}, "redhat.satellite": {"version": "3.3.0"}, "servicenow.itsm": {"version": "1.3.3"}, "splunk.es": {"version": "2.0.0"}, "trendmicro.deepsec": {"version": "2.0.0"}, "vmware.vmware_rest": {"version": "2.1.5"}, "vyos.vyos": {"version": "3.0.0"}}}
+2023-10-06 08:12:32,486 p=21 u=root n=ansible | playbook: /home/student/troubleshoot-playbook/samba.yml
+2023-10-06 08:12:39,103 p=16 u=root n=ansible | {"/usr/share/ansible/collections/ansible_collections": {"amazon.aws": {"version": "3.2.0"}, "ansible.controller": {"version": "4.2.1"}, "ansible.netcommon": {"version": "3.0.0"}, "ansible.network": {"version": "1.2.0"}, "ansible.posix": {"version": "1.3.0"}, "ansible.security": {"version": "1.0.0"}, "ansible.utils": {"version": "2.6.1"}, "ansible.windows": {"version": "1.9.0"}, "ansible.yang": {"version": "1.0.0"}, "arista.eos": {"version": "5.0.0"}, "cisco.asa": {"version": "3.0.0"}, "cisco.ios": {"version": "3.0.0"}, "cisco.iosxr": {"version": "3.0.0"}, "cisco.nxos": {"version": "3.0.0"}, "cloud.common": {"version": "2.1.1"}, "frr.frr": {"version": "2.0.0"}, "ibm.qradar": {"version": "2.0.0"}, "junipernetworks.junos": {"version": "3.0.0"}, "kubernetes.core": {"version": "2.2.3"}, "openvswitch.openvswitch": {"version": "2.1.0"}, "redhat.insights": {"version": "1.0.7"}, "redhat.openshift": {"version": "2.1.0"}, "redhat.rhv": {"version": "1.6.5"}, "redhat.satellite": {"version": "3.3.0"}, "servicenow.itsm": {"version": "1.3.3"}, "splunk.es": {"version": "2.0.0"}, "trendmicro.deepsec": {"version": "2.0.0"}, "vmware.vmware_rest": {"version": "2.1.5"}, "vyos.vyos": {"version": "3.0.0"}}}
+2023-10-06 08:12:40,380 p=21 u=root n=ansible | PLAY [Install a samba server] *******************************************************************************************
+2023-10-06 08:12:40,402 p=21 u=root n=ansible | TASK [Gathering Facts] **************************************************************************************************
+2023-10-06 08:12:42,303 p=21 u=root n=ansible | ok: [servera.lab.example.com]
+2023-10-06 08:12:42,331 p=21 u=root n=ansible | TASK [Install samba] ****************************************************************************************************
+2023-10-06 08:12:44,798 p=21 u=root n=ansible | changed: [servera.lab.example.com]
+2023-10-06 08:12:44,810 p=21 u=root n=ansible | TASK [Install firewalld] ************************************************************************************************
+2023-10-06 08:12:46,282 p=21 u=root n=ansible | ok: [servera.lab.example.com]
+2023-10-06 08:12:46,294 p=21 u=root n=ansible | TASK [Debug install_state variable] *************************************************************************************
+2023-10-06 08:12:46,325 p=21 u=root n=ansible | ok: [servera.lab.example.com] => {
+    "msg": "The state for the samba service is installed"
+}
+2023-10-06 08:12:46,337 p=21 u=root n=ansible | TASK [Start firewalld] **************************************************************************************************
+2023-10-06 08:12:47,379 p=21 u=root n=ansible | ok: [servera.lab.example.com]
+2023-10-06 08:12:47,390 p=21 u=root n=ansible | TASK [Configure firewall for samba] *************************************************************************************
+2023-10-06 08:12:48,275 p=21 u=root n=ansible | changed: [servera.lab.example.com]
+2023-10-06 08:12:48,288 p=21 u=root n=ansible | TASK [Deliver samba config] *********************************************************************************************
+2023-10-06 08:12:48,478 p=21 u=root n=ansible | An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+2023-10-06 08:12:48,478 p=21 u=root n=ansible | fatal: [servera.lab.example.com]: FAILED! => {"changed": false, "msg": "Could not find or access 'samba.j2'\nSearched in:\n\t/home/student/troubleshoot-playbook/templates/samba.j2\n\t/home/student/troubleshoot-playbook/samba.j2\n\t/home/student/troubleshoot-playbook/templates/samba.j2\n\t/home/student/troubleshoot-playbook/samba.j2 on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2023-10-06 08:12:48,480 p=21 u=root n=ansible | PLAY RECAP **************************************************************************************************************
+2023-10-06 08:12:48,480 p=21 u=root n=ansible | servera.lab.example.com    : ok=6    changed=2    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2023-10-06 08:13:01,269 p=16 u=root n=ansible | {"/usr/share/ansible/collections/ansible_collections": {"amazon.aws": {"version": "3.2.0"}, "ansible.controller": {"version": "4.2.1"}, "ansible.netcommon": {"version": "3.0.0"}, "ansible.network": {"version": "1.2.0"}, "ansible.posix": {"version": "1.3.0"}, "ansible.security": {"version": "1.0.0"}, "ansible.utils": {"version": "2.6.1"}, "ansible.windows": {"version": "1.9.0"}, "ansible.yang": {"version": "1.0.0"}, "arista.eos": {"version": "5.0.0"}, "cisco.asa": {"version": "3.0.0"}, "cisco.ios": {"version": "3.0.0"}, "cisco.iosxr": {"version": "3.0.0"}, "cisco.nxos": {"version": "3.0.0"}, "cloud.common": {"version": "2.1.1"}, "frr.frr": {"version": "2.0.0"}, "ibm.qradar": {"version": "2.0.0"}, "junipernetworks.junos": {"version": "3.0.0"}, "kubernetes.core": {"version": "2.2.3"}, "openvswitch.openvswitch": {"version": "2.1.0"}, "redhat.insights": {"version": "1.0.7"}, "redhat.openshift": {"version": "2.1.0"}, "redhat.rhv": {"version": "1.6.5"}, "redhat.satellite": {"version": "3.3.0"}, "servicenow.itsm": {"version": "1.3.3"}, "splunk.es": {"version": "2.0.0"}, "trendmicro.deepsec": {"version": "2.0.0"}, "vmware.vmware_rest": {"version": "2.1.5"}, "vyos.vyos": {"version": "3.0.0"}}}
+2023-10-06 08:13:02,253 p=21 u=root n=ansible | ansible-playbook [core 2.13.3]
+  config file = /home/student/troubleshoot-playbook/ansible.cfg
+  configured module search path = ['/home/runner/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python3.9/site-packages/ansible
+  ansible collection location = /home/runner/.ansible/collections:/usr/share/ansible/collections
+  executable location = /usr/bin/ansible-playbook
+  python version = 3.9.7 (default, Sep 13 2021, 08:18:39) [GCC 8.5.0 20210514 (Red Hat 8.5.0-3)]
+  jinja version = 3.0.3
+  libyaml = True
+2023-10-06 08:13:02,253 p=21 u=root n=ansible | Using /home/student/troubleshoot-playbook/ansible.cfg as config file
+2023-10-06 08:13:02,262 p=21 u=root n=ansible | host_list declined parsing /home/student/troubleshoot-playbook/inventory as it did not pass its verify_file() method
+2023-10-06 08:13:02,262 p=21 u=root n=ansible | script declined parsing /home/student/troubleshoot-playbook/inventory as it did not pass its verify_file() method
+2023-10-06 08:13:02,262 p=21 u=root n=ansible | auto declined parsing /home/student/troubleshoot-playbook/inventory as it did not pass its verify_file() method
+2023-10-06 08:13:02,264 p=21 u=root n=ansible | Parsed /home/student/troubleshoot-playbook/inventory inventory source with ini plugin
+2023-10-06 08:13:02,476 p=21 u=root n=ansible | Skipping callback 'awx_display', as we already have a stdout callback.
+2023-10-06 08:13:02,476 p=21 u=root n=ansible | Skipping callback 'default', as we already have a stdout callback.
+2023-10-06 08:13:02,476 p=21 u=root n=ansible | Skipping callback 'minimal', as we already have a stdout callback.
+2023-10-06 08:13:02,477 p=21 u=root n=ansible | Skipping callback 'oneline', as we already have a stdout callback.
+2023-10-06 08:13:02,477 p=21 u=root n=ansible | PLAYBOOK: samba.yml *****************************************************************************************************
+2023-10-06 08:13:02,478 p=21 u=root n=ansible | 1 plays in /home/student/troubleshoot-playbook/samba.yml
+2023-10-06 08:13:02,479 p=21 u=root n=ansible | PLAY [Install a samba server] *******************************************************************************************
+2023-10-06 08:13:02,494 p=21 u=root n=ansible | TASK [Gathering Facts] **************************************************************************************************
+2023-10-06 08:13:02,527 p=25 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:02,528 p=25 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'echo ~devops && sleep 0'"'"''
+2023-10-06 08:13:02,939 p=25 u=root n=ansible | <servera.lab.example.com> (0, b'/home/devops\n', b'')
+2023-10-06 08:13:02,940 p=25 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:02,941 p=25 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'( umask 77 && mkdir -p "` echo /home/devops/.ansible/tmp `"&& mkdir "` echo /home/devops/.ansible/tmp/ansible-tmp-1696579982.9401007-25-171583936542506 `" && echo ansible-tmp-1696579982.9401007-25-171583936542506="` echo /home/devops/.ansible/tmp/ansible-tmp-1696579982.9401007-25-171583936542506 `" ) && sleep 0'"'"''
+2023-10-06 08:13:02,992 p=25 u=root n=ansible | <servera.lab.example.com> (0, b'ansible-tmp-1696579982.9401007-25-171583936542506=/home/devops/.ansible/tmp/ansible-tmp-1696579982.9401007-25-171583936542506\n', b'')
+2023-10-06 08:13:03,298 p=25 u=root n=ansible | <servera.lab.example.com> Attempting python interpreter discovery
+2023-10-06 08:13:03,298 p=25 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:03,299 p=25 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'echo PLATFORM; uname; echo FOUND; command -v '"'"'"'"'"'"'"'"'python3.10'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python3.9'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python3.8'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python3.7'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python3.6'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python3.5'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'/usr/bin/python3'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'/usr/libexec/platform-python'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python2.7'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'/usr/bin/python'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python'"'"'"'"'"'"'"'"'; echo ENDFOUND && sleep 0'"'"''
+2023-10-06 08:13:03,345 p=25 u=root n=ansible | <servera.lab.example.com> (0, b'PLATFORM\nLinux\nFOUND\n/usr/bin/python3.9\n/usr/bin/python3\n/usr/libexec/platform-python\n/usr/bin/python\n/usr/bin/python\nENDFOUND\n', b'')
+2023-10-06 08:13:03,347 p=25 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:03,348 p=25 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'/usr/bin/python3.9 && sleep 0'"'"''
+2023-10-06 08:13:03,424 p=25 u=root n=ansible | <servera.lab.example.com> (0, b'{"platform_dist_result": [], "osrelease_content": "NAME=\\"Red Hat Enterprise Linux\\"\\nVERSION=\\"9.0 (Plow)\\"\\nID=\\"rhel\\"\\nID_LIKE=\\"fedora\\"\\nVERSION_ID=\\"9.0\\"\\nPLATFORM_ID=\\"platform:el9\\"\\nPRETTY_NAME=\\"Red Hat Enterprise Linux 9.0 (Plow)\\"\\nANSI_COLOR=\\"0;31\\"\\nLOGO=\\"fedora-logo-icon\\"\\nCPE_NAME=\\"cpe:/o:redhat:enterprise_linux:9::baseos\\"\\nHOME_URL=\\"https://www.redhat.com/\\"\\nDOCUMENTATION_URL=\\"https://access.redhat.com/documentation/red_hat_enterprise_linux/9/\\"\\nBUG_REPORT_URL=\\"https://bugzilla.redhat.com/\\"\\n\\nREDHAT_BUGZILLA_PRODUCT=\\"Red Hat Enterprise Linux 9\\"\\nREDHAT_BUGZILLA_PRODUCT_VERSION=9.0\\nREDHAT_SUPPORT_PRODUCT=\\"Red Hat Enterprise Linux\\"\\nREDHAT_SUPPORT_PRODUCT_VERSION=\\"9.0\\"\\n"}\n', b'')
+2023-10-06 08:13:03,427 p=25 u=root n=ansible | Using module file /usr/lib/python3.9/site-packages/ansible/modules/setup.py
+2023-10-06 08:13:03,428 p=25 u=root n=ansible | <servera.lab.example.com> PUT /home/runner/.ansible/tmp/ansible-local-2116u4toqk/tmpxc3yuz47 TO /home/devops/.ansible/tmp/ansible-tmp-1696579982.9401007-25-171583936542506/AnsiballZ_setup.py
+2023-10-06 08:13:03,429 p=25 u=root n=ansible | <servera.lab.example.com> SSH: EXEC sftp -b - -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' '[servera.lab.example.com]'
+2023-10-06 08:13:03,494 p=25 u=root n=ansible | <servera.lab.example.com> (0, b'sftp> put /home/runner/.ansible/tmp/ansible-local-2116u4toqk/tmpxc3yuz47 /home/devops/.ansible/tmp/ansible-tmp-1696579982.9401007-25-171583936542506/AnsiballZ_setup.py\n', b'')
+2023-10-06 08:13:03,495 p=25 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:03,496 p=25 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'chmod u+x /home/devops/.ansible/tmp/ansible-tmp-1696579982.9401007-25-171583936542506/ /home/devops/.ansible/tmp/ansible-tmp-1696579982.9401007-25-171583936542506/AnsiballZ_setup.py && sleep 0'"'"''
+2023-10-06 08:13:03,542 p=25 u=root n=ansible | <servera.lab.example.com> (0, b'', b'')
+2023-10-06 08:13:03,543 p=25 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:03,544 p=25 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' -tt servera.lab.example.com '/bin/sh -c '"'"'sudo -H -S -n  -u root /bin/sh -c '"'"'"'"'"'"'"'"'echo BECOME-SUCCESS-ihmhybkjsezgreamtfdmzusmksifyzgw ; /usr/bin/python3 /home/devops/.ansible/tmp/ansible-tmp-1696579982.9401007-25-171583936542506/AnsiballZ_setup.py'"'"'"'"'"'"'"'"' && sleep 0'"'"''
+2023-10-06 08:13:03,618 p=25 u=root n=ansible | Escalation succeeded
+2023-10-06 08:13:04,282 p=25 u=root n=ansible | <servera.lab.example.com> (0, b'\r\n{"ansible_facts": {"ansible_ssh_host_key_rsa_public": "AAAAB3NzaC1yc2EAAAADAQABAAABgQC8WDOooY+rh6NPa9yhLsNQXBqcQknTL/WSd3zPvHLLd7KaC4IiEUxnwbfLBit8tRcirbQFxO20Am+6WJ2kpo34ZnlQYJz3AulZjuvat7x9DxzQ2duSwSUbLtqteMtl3vS7RPUZlSnGQKuPrkcLrWYZDQveC11efyBhyskjJYPXu7Csd3iA2EmtcNa10AUoK0f2XQC7R9wSb5D1md1JvaavQ107YFlzDHppRncWI51PwbyICaCVq7Kv4LdrcmQfsAyobPizWgp7u3Ui/Narxk7ev58tmBmI3nxnC6Fiec60zqhbWrnFI062kV9p+YWHOExjLEY1WRRJGJ26dAyfief2dp6uza+LHG88Nfo0j3m3PlxW+AvM9eeboJEu+h7KfqWlXr2zrSs7pdFBpM3f7+dEG9uaWaeznUc7N9XFXh+keVxBJZK4PUy5u2Ytqv9Fm4WNvpnvXSmav9lfevtZFe2XFj9RcVqTrUFJ7Zz/87V2JCmSILGNbzR9z9mhcHRMtxc=", "ansible_ssh_host_key_rsa_public_keytype": "ssh-rsa", "ansible_ssh_host_key_ecdsa_public": "AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCS8A5ZVCNeibYgG2JlhzCLq3RVHdXmhNCBEGiQ+5ywTj/127AS5gu8ZGLzyMp6K1J4woTWHS4RfZzvycmC8vto=", "ansible_ssh_host_key_ecdsa_public_keytype": "ecdsa-sha2-nistp256", "ansible_ssh_host_key_ed25519_public": "AAAAC3NzaC1lZDI1NTE5AAAAIOmiLKMExRnsS1g7OTxMsOmgHuUSGQBUxHhuUGcv19uT", "ansible_ssh_host_key_ed25519_public_keytype": "ssh-ed25519", "ansible_distribution": "RedHat", "ansible_distribution_release": "Plow", "ansible_distribution_version": "9.0", "ansible_distribution_major_version": "9", "ansible_distribution_file_path": "/etc/redhat-release", "ansible_distribution_file_variety": "RedHat", "ansible_distribution_file_parsed": true, "ansible_distribution_file_search_string": "Red Hat", "ansible_os_family": "RedHat", "ansible_fibre_channel_wwn": [], "ansible_system": "Linux", "ansible_kernel": "5.14.0-70.13.1.el9_0.x86_64", "ansible_kernel_version": "#1 SMP PREEMPT Thu Apr 14 12:42:38 EDT 2022", "ansible_machine": "x86_64", "ansible_python_version": "3.9.10", "ansible_fqdn": "servera.lab.example.com", "ansible_hostname": "servera", "ansible_nodename": "servera.lab.example.com", "ansible_domain": "lab.example.com", "ansible_userspace_bits": "64", "ansible_architecture": "x86_64", "ansible_userspace_architecture": "x86_64", "ansible_machine_id": "c6f53639c890455887f6f02a2d78ff3f", "ansible_user_id": "root", "ansible_user_uid": 0, "ansible_user_gid": 0, "ansible_user_gecos": "root", "ansible_user_dir": "/root", "ansible_user_shell": "/bin/bash", "ansible_real_user_id": 0, "ansible_effective_user_id": 0, "ansible_real_group_id": 0, "ansible_effective_group_id": 0, "ansible_iscsi_iqn": "", "ansible_cmdline": {"BOOT_IMAGE": "(hd0,gpt3)/vmlinuz-5.14.0-70.13.1.el9_0.x86_64", "root": "UUID=fb535add-9799-4a27-b8bc-e8259f39a767", "console": "ttyS0,115200n8", "no_timer_check": true, "net.ifnames": "0", "crashkernel": "1G-4G:192M,4G-64G:256M,64G-:512M"}, "ansible_proc_cmdline": {"BOOT_IMAGE": "(hd0,gpt3)/vmlinuz-5.14.0-70.13.1.el9_0.x86_64", "root": "UUID=fb535add-9799-4a27-b8bc-e8259f39a767", "console": ["tty0", "ttyS0,115200n8"], "no_timer_check": true, "net.ifnames": "0", "crashkernel": "1G-4G:192M,4G-64G:256M,64G-:512M"}, "ansible_virtualization_role": "guest", "ansible_virtualization_type": "openstack", "ansible_virtualization_tech_guest": ["openstack"], "ansible_virtualization_tech_host": ["kvm"], "ansible_selinux_python_present": true, "ansible_selinux": {"status": "enabled", "policyvers": 33, "config_mode": "enforcing", "mode": "enforcing", "type": "targeted"}, "ansible_lsb": {}, "ansible_fips": false, "ansible_system_capabilities_enforced": "False", "ansible_system_capabilities": [], "ansible_local": {}, "ansible_python": {"version": {"major": 3, "minor": 9, "micro": 10, "releaselevel": "final", "serial": 0}, "version_info": [3, 9, 10, "final", 0], "executable": "/usr/bin/python3", "has_sslcontext": true, "type": "cpython"}, "ansible_is_chroot": false, "ansible_env": {"SHELL": "/bin/bash", "SUDO_GID": "1001", "SUDO_COMMAND": "/bin/sh -c echo BECOME-SUCCESS-ihmhybkjsezgreamtfdmzusmksifyzgw ; /usr/bin/python3 /home/devops/.ansible/tmp/ansible-tmp-1696579982.9401007-25-171583936542506/AnsiballZ_setup.py", "SUDO_USER": "devops", "PWD": "/home/devops", "LOGNAME": "root", "HOME": "/root", "LANG": "en_US.UTF-8", "LS_COLORS": "rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=01;37;41:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=01;36:*.au=01;36:*.flac=01;36:*.m4a=01;36:*.mid=01;36:*.midi=01;36:*.mka=01;36:*.mp3=01;36:*.mpc=01;36:*.ogg=01;36:*.ra=01;36:*.wav=01;36:*.oga=01;36:*.opus=01;36:*.spx=01;36:*.xspf=01;36:", "TERM": "xterm", "USER": "root", "SHLVL": "0", "PATH": "/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin", "SUDO_UID": "1001", "MAIL": "/var/mail/root", "_": "/usr/bin/python3"}, "ansible_apparmor": {"status": "disabled"}, "ansible_hostnqn": "nqn.2014-08.org.nvmexpress:uuid:70ba7a79-d9fe-4ef9-9b40-3ee8778e8398", "ansible_date_time": {"year": "2023", "month": "10", "weekday": "Friday", "weekday_number": "5", "weeknumber": "40", "day": "06", "hour": "04", "minute": "13", "second": "03", "epoch": "1696579983", "epoch_int": "1696579983", "date": "2023-10-06", "time": "04:13:03", "iso8601_micro": "2023-10-06T08:13:03.892362Z", "iso8601": "2023-10-06T08:13:03Z", "iso8601_basic": "20231006T041303892362", "iso8601_basic_short": "20231006T041303", "tz": "EDT", "tz_dst": "EDT", "tz_offset": "-0400"}, "ansible_pkg_mgr": "dnf", "ansible_processor": ["0", "GenuineIntel", "Intel(R) Xeon(R) Gold 6248 CPU @ 2.50GHz"], "ansible_processor_count": 1, "ansible_processor_cores": 1, "ansible_processor_threads_per_core": 1, "ansible_processor_vcpus": 1, "ansible_processor_nproc": 1, "ansible_memtotal_mb": 960, "ansible_memfree_mb": 203, "ansible_swaptotal_mb": 0, "ansible_swapfree_mb": 0, "ansible_memory_mb": {"real": {"total": 960, "used": 757, "free": 203}, "nocache": {"free": 482, "used": 478}, "swap": {"total": 0, "free": 0, "used": 0, "cached": 0}}, "ansible_bios_date": "04/01/2014", "ansible_bios_vendor": "SeaBIOS", "ansible_bios_version": "1.14.0-1.module+el8.4.0+8855+a9e237a9", "ansible_board_asset_tag": "NA", "ansible_board_name": "NA", "ansible_board_serial": "NA", "ansible_board_vendor": "NA", "ansible_board_version": "NA", "ansible_chassis_asset_tag": "NA", "ansible_chassis_serial": "NA", "ansible_chassis_vendor": "Red Hat", "ansible_chassis_version": "RHEL 7.6.0 PC (i440FX + PIIX, 1996)", "ansible_form_factor": "Other", "ansible_product_name": "OpenStack Compute", "ansible_product_serial": "0f16eee1-524b-48af-8e87-3fd6646b6e59", "ansible_product_uuid": "0f16eee1-524b-48af-8e87-3fd6646b6e59", "ansible_product_version": "20.6.2-2.20221005185231.6786e96.el8ost", "ansible_system_vendor": "Red Hat", "ansible_devices": {"vdb": {"virtual": 1, "links": {"ids": ["virtio-722574ea-9caf-492e-9"], "uuids": [], "labels": [], "masters": []}, "vendor": "0x1af4", "model": null, "sas_address": null, "sas_device_handle": null, "removable": "0", "support_discard": "0", "partitions": {}, "rotational": "1", "scheduler_mode": "mq-deadline", "sectors": "2097152", "sectorsize": "512", "size": "1.00 GB", "host": "SCSI storage controller: Red Hat, Inc. Virtio block device", "holders": []}, "vda": {"virtual": 1, "links": {"ids": ["virtio-4bb39f6b-6805-453e-9"], "uuids": [], "labels": [], "masters": []}, "vendor": "0x1af4", "model": null, "sas_address": null, "sas_device_handle": null, "removable": "0", "support_discard": "0", "partitions": {"vda4": {"links": {"ids": ["virtio-4bb39f6b-6805-453e-9-part4"], "uuids": ["fb535add-9799-4a27-b8bc-e8259f39a767"], "labels": ["root"], "masters": []}, "start": "1437696", "sectors": "19533791", "sectorsize": 512, "size": "9.31 GB", "uuid": "fb535add-9799-4a27-b8bc-e8259f39a767", "holders": []}, "vda2": {"links": {"ids": ["virtio-4bb39f6b-6805-453e-9-part2"], "uuids": ["7B77-95E7"], "labels": [], "masters": []}, "start": "4096", "sectors": "409600", "sectorsize": 512, "size": "200.00 MB", "uuid": "7B77-95E7", "holders": []}, "vda3": {"links": {"ids": ["virtio-4bb39f6b-6805-453e-9-part3"], "uuids": ["5e75a2b9-1367-4cc8-bb38-4d6abc3964b8"], "labels": ["boot"], "masters": []}, "start": "413696", "sectors": "1024000", "sectorsize": 512, "size": "500.00 MB", "uuid": "5e75a2b9-1367-4cc8-bb38-4d6abc3964b8", "holders": []}, "vda1": {"links": {"ids": ["virtio-4bb39f6b-6805-453e-9-part1"], "uuids": [], "labels": [], "masters": []}, "start": "2048", "sectors": "2048", "sectorsize": 512, "size": "1.00 MB", "uuid": null, "holders": []}}, "rotational": "1", "scheduler_mode": "mq-deadline", "sectors": "20971520", "sectorsize": "512", "size": "10.00 GB", "host": "SCSI storage controller: Red Hat, Inc. Virtio block device", "holders": []}}, "ansible_device_links": {"ids": {"vda2": ["virtio-4bb39f6b-6805-453e-9-part2"], "vda4": ["virtio-4bb39f6b-6805-453e-9-part4"], "vda1": ["virtio-4bb39f6b-6805-453e-9-part1"], "vda3": ["virtio-4bb39f6b-6805-453e-9-part3"], "vda": ["virtio-4bb39f6b-6805-453e-9"], "vdb": ["virtio-722574ea-9caf-492e-9"]}, "uuids": {"vda2": ["7B77-95E7"], "vda4": ["fb535add-9799-4a27-b8bc-e8259f39a767"], "vda3": ["5e75a2b9-1367-4cc8-bb38-4d6abc3964b8"]}, "labels": {"vda4": ["root"], "vda3": ["boot"]}, "masters": {}}, "ansible_uptime_seconds": 16222, "ansible_lvm": {"lvs": {}, "vgs": {}, "pvs": {}}, "ansible_mounts": [{"mount": "/", "device": "/dev/vda4", "fstype": "xfs", "options": "rw,seclabel,relatime,attr2,inode64,logbufs=8,logbsize=32k,noquota", "size_total": 9990811648, "size_available": 4815163392, "block_size": 4096, "block_total": 2439163, "block_available": 1175577, "block_used": 1263586, "inode_total": 4883392, "inode_available": 4751225, "inode_used": 132167, "uuid": "fb535add-9799-4a27-b8bc-e8259f39a767"}, {"mount": "/boot", "device": "/dev/vda3", "fstype": "xfs", "options": "rw,seclabel,relatime,attr2,inode64,logbufs=8,logbsize=32k,noquota", "size_total": 518684672, "size_available": 350957568, "block_size": 4096, "block_total": 126632, "block_available": 85683, "block_used": 40949, "inode_total": 256000, "inode_available": 255693, "inode_used": 307, "uuid": "5e75a2b9-1367-4cc8-bb38-4d6abc3964b8"}, {"mount": "/boot/efi", "device": "/dev/vda2", "fstype": "vfat", "options": "rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=ascii,shortname=winnt,errors=remount-ro", "size_total": 209489920, "size_available": 202170368, "block_size": 4096, "block_total": 51145, "block_available": 49358, "block_used": 1787, "inode_total": 0, "inode_available": 0, "inode_used": 0, "uuid": "7B77-95E7"}], "ansible_dns": {"search": ["lab.example.com", "example.com"], "nameservers": ["172.25.250.220"]}, "ansible_interfaces": ["eth0", "lo", "eth1"], "ansible_eth0": {"device": "eth0", "macaddress": "52:54:00:00:fa:0a", "mtu": 1500, "active": true, "module": "virtio_net", "type": "ether", "pciid": "virtio0", "speed": -1, "promisc": false, "ipv4": {"address": "172.25.250.10", "broadcast": "172.25.250.255", "netmask": "255.255.255.0", "network": "172.25.250.0", "prefix": "24"}, "ipv6": [{"address": "fe80::a973:f7b3:7b00:e503", "prefix": "64", "scope": "link"}], "features": {"rx_checksumming": "on [fixed]", "tx_checksumming": "on", "tx_checksum_ipv4": "off [fixed]", "tx_checksum_ip_generic": "on", "tx_checksum_ipv6": "off [fixed]", "tx_checksum_fcoe_crc": "off [fixed]", "tx_checksum_sctp": "off [fixed]", "scatter_gather": "on", "tx_scatter_gather": "on", "tx_scatter_gather_fraglist": "off [fixed]", "tcp_segmentation_offload": "on", "tx_tcp_segmentation": "on", "tx_tcp_ecn_segmentation": "on", "tx_tcp_mangleid_segmentation": "off", "tx_tcp6_segmentation": "on", "generic_segmentation_offload": "on", "generic_receive_offload": "on", "large_receive_offload": "off [fixed]", "rx_vlan_offload": "off [fixed]", "tx_vlan_offload": "off [fixed]", "ntuple_filters": "off [fixed]", "receive_hashing": "off [fixed]", "highdma": "on [fixed]", "rx_vlan_filter": "on [fixed]", "vlan_challenged": "off [fixed]", "tx_lockless": "off [fixed]", "netns_local": "off [fixed]", "tx_gso_robust": "on [fixed]", "tx_fcoe_segmentation": "off [fixed]", "tx_gre_segmentation": "off [fixed]", "tx_gre_csum_segmentation": "off [fixed]", "tx_ipxip4_segmentation": "off [fixed]", "tx_ipxip6_segmentation": "off [fixed]", "tx_udp_tnl_segmentation": "off [fixed]", "tx_udp_tnl_csum_segmentation": "off [fixed]", "tx_gso_partial": "off [fixed]", "tx_tunnel_remcsum_segmentation": "off [fixed]", "tx_sctp_segmentation": "off [fixed]", "tx_esp_segmentation": "off [fixed]", "tx_udp_segmentation": "off [fixed]", "tx_gso_list": "off [fixed]", "fcoe_mtu": "off [fixed]", "tx_nocache_copy": "off", "loopback": "off [fixed]", "rx_fcs": "off [fixed]", "rx_all": "off [fixed]", "tx_vlan_stag_hw_insert": "off [fixed]", "rx_vlan_stag_hw_parse": "off [fixed]", "rx_vlan_stag_filter": "off [fixed]", "l2_fwd_offload": "off [fixed]", "hw_tc_offload": "off [fixed]", "esp_hw_offload": "off [fixed]", "esp_tx_csum_hw_offload": "off [fixed]", "rx_udp_tunnel_port_offload": "off [fixed]", "tls_hw_tx_offload": "off [fixed]", "tls_hw_rx_offload": "off [fixed]", "rx_gro_hw": "on", "tls_hw_record": "off [fixed]", "rx_gro_list": "off", "macsec_hw_offload": "off [fixed]", "rx_udp_gro_forwarding": "off", "hsr_tag_ins_offload": "off [fixed]", "hsr_tag_rm_offload": "off [fixed]", "hsr_fwd_offload": "off [fixed]", "hsr_dup_offload": "off [fixed]"}, "timestamping": [], "hw_timestamp_filters": []}, "ansible_lo": {"device": "lo", "mtu": 65536, "active": true, "type": "loopback", "promisc": false, "ipv4": {"address": "127.0.0.1", "broadcast": "", "netmask": "255.0.0.0", "network": "127.0.0.0", "prefix": "8"}, "ipv6": [{"address": "::1", "prefix": "128", "scope": "host"}], "features": {"rx_checksumming": "on [fixed]", "tx_checksumming": "on", "tx_checksum_ipv4": "off [fixed]", "tx_checksum_ip_generic": "on [fixed]", "tx_checksum_ipv6": "off [fixed]", "tx_checksum_fcoe_crc": "off [fixed]", "tx_checksum_sctp": "on [fixed]", "scatter_gather": "on", "tx_scatter_gather": "on [fixed]", "tx_scatter_gather_fraglist": "on [fixed]", "tcp_segmentation_offload": "on", "tx_tcp_segmentation": "on", "tx_tcp_ecn_segmentation": "on", "tx_tcp_mangleid_segmentation": "on", "tx_tcp6_segmentation": "on", "generic_segmentation_offload": "on", "generic_receive_offload": "on", "large_receive_offload": "off [fixed]", "rx_vlan_offload": "off [fixed]", "tx_vlan_offload": "off [fixed]", "ntuple_filters": "off [fixed]", "receive_hashing": "off [fixed]", "highdma": "on [fixed]", "rx_vlan_filter": "off [fixed]", "vlan_challenged": "on [fixed]", "tx_lockless": "on [fixed]", "netns_local": "on [fixed]", "tx_gso_robust": "off [fixed]", "tx_fcoe_segmentation": "off [fixed]", "tx_gre_segmentation": "off [fixed]", "tx_gre_csum_segmentation": "off [fixed]", "tx_ipxip4_segmentation": "off [fixed]", "tx_ipxip6_segmentation": "off [fixed]", "tx_udp_tnl_segmentation": "off [fixed]", "tx_udp_tnl_csum_segmentation": "off [fixed]", "tx_gso_partial": "off [fixed]", "tx_tunnel_remcsum_segmentation": "off [fixed]", "tx_sctp_segmentation": "on", "tx_esp_segmentation": "off [fixed]", "tx_udp_segmentation": "on", "tx_gso_list": "on", "fcoe_mtu": "off [fixed]", "tx_nocache_copy": "off [fixed]", "loopback": "on [fixed]", "rx_fcs": "off [fixed]", "rx_all": "off [fixed]", "tx_vlan_stag_hw_insert": "off [fixed]", "rx_vlan_stag_hw_parse": "off [fixed]", "rx_vlan_stag_filter": "off [fixed]", "l2_fwd_offload": "off [fixed]", "hw_tc_offload": "off [fixed]", "esp_hw_offload": "off [fixed]", "esp_tx_csum_hw_offload": "off [fixed]", "rx_udp_tunnel_port_offload": "off [fixed]", "tls_hw_tx_offload": "off [fixed]", "tls_hw_rx_offload": "off [fixed]", "rx_gro_hw": "off [fixed]", "tls_hw_record": "off [fixed]", "rx_gro_list": "off", "macsec_hw_offload": "off [fixed]", "rx_udp_gro_forwarding": "off", "hsr_tag_ins_offload": "off [fixed]", "hsr_tag_rm_offload": "off [fixed]", "hsr_fwd_offload": "off [fixed]", "hsr_dup_offload": "off [fixed]"}, "timestamping": [], "hw_timestamp_filters": []}, "ansible_eth1": {"device": "eth1", "macaddress": "52:54:00:01:fa:1e", "mtu": 1500, "active": true, "module": "virtio_net", "type": "ether", "pciid": "virtio1", "speed": -1, "promisc": false, "features": {"rx_checksumming": "on [fixed]", "tx_checksumming": "on", "tx_checksum_ipv4": "off [fixed]", "tx_checksum_ip_generic": "on", "tx_checksum_ipv6": "off [fixed]", "tx_checksum_fcoe_crc": "off [fixed]", "tx_checksum_sctp": "off [fixed]", "scatter_gather": "on", "tx_scatter_gather": "on", "tx_scatter_gather_fraglist": "off [fixed]", "tcp_segmentation_offload": "on", "tx_tcp_segmentation": "on", "tx_tcp_ecn_segmentation": "on", "tx_tcp_mangleid_segmentation": "off", "tx_tcp6_segmentation": "on", "generic_segmentation_offload": "on", "generic_receive_offload": "on", "large_receive_offload": "off [fixed]", "rx_vlan_offload": "off [fixed]", "tx_vlan_offload": "off [fixed]", "ntuple_filters": "off [fixed]", "receive_hashing": "off [fixed]", "highdma": "on [fixed]", "rx_vlan_filter": "on [fixed]", "vlan_challenged": "off [fixed]", "tx_lockless": "off [fixed]", "netns_local": "off [fixed]", "tx_gso_robust": "on [fixed]", "tx_fcoe_segmentation": "off [fixed]", "tx_gre_segmentation": "off [fixed]", "tx_gre_csum_segmentation": "off [fixed]", "tx_ipxip4_segmentation": "off [fixed]", "tx_ipxip6_segmentation": "off [fixed]", "tx_udp_tnl_segmentation": "off [fixed]", "tx_udp_tnl_csum_segmentation": "off [fixed]", "tx_gso_partial": "off [fixed]", "tx_tunnel_remcsum_segmentation": "off [fixed]", "tx_sctp_segmentation": "off [fixed]", "tx_esp_segmentation": "off [fixed]", "tx_udp_segmentation": "off [fixed]", "tx_gso_list": "off [fixed]", "fcoe_mtu": "off [fixed]", "tx_nocache_copy": "off", "loopback": "off [fixed]", "rx_fcs": "off [fixed]", "rx_all": "off [fixed]", "tx_vlan_stag_hw_insert": "off [fixed]", "rx_vlan_stag_hw_parse": "off [fixed]", "rx_vlan_stag_filter": "off [fixed]", "l2_fwd_offload": "off [fixed]", "hw_tc_offload": "off [fixed]", "esp_hw_offload": "off [fixed]", "esp_tx_csum_hw_offload": "off [fixed]", "rx_udp_tunnel_port_offload": "off [fixed]", "tls_hw_tx_offload": "off [fixed]", "tls_hw_rx_offload": "off [fixed]", "rx_gro_hw": "on", "tls_hw_record": "off [fixed]", "rx_gro_list": "off", "macsec_hw_offload": "off [fixed]", "rx_udp_gro_forwarding": "off", "hsr_tag_ins_offload": "off [fixed]", "hsr_tag_rm_offload": "off [fixed]", "hsr_fwd_offload": "off [fixed]", "hsr_dup_offload": "off [fixed]"}, "timestamping": [], "hw_timestamp_filters": []}, "ansible_default_ipv4": {"gateway": "172.25.250.254", "interface": "eth0", "address": "172.25.250.10", "broadcast": "172.25.250.255", "netmask": "255.255.255.0", "network": "172.25.250.0", "prefix": "24", "macaddress": "52:54:00:00:fa:0a", "mtu": 1500, "type": "ether", "alias": "eth0"}, "ansible_default_ipv6": {}, "ansible_all_ipv4_addresses": ["172.25.250.10"], "ansible_all_ipv6_addresses": ["fe80::a973:f7b3:7b00:e503"], "ansible_service_mgr": "systemd", "gather_subset": ["all"], "module_setup": true}, "invocation": {"module_args": {"gather_subset": ["all"], "gather_timeout": 10, "filter": [], "fact_path": "/etc/ansible/facts.d"}}}\r\n', b'Shared connection to servera.lab.example.com closed.\r\n')
+2023-10-06 08:13:04,285 p=25 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:04,286 p=25 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'rm -f -r /home/devops/.ansible/tmp/ansible-tmp-1696579982.9401007-25-171583936542506/ > /dev/null 2>&1 && sleep 0'"'"''
+2023-10-06 08:13:04,339 p=25 u=root n=ansible | <servera.lab.example.com> (0, b'', b'')
+2023-10-06 08:13:04,360 p=21 u=root n=ansible | ok: [servera.lab.example.com]
+2023-10-06 08:13:04,371 p=21 u=root n=ansible | META: ran handlers
+2023-10-06 08:13:04,382 p=21 u=root n=ansible | TASK [Install samba] ****************************************************************************************************
+2023-10-06 08:13:04,416 p=39 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:04,422 p=39 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'echo ~devops && sleep 0'"'"''
+2023-10-06 08:13:04,466 p=39 u=root n=ansible | <servera.lab.example.com> (0, b'/home/devops\n', b'')
+2023-10-06 08:13:04,467 p=39 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:04,468 p=39 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'( umask 77 && mkdir -p "` echo /home/devops/.ansible/tmp `"&& mkdir "` echo /home/devops/.ansible/tmp/ansible-tmp-1696579984.4674306-39-185207910331348 `" && echo ansible-tmp-1696579984.4674306-39-185207910331348="` echo /home/devops/.ansible/tmp/ansible-tmp-1696579984.4674306-39-185207910331348 `" ) && sleep 0'"'"''
+2023-10-06 08:13:04,516 p=39 u=root n=ansible | <servera.lab.example.com> (0, b'ansible-tmp-1696579984.4674306-39-185207910331348=/home/devops/.ansible/tmp/ansible-tmp-1696579984.4674306-39-185207910331348\n', b'')
+2023-10-06 08:13:04,710 p=39 u=root n=ansible | Using module file /usr/lib/python3.9/site-packages/ansible/modules/dnf.py
+2023-10-06 08:13:04,711 p=39 u=root n=ansible | <servera.lab.example.com> PUT /home/runner/.ansible/tmp/ansible-local-2116u4toqk/tmprjcr9e9t TO /home/devops/.ansible/tmp/ansible-tmp-1696579984.4674306-39-185207910331348/AnsiballZ_dnf.py
+2023-10-06 08:13:04,712 p=39 u=root n=ansible | <servera.lab.example.com> SSH: EXEC sftp -b - -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' '[servera.lab.example.com]'
+2023-10-06 08:13:04,773 p=39 u=root n=ansible | <servera.lab.example.com> (0, b'sftp> put /home/runner/.ansible/tmp/ansible-local-2116u4toqk/tmprjcr9e9t /home/devops/.ansible/tmp/ansible-tmp-1696579984.4674306-39-185207910331348/AnsiballZ_dnf.py\n', b'')
+2023-10-06 08:13:04,774 p=39 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:04,775 p=39 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'chmod u+x /home/devops/.ansible/tmp/ansible-tmp-1696579984.4674306-39-185207910331348/ /home/devops/.ansible/tmp/ansible-tmp-1696579984.4674306-39-185207910331348/AnsiballZ_dnf.py && sleep 0'"'"''
+2023-10-06 08:13:04,821 p=39 u=root n=ansible | <servera.lab.example.com> (0, b'', b'')
+2023-10-06 08:13:04,822 p=39 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:04,823 p=39 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' -tt servera.lab.example.com '/bin/sh -c '"'"'sudo -H -S -n  -u root /bin/sh -c '"'"'"'"'"'"'"'"'echo BECOME-SUCCESS-wufthjhyouakmdyvkjuetxuxnpndfanw ; /usr/bin/python3 /home/devops/.ansible/tmp/ansible-tmp-1696579984.4674306-39-185207910331348/AnsiballZ_dnf.py'"'"'"'"'"'"'"'"' && sleep 0'"'"''
+2023-10-06 08:13:04,889 p=39 u=root n=ansible | Escalation succeeded
+2023-10-06 08:13:06,016 p=39 u=root n=ansible | <servera.lab.example.com> (0, b'\r\n{"msg": "Check mode: No changes made, but would have if not in check mode", "changed": true, "results": ["Installed: python3-ldb-2.4.1-1.el9.x86_64", "Installed: python3-talloc-2.3.3-1.el9.x86_64", "Installed: samba-4.15.5-105.el9_0.x86_64", "Installed: python3-tdb-1.4.4-1.el9.x86_64", "Installed: python3-tevent-0.11.0-1.el9.x86_64", "Installed: samba-common-tools-4.15.5-105.el9_0.x86_64", "Installed: samba-libs-4.15.5-105.el9_0.x86_64", "Installed: tdb-tools-1.4.4-1.el9.x86_64", "Installed: python3-dns-2.1.0-6.el9.noarch", "Installed: python3-samba-4.15.5-105.el9_0.x86_64"], "rc": 0, "invocation": {"module_args": {"name": ["samba"], "state": "installed", "allow_downgrade": false, "autoremove": false, "bugfix": false, "cacheonly": false, "disable_gpg_check": false, "disable_plugin": [], "disablerepo": [], "download_only": false, "enable_plugin": [], "enablerepo": [], "exclude": [], "installroot": "/", "install_repoquery": true, "install_weak_deps": true, "security": false, "skip_broken": false, "update_cache": false, "update_only": false, "validate_certs": true, "sslverify": true, "lock_timeout": 30, "allowerasing": false, "nobest": false, "conf_file": null, "disable_excludes": null, "download_dir": null, "list": null, "releasever": null}}}\r\n', b'Shared connection to servera.lab.example.com closed.\r\n')
+2023-10-06 08:13:06,018 p=39 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:06,019 p=39 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'rm -f -r /home/devops/.ansible/tmp/ansible-tmp-1696579984.4674306-39-185207910331348/ > /dev/null 2>&1 && sleep 0'"'"''
+2023-10-06 08:13:06,066 p=39 u=root n=ansible | <servera.lab.example.com> (0, b'', b'')
+2023-10-06 08:13:06,071 p=21 u=root n=ansible | changed: [servera.lab.example.com] => {
+    "changed": true,
+    "invocation": {
+        "module_args": {
+            "allow_downgrade": false,
+            "allowerasing": false,
+            "autoremove": false,
+            "bugfix": false,
+            "cacheonly": false,
+            "conf_file": null,
+            "disable_excludes": null,
+            "disable_gpg_check": false,
+            "disable_plugin": [],
+            "disablerepo": [],
+            "download_dir": null,
+            "download_only": false,
+            "enable_plugin": [],
+            "enablerepo": [],
+            "exclude": [],
+            "install_repoquery": true,
+            "install_weak_deps": true,
+            "installroot": "/",
+            "list": null,
+            "lock_timeout": 30,
+            "name": [
+                "samba"
+            ],
+            "nobest": false,
+            "releasever": null,
+            "security": false,
+            "skip_broken": false,
+            "sslverify": true,
+            "state": "installed",
+            "update_cache": false,
+            "update_only": false,
+            "validate_certs": true
+        }
+    },
+    "msg": "Check mode: No changes made, but would have if not in check mode",
+    "rc": 0,
+    "results": [
+        "Installed: python3-ldb-2.4.1-1.el9.x86_64",
+        "Installed: python3-talloc-2.3.3-1.el9.x86_64",
+        "Installed: samba-4.15.5-105.el9_0.x86_64",
+        "Installed: python3-tdb-1.4.4-1.el9.x86_64",
+        "Installed: python3-tevent-0.11.0-1.el9.x86_64",
+        "Installed: samba-common-tools-4.15.5-105.el9_0.x86_64",
+        "Installed: samba-libs-4.15.5-105.el9_0.x86_64",
+        "Installed: tdb-tools-1.4.4-1.el9.x86_64",
+        "Installed: python3-dns-2.1.0-6.el9.noarch",
+        "Installed: python3-samba-4.15.5-105.el9_0.x86_64"
+    ]
+}
+2023-10-06 08:13:06,089 p=21 u=root n=ansible | TASK [Install firewalld] ************************************************************************************************
+2023-10-06 08:13:06,121 p=48 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:06,123 p=48 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'echo ~devops && sleep 0'"'"''
+2023-10-06 08:13:06,167 p=48 u=root n=ansible | <servera.lab.example.com> (0, b'/home/devops\n', b'')
+2023-10-06 08:13:06,168 p=48 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:06,169 p=48 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'( umask 77 && mkdir -p "` echo /home/devops/.ansible/tmp `"&& mkdir "` echo /home/devops/.ansible/tmp/ansible-tmp-1696579986.1678283-48-109273918938321 `" && echo ansible-tmp-1696579986.1678283-48-109273918938321="` echo /home/devops/.ansible/tmp/ansible-tmp-1696579986.1678283-48-109273918938321 `" ) && sleep 0'"'"''
+2023-10-06 08:13:06,215 p=48 u=root n=ansible | <servera.lab.example.com> (0, b'ansible-tmp-1696579986.1678283-48-109273918938321=/home/devops/.ansible/tmp/ansible-tmp-1696579986.1678283-48-109273918938321\n', b'')
+2023-10-06 08:13:06,218 p=48 u=root n=ansible | Using module file /usr/lib/python3.9/site-packages/ansible/modules/dnf.py
+2023-10-06 08:13:06,219 p=48 u=root n=ansible | <servera.lab.example.com> PUT /home/runner/.ansible/tmp/ansible-local-2116u4toqk/tmpaj7gm3e1 TO /home/devops/.ansible/tmp/ansible-tmp-1696579986.1678283-48-109273918938321/AnsiballZ_dnf.py
+2023-10-06 08:13:06,220 p=48 u=root n=ansible | <servera.lab.example.com> SSH: EXEC sftp -b - -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' '[servera.lab.example.com]'
+2023-10-06 08:13:06,286 p=48 u=root n=ansible | <servera.lab.example.com> (0, b'sftp> put /home/runner/.ansible/tmp/ansible-local-2116u4toqk/tmpaj7gm3e1 /home/devops/.ansible/tmp/ansible-tmp-1696579986.1678283-48-109273918938321/AnsiballZ_dnf.py\n', b'')
+2023-10-06 08:13:06,287 p=48 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:06,289 p=48 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'chmod u+x /home/devops/.ansible/tmp/ansible-tmp-1696579986.1678283-48-109273918938321/ /home/devops/.ansible/tmp/ansible-tmp-1696579986.1678283-48-109273918938321/AnsiballZ_dnf.py && sleep 0'"'"''
+2023-10-06 08:13:06,335 p=48 u=root n=ansible | <servera.lab.example.com> (0, b'', b'')
+2023-10-06 08:13:06,336 p=48 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:06,337 p=48 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' -tt servera.lab.example.com '/bin/sh -c '"'"'sudo -H -S -n  -u root /bin/sh -c '"'"'"'"'"'"'"'"'echo BECOME-SUCCESS-elxqtmejvoqsrbujpeqvwpjxiytfmsib ; /usr/bin/python3 /home/devops/.ansible/tmp/ansible-tmp-1696579986.1678283-48-109273918938321/AnsiballZ_dnf.py'"'"'"'"'"'"'"'"' && sleep 0'"'"''
+2023-10-06 08:13:06,406 p=48 u=root n=ansible | Escalation succeeded
+2023-10-06 08:13:07,467 p=48 u=root n=ansible | <servera.lab.example.com> (0, b'\r\n{"msg": "Nothing to do", "changed": false, "results": [], "rc": 0, "invocation": {"module_args": {"name": ["firewalld"], "state": "installed", "allow_downgrade": false, "autoremove": false, "bugfix": false, "cacheonly": false, "disable_gpg_check": false, "disable_plugin": [], "disablerepo": [], "download_only": false, "enable_plugin": [], "enablerepo": [], "exclude": [], "installroot": "/", "install_repoquery": true, "install_weak_deps": true, "security": false, "skip_broken": false, "update_cache": false, "update_only": false, "validate_certs": true, "sslverify": true, "lock_timeout": 30, "allowerasing": false, "nobest": false, "conf_file": null, "disable_excludes": null, "download_dir": null, "list": null, "releasever": null}}}\r\n', b'Shared connection to servera.lab.example.com closed.\r\n')
+2023-10-06 08:13:07,469 p=48 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:07,470 p=48 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'rm -f -r /home/devops/.ansible/tmp/ansible-tmp-1696579986.1678283-48-109273918938321/ > /dev/null 2>&1 && sleep 0'"'"''
+2023-10-06 08:13:07,515 p=48 u=root n=ansible | <servera.lab.example.com> (0, b'', b'')
+2023-10-06 08:13:07,519 p=21 u=root n=ansible | ok: [servera.lab.example.com] => {
+    "changed": false,
+    "invocation": {
+        "module_args": {
+            "allow_downgrade": false,
+            "allowerasing": false,
+            "autoremove": false,
+            "bugfix": false,
+            "cacheonly": false,
+            "conf_file": null,
+            "disable_excludes": null,
+            "disable_gpg_check": false,
+            "disable_plugin": [],
+            "disablerepo": [],
+            "download_dir": null,
+            "download_only": false,
+            "enable_plugin": [],
+            "enablerepo": [],
+            "exclude": [],
+            "install_repoquery": true,
+            "install_weak_deps": true,
+            "installroot": "/",
+            "list": null,
+            "lock_timeout": 30,
+            "name": [
+                "firewalld"
+            ],
+            "nobest": false,
+            "releasever": null,
+            "security": false,
+            "skip_broken": false,
+            "sslverify": true,
+            "state": "installed",
+            "update_cache": false,
+            "update_only": false,
+            "validate_certs": true
+        }
+    },
+    "msg": "Nothing to do",
+    "rc": 0,
+    "results": []
+}
+2023-10-06 08:13:07,531 p=21 u=root n=ansible | TASK [Debug install_state variable] *************************************************************************************
+2023-10-06 08:13:07,577 p=21 u=root n=ansible | ok: [servera.lab.example.com] => {
+    "msg": "The state for the samba service is installed"
+}
+2023-10-06 08:13:07,589 p=21 u=root n=ansible | TASK [Start firewalld] **************************************************************************************************
+2023-10-06 08:13:07,624 p=59 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:07,625 p=59 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'echo ~devops && sleep 0'"'"''
+2023-10-06 08:13:07,674 p=59 u=root n=ansible | <servera.lab.example.com> (0, b'/home/devops\n', b'')
+2023-10-06 08:13:07,675 p=59 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:07,676 p=59 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'( umask 77 && mkdir -p "` echo /home/devops/.ansible/tmp `"&& mkdir "` echo /home/devops/.ansible/tmp/ansible-tmp-1696579987.6745577-59-130049665918835 `" && echo ansible-tmp-1696579987.6745577-59-130049665918835="` echo /home/devops/.ansible/tmp/ansible-tmp-1696579987.6745577-59-130049665918835 `" ) && sleep 0'"'"''
+2023-10-06 08:13:07,724 p=59 u=root n=ansible | <servera.lab.example.com> (0, b'ansible-tmp-1696579987.6745577-59-130049665918835=/home/devops/.ansible/tmp/ansible-tmp-1696579987.6745577-59-130049665918835\n', b'')
+2023-10-06 08:13:08,031 p=59 u=root n=ansible | Using module file /usr/lib/python3.9/site-packages/ansible/modules/systemd.py
+2023-10-06 08:13:08,032 p=59 u=root n=ansible | <servera.lab.example.com> PUT /home/runner/.ansible/tmp/ansible-local-2116u4toqk/tmpnkzd8v5w TO /home/devops/.ansible/tmp/ansible-tmp-1696579987.6745577-59-130049665918835/AnsiballZ_systemd.py
+2023-10-06 08:13:08,033 p=59 u=root n=ansible | <servera.lab.example.com> SSH: EXEC sftp -b - -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' '[servera.lab.example.com]'
+2023-10-06 08:13:08,103 p=59 u=root n=ansible | <servera.lab.example.com> (0, b'sftp> put /home/runner/.ansible/tmp/ansible-local-2116u4toqk/tmpnkzd8v5w /home/devops/.ansible/tmp/ansible-tmp-1696579987.6745577-59-130049665918835/AnsiballZ_systemd.py\n', b'')
+2023-10-06 08:13:08,104 p=59 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:08,105 p=59 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'chmod u+x /home/devops/.ansible/tmp/ansible-tmp-1696579987.6745577-59-130049665918835/ /home/devops/.ansible/tmp/ansible-tmp-1696579987.6745577-59-130049665918835/AnsiballZ_systemd.py && sleep 0'"'"''
+2023-10-06 08:13:08,150 p=59 u=root n=ansible | <servera.lab.example.com> (0, b'', b'')
+2023-10-06 08:13:08,151 p=59 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:08,152 p=59 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' -tt servera.lab.example.com '/bin/sh -c '"'"'sudo -H -S -n  -u root /bin/sh -c '"'"'"'"'"'"'"'"'echo BECOME-SUCCESS-wzephfqhmzgdamymzqprroawjdqnqkwv ; /usr/bin/python3 /home/devops/.ansible/tmp/ansible-tmp-1696579987.6745577-59-130049665918835/AnsiballZ_systemd.py'"'"'"'"'"'"'"'"' && sleep 0'"'"''
+2023-10-06 08:13:08,219 p=59 u=root n=ansible | Escalation succeeded
+2023-10-06 08:13:08,545 p=59 u=root n=ansible | <servera.lab.example.com> (0, b'\r\n{"name": "firewalld", "changed": false, "status": {"Type": "dbus", "ExitType": "main", "Restart": "no", "NotifyAccess": "none", "RestartUSec": "100ms", "TimeoutStartUSec": "1min 30s", "TimeoutStopUSec": "1min 30s", "TimeoutAbortUSec": "1min 30s", "TimeoutStartFailureMode": "terminate", "TimeoutStopFailureMode": "terminate", "RuntimeMaxUSec": "infinity", "RuntimeRandomizedExtraUSec": "0", "WatchdogUSec": "0", "WatchdogTimestampMonotonic": "0", "RootDirectoryStartOnly": "no", "RemainAfterExit": "no", "GuessMainPID": "yes", "MainPID": "788", "ControlPID": "0", "BusName": "org.fedoraproject.FirewallD1", "FileDescriptorStoreMax": "0", "NFileDescriptorStore": "0", "StatusErrno": "0", "Result": "success", "ReloadResult": "success", "CleanResult": "success", "UID": "[not set]", "GID": "[not set]", "NRestarts": "0", "OOMPolicy": "stop", "ExecMainStartTimestamp": "Thu 2023-10-05 23:42:50 EDT", "ExecMainStartTimestampMonotonic": "8338215", "ExecMainExitTimestampMonotonic": "0", "ExecMainPID": "788", "ExecMainCode": "0", "ExecMainStatus": "0", "ExecStart": "{ path=/usr/sbin/firewalld ; argv[]=/usr/sbin/firewalld --nofork --nopid $FIREWALLD_ARGS ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }", "ExecStartEx": "{ path=/usr/sbin/firewalld ; argv[]=/usr/sbin/firewalld --nofork --nopid $FIREWALLD_ARGS ; flags= ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }", "ExecReload": "{ path=/bin/kill ; argv[]=/bin/kill -HUP $MAINPID ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }", "ExecReloadEx": "{ path=/bin/kill ; argv[]=/bin/kill -HUP $MAINPID ; flags= ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }", "Slice": "system.slice", "ControlGroup": "/system.slice/firewalld.service", "MemoryCurrent": "27672576", "MemoryAvailable": "infinity", "CPUUsageNSec": "1507845000", "TasksCurrent": "2", "IPIngressBytes": "[no data]", "IPIngressPackets": "[no data]", "IPEgressBytes": "[no data]", "IPEgressPackets": "[no data]", "IOReadBytes": "18446744073709551615", "IOReadOperations": "18446744073709551615", "IOWriteBytes": "18446744073709551615", "IOWriteOperations": "18446744073709551615", "Delegate": "no", "CPUAccounting": "yes", "CPUWeight": "[not set]", "StartupCPUWeight": "[not set]", "CPUShares": "[not set]", "StartupCPUShares": "[not set]", "CPUQuotaPerSecUSec": "infinity", "CPUQuotaPeriodUSec": "infinity", "IOAccounting": "no", "IOWeight": "[not set]", "StartupIOWeight": "[not set]", "BlockIOAccounting": "no", "BlockIOWeight": "[not set]", "StartupBlockIOWeight": "[not set]", "MemoryAccounting": "yes", "DefaultMemoryLow": "0", "DefaultMemoryMin": "0", "MemoryMin": "0", "MemoryLow": "0", "MemoryHigh": "infinity", "MemoryMax": "infinity", "MemorySwapMax": "infinity", "MemoryLimit": "infinity", "DevicePolicy": "auto", "TasksAccounting": "yes", "TasksMax": "5588", "IPAccounting": "no", "ManagedOOMSwap": "auto", "ManagedOOMMemoryPressure": "auto", "ManagedOOMMemoryPressureLimit": "0", "ManagedOOMPreference": "none", "EnvironmentFiles": "/etc/sysconfig/firewalld (ignore_errors=yes)", "UMask": "0022", "LimitCPU": "infinity", "LimitCPUSoft": "infinity", "LimitFSIZE": "infinity", "LimitFSIZESoft": "infinity", "LimitDATA": "infinity", "LimitDATASoft": "infinity", "LimitSTACK": "infinity", "LimitSTACKSoft": "8388608", "LimitCORE": "infinity", "LimitCORESoft": "0", "LimitRSS": "infinity", "LimitRSSSoft": "infinity", "LimitNOFILE": "524288", "LimitNOFILESoft": "1024", "LimitAS": "infinity", "LimitASSoft": "infinity", "LimitNPROC": "3492", "LimitNPROCSoft": "3492", "LimitMEMLOCK": "65536", "LimitMEMLOCKSoft": "65536", "LimitLOCKS": "infinity", "LimitLOCKSSoft": "infinity", "LimitSIGPENDING": "3492", "LimitSIGPENDINGSoft": "3492", "LimitMSGQUEUE": "819200", "LimitMSGQUEUESoft": "819200", "LimitNICE": "0", "LimitNICESoft": "0", "LimitRTPRIO": "0", "LimitRTPRIOSoft": "0", "LimitRTTIME": "infinity", "LimitRTTIMESoft": "infinity", "OOMScoreAdjust": "0", "CoredumpFilter": "0x33", "Nice": "0", "IOSchedulingClass": "2", "IOSchedulingPriority": "4", "CPUSchedulingPolicy": "0", "CPUSchedulingPriority": "0", "CPUAffinityFromNUMA": "no", "NUMAPolicy": "n/a", "TimerSlackNSec": "50000", "CPUSchedulingResetOnFork": "no", "NonBlocking": "no", "StandardInput": "null", "StandardOutput": "null", "StandardError": "null", "TTYReset": "no", "TTYVHangup": "no", "TTYVTDisallocate": "no", "SyslogPriority": "30", "SyslogLevelPrefix": "yes", "SyslogLevel": "6", "SyslogFacility": "3", "LogLevelMax": "-1", "LogRateLimitIntervalUSec": "0", "LogRateLimitBurst": "0", "SecureBits": "0", "CapabilityBoundingSet": "cap_chown cap_dac_override cap_dac_read_search cap_fowner cap_fsetid cap_kill cap_setgid cap_setuid cap_setpcap cap_linux_immutable cap_net_bind_service cap_net_broadcast cap_net_admin cap_net_raw cap_ipc_lock cap_ipc_owner cap_sys_module cap_sys_rawio cap_sys_chroot cap_sys_ptrace cap_sys_pacct cap_sys_admin cap_sys_boot cap_sys_nice cap_sys_resource cap_sys_time cap_sys_tty_config cap_mknod cap_lease cap_audit_write cap_audit_control cap_setfcap cap_mac_override cap_mac_admin cap_syslog cap_wake_alarm cap_block_suspend cap_audit_read cap_perfmon cap_bpf cap_checkpoint_restore", "DynamicUser": "no", "RemoveIPC": "no", "PrivateTmp": "no", "PrivateDevices": "no", "ProtectClock": "no", "ProtectKernelTunables": "no", "ProtectKernelModules": "no", "ProtectKernelLogs": "no", "ProtectControlGroups": "no", "PrivateNetwork": "no", "PrivateUsers": "no", "PrivateMounts": "no", "PrivateIPC": "no", "ProtectHome": "no", "ProtectSystem": "no", "SameProcessGroup": "no", "UtmpMode": "init", "IgnoreSIGPIPE": "yes", "NoNewPrivileges": "no", "SystemCallErrorNumber": "2147483646", "LockPersonality": "no", "RuntimeDirectoryPreserve": "no", "RuntimeDirectoryMode": "0755", "StateDirectoryMode": "0755", "CacheDirectoryMode": "0755", "LogsDirectoryMode": "0755", "ConfigurationDirectoryMode": "0755", "TimeoutCleanUSec": "infinity", "MemoryDenyWriteExecute": "no", "RestrictRealtime": "no", "RestrictSUIDSGID": "no", "RestrictNamespaces": "no", "MountAPIVFS": "no", "KeyringMode": "private", "ProtectProc": "default", "ProcSubset": "all", "ProtectHostname": "no", "KillMode": "mixed", "KillSignal": "15", "RestartKillSignal": "15", "FinalKillSignal": "9", "SendSIGKILL": "yes", "SendSIGHUP": "no", "WatchdogSignal": "6", "Id": "firewalld.service", "Names": "firewalld.service dbus-org.fedoraproject.FirewallD1.service", "Requires": "sysinit.target system.slice dbus.socket", "Wants": "network-pre.target", "WantedBy": "multi-user.target", "Conflicts": "ip6tables.service nftables.service ebtables.service ipset.service iptables.service shutdown.target", "Before": "network-pre.target multi-user.target shutdown.target", "After": "polkit.service sysinit.target dbus.socket system.slice dbus-broker.service basic.target", "Documentation": "\\"man:firewalld(1)\\"", "Description": "firewalld - dynamic firewall daemon", "LoadState": "loaded", "ActiveState": "active", "FreezerState": "running", "SubState": "running", "FragmentPath": "/usr/lib/systemd/system/firewalld.service", "UnitFileState": "enabled", "UnitFilePreset": "enabled", "StateChangeTimestamp": "Fri 2023-10-06 00:01:39 EDT", "StateChangeTimestampMonotonic": "1137742103", "InactiveExitTimestamp": "Thu 2023-10-05 23:42:50 EDT", "InactiveExitTimestampMonotonic": "8338476", "ActiveEnterTimestamp": "Thu 2023-10-05 23:42:50 EDT", "ActiveEnterTimestampMonotonic": "9065777", "ActiveExitTimestampMonotonic": "0", "InactiveEnterTimestampMonotonic": "0", "CanStart": "yes", "CanStop": "yes", "CanReload": "yes", "CanIsolate": "no", "CanFreeze": "yes", "StopWhenUnneeded": "no", "RefuseManualStart": "no", "RefuseManualStop": "no", "AllowIsolate": "no", "DefaultDependencies": "yes", "OnSuccessJobMode": "fail", "OnFailureJobMode": "replace", "IgnoreOnIsolate": "no", "NeedDaemonReload": "no", "JobTimeoutUSec": "infinity", "JobRunningTimeoutUSec": "infinity", "JobTimeoutAction": "none", "ConditionResult": "yes", "AssertResult": "yes", "ConditionTimestamp": "Thu 2023-10-05 23:42:50 EDT", "ConditionTimestampMonotonic": "8332867", "AssertTimestamp": "Thu 2023-10-05 23:42:50 EDT", "AssertTimestampMonotonic": "8332876", "Transient": "no", "Perpetual": "no", "StartLimitIntervalUSec": "10s", "StartLimitBurst": "5", "StartLimitAction": "none", "FailureAction": "none", "SuccessAction": "none", "InvocationID": "878f3601eb094303940703784948102c", "CollectMode": "inactive"}, "enabled": true, "state": "started", "invocation": {"module_args": {"name": "firewalld", "state": "started", "enabled": true, "daemon_reload": false, "daemon_reexec": false, "scope": "system", "no_block": false, "force": null, "masked": null}}}\r\n', b'Shared connection to servera.lab.example.com closed.\r\n')
+2023-10-06 08:13:08,548 p=59 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:08,549 p=59 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'rm -f -r /home/devops/.ansible/tmp/ansible-tmp-1696579987.6745577-59-130049665918835/ > /dev/null 2>&1 && sleep 0'"'"''
+2023-10-06 08:13:08,605 p=59 u=root n=ansible | <servera.lab.example.com> (0, b'', b'')
+2023-10-06 08:13:08,611 p=21 u=root n=ansible | ok: [servera.lab.example.com] => {
+    "changed": false,
+    "enabled": true,
+    "invocation": {
+        "module_args": {
+            "daemon_reexec": false,
+            "daemon_reload": false,
+            "enabled": true,
+            "force": null,
+            "masked": null,
+            "name": "firewalld",
+            "no_block": false,
+            "scope": "system",
+            "state": "started"
+        }
+    },
+    "name": "firewalld",
+    "state": "started",
+    "status": {
+        "ActiveEnterTimestamp": "Thu 2023-10-05 23:42:50 EDT",
+        "ActiveEnterTimestampMonotonic": "9065777",
+        "ActiveExitTimestampMonotonic": "0",
+        "ActiveState": "active",
+        "After": "polkit.service sysinit.target dbus.socket system.slice dbus-broker.service basic.target",
+        "AllowIsolate": "no",
+        "AssertResult": "yes",
+        "AssertTimestamp": "Thu 2023-10-05 23:42:50 EDT",
+        "AssertTimestampMonotonic": "8332876",
+        "Before": "network-pre.target multi-user.target shutdown.target",
+        "BlockIOAccounting": "no",
+        "BlockIOWeight": "[not set]",
+        "BusName": "org.fedoraproject.FirewallD1",
+        "CPUAccounting": "yes",
+        "CPUAffinityFromNUMA": "no",
+        "CPUQuotaPerSecUSec": "infinity",
+        "CPUQuotaPeriodUSec": "infinity",
+        "CPUSchedulingPolicy": "0",
+        "CPUSchedulingPriority": "0",
+        "CPUSchedulingResetOnFork": "no",
+        "CPUShares": "[not set]",
+        "CPUUsageNSec": "1507845000",
+        "CPUWeight": "[not set]",
+        "CacheDirectoryMode": "0755",
+        "CanFreeze": "yes",
+        "CanIsolate": "no",
+        "CanReload": "yes",
+        "CanStart": "yes",
+        "CanStop": "yes",
+        "CapabilityBoundingSet": "cap_chown cap_dac_override cap_dac_read_search cap_fowner cap_fsetid cap_kill cap_setgid cap_setuid cap_setpcap cap_linux_immutable cap_net_bind_service cap_net_broadcast cap_net_admin cap_net_raw cap_ipc_lock cap_ipc_owner cap_sys_module cap_sys_rawio cap_sys_chroot cap_sys_ptrace cap_sys_pacct cap_sys_admin cap_sys_boot cap_sys_nice cap_sys_resource cap_sys_time cap_sys_tty_config cap_mknod cap_lease cap_audit_write cap_audit_control cap_setfcap cap_mac_override cap_mac_admin cap_syslog cap_wake_alarm cap_block_suspend cap_audit_read cap_perfmon cap_bpf cap_checkpoint_restore",
+        "CleanResult": "success",
+        "CollectMode": "inactive",
+        "ConditionResult": "yes",
+        "ConditionTimestamp": "Thu 2023-10-05 23:42:50 EDT",
+        "ConditionTimestampMonotonic": "8332867",
+        "ConfigurationDirectoryMode": "0755",
+        "Conflicts": "ip6tables.service nftables.service ebtables.service ipset.service iptables.service shutdown.target",
+        "ControlGroup": "/system.slice/firewalld.service",
+        "ControlPID": "0",
+        "CoredumpFilter": "0x33",
+        "DefaultDependencies": "yes",
+        "DefaultMemoryLow": "0",
+        "DefaultMemoryMin": "0",
+        "Delegate": "no",
+        "Description": "firewalld - dynamic firewall daemon",
+        "DevicePolicy": "auto",
+        "Documentation": "\"man:firewalld(1)\"",
+        "DynamicUser": "no",
+        "EnvironmentFiles": "/etc/sysconfig/firewalld (ignore_errors=yes)",
+        "ExecMainCode": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainPID": "788",
+        "ExecMainStartTimestamp": "Thu 2023-10-05 23:42:50 EDT",
+        "ExecMainStartTimestampMonotonic": "8338215",
+        "ExecMainStatus": "0",
+        "ExecReload": "{ path=/bin/kill ; argv[]=/bin/kill -HUP $MAINPID ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }",
+        "ExecReloadEx": "{ path=/bin/kill ; argv[]=/bin/kill -HUP $MAINPID ; flags= ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }",
+        "ExecStart": "{ path=/usr/sbin/firewalld ; argv[]=/usr/sbin/firewalld --nofork --nopid $FIREWALLD_ARGS ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }",
+        "ExecStartEx": "{ path=/usr/sbin/firewalld ; argv[]=/usr/sbin/firewalld --nofork --nopid $FIREWALLD_ARGS ; flags= ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }",
+        "ExitType": "main",
+        "FailureAction": "none",
+        "FileDescriptorStoreMax": "0",
+        "FinalKillSignal": "9",
+        "FragmentPath": "/usr/lib/systemd/system/firewalld.service",
+        "FreezerState": "running",
+        "GID": "[not set]",
+        "GuessMainPID": "yes",
+        "IOAccounting": "no",
+        "IOReadBytes": "18446744073709551615",
+        "IOReadOperations": "18446744073709551615",
+        "IOSchedulingClass": "2",
+        "IOSchedulingPriority": "4",
+        "IOWeight": "[not set]",
+        "IOWriteBytes": "18446744073709551615",
+        "IOWriteOperations": "18446744073709551615",
+        "IPAccounting": "no",
+        "IPEgressBytes": "[no data]",
+        "IPEgressPackets": "[no data]",
+        "IPIngressBytes": "[no data]",
+        "IPIngressPackets": "[no data]",
+        "Id": "firewalld.service",
+        "IgnoreOnIsolate": "no",
+        "IgnoreSIGPIPE": "yes",
+        "InactiveEnterTimestampMonotonic": "0",
+        "InactiveExitTimestamp": "Thu 2023-10-05 23:42:50 EDT",
+        "InactiveExitTimestampMonotonic": "8338476",
+        "InvocationID": "878f3601eb094303940703784948102c",
+        "JobRunningTimeoutUSec": "infinity",
+        "JobTimeoutAction": "none",
+        "JobTimeoutUSec": "infinity",
+        "KeyringMode": "private",
+        "KillMode": "mixed",
+        "KillSignal": "15",
+        "LimitAS": "infinity",
+        "LimitASSoft": "infinity",
+        "LimitCORE": "infinity",
+        "LimitCORESoft": "0",
+        "LimitCPU": "infinity",
+        "LimitCPUSoft": "infinity",
+        "LimitDATA": "infinity",
+        "LimitDATASoft": "infinity",
+        "LimitFSIZE": "infinity",
+        "LimitFSIZESoft": "infinity",
+        "LimitLOCKS": "infinity",
+        "LimitLOCKSSoft": "infinity",
+        "LimitMEMLOCK": "65536",
+        "LimitMEMLOCKSoft": "65536",
+        "LimitMSGQUEUE": "819200",
+        "LimitMSGQUEUESoft": "819200",
+        "LimitNICE": "0",
+        "LimitNICESoft": "0",
+        "LimitNOFILE": "524288",
+        "LimitNOFILESoft": "1024",
+        "LimitNPROC": "3492",
+        "LimitNPROCSoft": "3492",
+        "LimitRSS": "infinity",
+        "LimitRSSSoft": "infinity",
+        "LimitRTPRIO": "0",
+        "LimitRTPRIOSoft": "0",
+        "LimitRTTIME": "infinity",
+        "LimitRTTIMESoft": "infinity",
+        "LimitSIGPENDING": "3492",
+        "LimitSIGPENDINGSoft": "3492",
+        "LimitSTACK": "infinity",
+        "LimitSTACKSoft": "8388608",
+        "LoadState": "loaded",
+        "LockPersonality": "no",
+        "LogLevelMax": "-1",
+        "LogRateLimitBurst": "0",
+        "LogRateLimitIntervalUSec": "0",
+        "LogsDirectoryMode": "0755",
+        "MainPID": "788",
+        "ManagedOOMMemoryPressure": "auto",
+        "ManagedOOMMemoryPressureLimit": "0",
+        "ManagedOOMPreference": "none",
+        "ManagedOOMSwap": "auto",
+        "MemoryAccounting": "yes",
+        "MemoryAvailable": "infinity",
+        "MemoryCurrent": "27672576",
+        "MemoryDenyWriteExecute": "no",
+        "MemoryHigh": "infinity",
+        "MemoryLimit": "infinity",
+        "MemoryLow": "0",
+        "MemoryMax": "infinity",
+        "MemoryMin": "0",
+        "MemorySwapMax": "infinity",
+        "MountAPIVFS": "no",
+        "NFileDescriptorStore": "0",
+        "NRestarts": "0",
+        "NUMAPolicy": "n/a",
+        "Names": "firewalld.service dbus-org.fedoraproject.FirewallD1.service",
+        "NeedDaemonReload": "no",
+        "Nice": "0",
+        "NoNewPrivileges": "no",
+        "NonBlocking": "no",
+        "NotifyAccess": "none",
+        "OOMPolicy": "stop",
+        "OOMScoreAdjust": "0",
+        "OnFailureJobMode": "replace",
+        "OnSuccessJobMode": "fail",
+        "Perpetual": "no",
+        "PrivateDevices": "no",
+        "PrivateIPC": "no",
+        "PrivateMounts": "no",
+        "PrivateNetwork": "no",
+        "PrivateTmp": "no",
+        "PrivateUsers": "no",
+        "ProcSubset": "all",
+        "ProtectClock": "no",
+        "ProtectControlGroups": "no",
+        "ProtectHome": "no",
+        "ProtectHostname": "no",
+        "ProtectKernelLogs": "no",
+        "ProtectKernelModules": "no",
+        "ProtectKernelTunables": "no",
+        "ProtectProc": "default",
+        "ProtectSystem": "no",
+        "RefuseManualStart": "no",
+        "RefuseManualStop": "no",
+        "ReloadResult": "success",
+        "RemainAfterExit": "no",
+        "RemoveIPC": "no",
+        "Requires": "sysinit.target system.slice dbus.socket",
+        "Restart": "no",
+        "RestartKillSignal": "15",
+        "RestartUSec": "100ms",
+        "RestrictNamespaces": "no",
+        "RestrictRealtime": "no",
+        "RestrictSUIDSGID": "no",
+        "Result": "success",
+        "RootDirectoryStartOnly": "no",
+        "RuntimeDirectoryMode": "0755",
+        "RuntimeDirectoryPreserve": "no",
+        "RuntimeMaxUSec": "infinity",
+        "RuntimeRandomizedExtraUSec": "0",
+        "SameProcessGroup": "no",
+        "SecureBits": "0",
+        "SendSIGHUP": "no",
+        "SendSIGKILL": "yes",
+        "Slice": "system.slice",
+        "StandardError": "null",
+        "StandardInput": "null",
+        "StandardOutput": "null",
+        "StartLimitAction": "none",
+        "StartLimitBurst": "5",
+        "StartLimitIntervalUSec": "10s",
+        "StartupBlockIOWeight": "[not set]",
+        "StartupCPUShares": "[not set]",
+        "StartupCPUWeight": "[not set]",
+        "StartupIOWeight": "[not set]",
+        "StateChangeTimestamp": "Fri 2023-10-06 00:01:39 EDT",
+        "StateChangeTimestampMonotonic": "1137742103",
+        "StateDirectoryMode": "0755",
+        "StatusErrno": "0",
+        "StopWhenUnneeded": "no",
+        "SubState": "running",
+        "SuccessAction": "none",
+        "SyslogFacility": "3",
+        "SyslogLevel": "6",
+        "SyslogLevelPrefix": "yes",
+        "SyslogPriority": "30",
+        "SystemCallErrorNumber": "2147483646",
+        "TTYReset": "no",
+        "TTYVHangup": "no",
+        "TTYVTDisallocate": "no",
+        "TasksAccounting": "yes",
+        "TasksCurrent": "2",
+        "TasksMax": "5588",
+        "TimeoutAbortUSec": "1min 30s",
+        "TimeoutCleanUSec": "infinity",
+        "TimeoutStartFailureMode": "terminate",
+        "TimeoutStartUSec": "1min 30s",
+        "TimeoutStopFailureMode": "terminate",
+        "TimeoutStopUSec": "1min 30s",
+        "TimerSlackNSec": "50000",
+        "Transient": "no",
+        "Type": "dbus",
+        "UID": "[not set]",
+        "UMask": "0022",
+        "UnitFilePreset": "enabled",
+        "UnitFileState": "enabled",
+        "UtmpMode": "init",
+        "WantedBy": "multi-user.target",
+        "Wants": "network-pre.target",
+        "WatchdogSignal": "6",
+        "WatchdogTimestampMonotonic": "0",
+        "WatchdogUSec": "0"
+    }
+}
+2023-10-06 08:13:08,622 p=21 u=root n=ansible | TASK [Configure firewall for samba] *************************************************************************************
+2023-10-06 08:13:08,659 p=68 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:08,661 p=68 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'echo ~devops && sleep 0'"'"''
+2023-10-06 08:13:08,720 p=68 u=root n=ansible | <servera.lab.example.com> (0, b'/home/devops\n', b'')
+2023-10-06 08:13:08,722 p=68 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:08,723 p=68 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'( umask 77 && mkdir -p "` echo /home/devops/.ansible/tmp `"&& mkdir "` echo /home/devops/.ansible/tmp/ansible-tmp-1696579988.7216125-68-262734872569381 `" && echo ansible-tmp-1696579988.7216125-68-262734872569381="` echo /home/devops/.ansible/tmp/ansible-tmp-1696579988.7216125-68-262734872569381 `" ) && sleep 0'"'"''
+2023-10-06 08:13:08,775 p=68 u=root n=ansible | <servera.lab.example.com> (0, b'ansible-tmp-1696579988.7216125-68-262734872569381=/home/devops/.ansible/tmp/ansible-tmp-1696579988.7216125-68-262734872569381\n', b'')
+2023-10-06 08:13:08,933 p=68 u=root n=ansible | Using module file /usr/share/ansible/collections/ansible_collections/ansible/posix/plugins/modules/firewalld.py
+2023-10-06 08:13:08,934 p=68 u=root n=ansible | <servera.lab.example.com> PUT /home/runner/.ansible/tmp/ansible-local-2116u4toqk/tmp7j_tydv1 TO /home/devops/.ansible/tmp/ansible-tmp-1696579988.7216125-68-262734872569381/AnsiballZ_firewalld.py
+2023-10-06 08:13:08,935 p=68 u=root n=ansible | <servera.lab.example.com> SSH: EXEC sftp -b - -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' '[servera.lab.example.com]'
+2023-10-06 08:13:08,999 p=68 u=root n=ansible | <servera.lab.example.com> (0, b'sftp> put /home/runner/.ansible/tmp/ansible-local-2116u4toqk/tmp7j_tydv1 /home/devops/.ansible/tmp/ansible-tmp-1696579988.7216125-68-262734872569381/AnsiballZ_firewalld.py\n', b'')
+2023-10-06 08:13:09,000 p=68 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:09,001 p=68 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'chmod u+x /home/devops/.ansible/tmp/ansible-tmp-1696579988.7216125-68-262734872569381/ /home/devops/.ansible/tmp/ansible-tmp-1696579988.7216125-68-262734872569381/AnsiballZ_firewalld.py && sleep 0'"'"''
+2023-10-06 08:13:09,051 p=68 u=root n=ansible | <servera.lab.example.com> (0, b'', b'')
+2023-10-06 08:13:09,052 p=68 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:09,053 p=68 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' -tt servera.lab.example.com '/bin/sh -c '"'"'sudo -H -S -n  -u root /bin/sh -c '"'"'"'"'"'"'"'"'echo BECOME-SUCCESS-yzjhxdaiprbsmjrnnzuocakhjemhfovh ; /usr/bin/python3 /home/devops/.ansible/tmp/ansible-tmp-1696579988.7216125-68-262734872569381/AnsiballZ_firewalld.py'"'"'"'"'"'"'"'"' && sleep 0'"'"''
+2023-10-06 08:13:09,126 p=68 u=root n=ansible | Escalation succeeded
+2023-10-06 08:13:09,448 p=68 u=root n=ansible | <servera.lab.example.com> (0, b'\r\n{"changed": true, "invocation": {"module_args": {"state": "enabled", "permanent": true, "immediate": true, "service": "samba", "timeout": 0, "icmp_block": null, "icmp_block_inversion": null, "port": null, "port_forward": null, "rich_rule": null, "zone": null, "source": null, "interface": null, "masquerade": null, "offline": null, "target": null}}}\r\n', b'Shared connection to servera.lab.example.com closed.\r\n')
+2023-10-06 08:13:09,449 p=68 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:09,450 p=68 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'rm -f -r /home/devops/.ansible/tmp/ansible-tmp-1696579988.7216125-68-262734872569381/ > /dev/null 2>&1 && sleep 0'"'"''
+2023-10-06 08:13:09,509 p=68 u=root n=ansible | <servera.lab.example.com> (0, b'', b'')
+2023-10-06 08:13:09,513 p=21 u=root n=ansible | changed: [servera.lab.example.com] => {
+    "changed": true,
+    "invocation": {
+        "module_args": {
+            "icmp_block": null,
+            "icmp_block_inversion": null,
+            "immediate": true,
+            "interface": null,
+            "masquerade": null,
+            "offline": null,
+            "permanent": true,
+            "port": null,
+            "port_forward": null,
+            "rich_rule": null,
+            "service": "samba",
+            "source": null,
+            "state": "enabled",
+            "target": null,
+            "timeout": 0,
+            "zone": null
+        }
+    }
+}
+2023-10-06 08:13:09,524 p=21 u=root n=ansible | TASK [Deliver samba config] *********************************************************************************************
+2023-10-06 08:13:09,555 p=77 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:09,557 p=77 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'echo ~devops && sleep 0'"'"''
+2023-10-06 08:13:09,605 p=77 u=root n=ansible | <servera.lab.example.com> (0, b'/home/devops\n', b'')
+2023-10-06 08:13:09,606 p=77 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:09,607 p=77 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'( umask 77 && mkdir -p "` echo /home/devops/.ansible/tmp `"&& mkdir "` echo /home/devops/.ansible/tmp/ansible-tmp-1696579989.605609-77-99400134132169 `" && echo ansible-tmp-1696579989.605609-77-99400134132169="` echo /home/devops/.ansible/tmp/ansible-tmp-1696579989.605609-77-99400134132169 `" ) && sleep 0'"'"''
+2023-10-06 08:13:09,654 p=77 u=root n=ansible | <servera.lab.example.com> (0, b'ansible-tmp-1696579989.605609-77-99400134132169=/home/devops/.ansible/tmp/ansible-tmp-1696579989.605609-77-99400134132169\n', b'')
+2023-10-06 08:13:09,657 p=77 u=root n=ansible | <servera.lab.example.com> ESTABLISH SSH CONNECTION FOR USER: devops
+2023-10-06 08:13:09,659 p=77 u=root n=ansible | <servera.lab.example.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="devops"' -o ConnectTimeout=10 -o 'ControlPath="/home/runner/.ansible/cp/1fa0a8de9d"' servera.lab.example.com '/bin/sh -c '"'"'rm -f -r /home/devops/.ansible/tmp/ansible-tmp-1696579989.605609-77-99400134132169/ > /dev/null 2>&1 && sleep 0'"'"''
+2023-10-06 08:13:09,706 p=77 u=root n=ansible | <servera.lab.example.com> (0, b'', b'')
+2023-10-06 08:13:09,710 p=21 u=root n=ansible | The full traceback is:
+Traceback (most recent call last):
+  File "/usr/lib/python3.9/site-packages/ansible/plugins/action/template.py", line 85, in run
+    source = self._find_needle('templates', source)
+  File "/usr/lib/python3.9/site-packages/ansible/plugins/action/__init__.py", line 1417, in _find_needle
+    return self._loader.path_dwim_relative_stack(path_stack, dirname, needle)
+  File "/usr/lib/python3.9/site-packages/ansible/parsing/dataloader.py", line 341, in path_dwim_relative_stack
+    raise AnsibleFileNotFound(file_name=source, paths=[to_native(p) for p in search])
+ansible.errors.AnsibleFileNotFound: Could not find or access 'samba.j2'
+Searched in:
+	/home/student/troubleshoot-playbook/templates/samba.j2
+	/home/student/troubleshoot-playbook/samba.j2
+	/home/student/troubleshoot-playbook/templates/samba.j2
+	/home/student/troubleshoot-playbook/samba.j2 on the Ansible Controller.
+If you are using a module and expect the file to exist on the remote, see the remote_src option
+
+2023-10-06 08:13:09,711 p=21 u=root n=ansible | fatal: [servera.lab.example.com]: FAILED! => {
+    "changed": false,
+    "msg": "Could not find or access 'samba.j2'\nSearched in:\n\t/home/student/troubleshoot-playbook/templates/samba.j2\n\t/home/student/troubleshoot-playbook/samba.j2\n\t/home/student/troubleshoot-playbook/templates/samba.j2\n\t/home/student/troubleshoot-playbook/samba.j2 on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"
+}
+2023-10-06 08:13:09,712 p=21 u=root n=ansible | PLAY RECAP **************************************************************************************************************
+2023-10-06 08:13:09,713 p=21 u=root n=ansible | servera.lab.example.com    : ok=6    changed=2    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2023-10-06 08:13:29,496 p=16 u=root n=ansible | {"/usr/share/ansible/collections/ansible_collections": {"amazon.aws": {"version": "3.2.0"}, "ansible.controller": {"version": "4.2.1"}, "ansible.netcommon": {"version": "3.0.0"}, "ansible.network": {"version": "1.2.0"}, "ansible.posix": {"version": "1.3.0"}, "ansible.security": {"version": "1.0.0"}, "ansible.utils": {"version": "2.6.1"}, "ansible.windows": {"version": "1.9.0"}, "ansible.yang": {"version": "1.0.0"}, "arista.eos": {"version": "5.0.0"}, "cisco.asa": {"version": "3.0.0"}, "cisco.ios": {"version": "3.0.0"}, "cisco.iosxr": {"version": "3.0.0"}, "cisco.nxos": {"version": "3.0.0"}, "cloud.common": {"version": "2.1.1"}, "frr.frr": {"version": "2.0.0"}, "ibm.qradar": {"version": "2.0.0"}, "junipernetworks.junos": {"version": "3.0.0"}, "kubernetes.core": {"version": "2.2.3"}, "openvswitch.openvswitch": {"version": "2.1.0"}, "redhat.insights": {"version": "1.0.7"}, "redhat.openshift": {"version": "2.1.0"}, "redhat.rhv": {"version": "1.6.5"}, "redhat.satellite": {"version": "3.3.0"}, "servicenow.itsm": {"version": "1.3.3"}, "splunk.es": {"version": "2.0.0"}, "trendmicro.deepsec": {"version": "2.0.0"}, "vmware.vmware_rest": {"version": "2.1.5"}, "vyos.vyos": {"version": "3.0.0"}}}
+2023-10-06 08:13:30,778 p=21 u=root n=ansible | PLAY [Install a samba server] *******************************************************************************************
+2023-10-06 08:13:30,799 p=21 u=root n=ansible | TASK [Gathering Facts] **************************************************************************************************
+2023-10-06 08:13:32,723 p=21 u=root n=ansible | ok: [servera.lab.example.com]
+2023-10-06 08:13:32,744 p=21 u=root n=ansible | TASK [Install samba] ****************************************************************************************************
+2023-10-06 08:13:40,697 p=21 u=root n=ansible | changed: [servera.lab.example.com]
+2023-10-06 08:13:40,710 p=21 u=root n=ansible | TASK [Install firewalld] ************************************************************************************************
+2023-10-06 08:13:43,259 p=21 u=root n=ansible | ok: [servera.lab.example.com]
+2023-10-06 08:13:43,275 p=21 u=root n=ansible | TASK [Debug install_state variable] *************************************************************************************
+2023-10-06 08:13:43,312 p=21 u=root n=ansible | ok: [servera.lab.example.com] => {
+    "msg": "The state for the samba service is installed"
+}
+2023-10-06 08:13:43,328 p=21 u=root n=ansible | TASK [Start firewalld] **************************************************************************************************
+2023-10-06 08:13:44,313 p=21 u=root n=ansible | ok: [servera.lab.example.com]
+2023-10-06 08:13:44,323 p=21 u=root n=ansible | TASK [Configure firewall for samba] *************************************************************************************
+2023-10-06 08:13:45,274 p=21 u=root n=ansible | changed: [servera.lab.example.com]
+2023-10-06 08:13:45,286 p=21 u=root n=ansible | TASK [Deliver samba config] *********************************************************************************************
+2023-10-06 08:13:45,460 p=21 u=root n=ansible | An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+2023-10-06 08:13:45,461 p=21 u=root n=ansible | fatal: [servera.lab.example.com]: FAILED! => {"changed": false, "msg": "Could not find or access 'samba.j2'\nSearched in:\n\t/home/student/troubleshoot-playbook/templates/samba.j2\n\t/home/student/troubleshoot-playbook/samba.j2\n\t/home/student/troubleshoot-playbook/templates/samba.j2\n\t/home/student/troubleshoot-playbook/samba.j2 on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2023-10-06 08:13:45,462 p=21 u=root n=ansible | PLAY RECAP **************************************************************************************************************
+2023-10-06 08:13:45,463 p=21 u=root n=ansible | servera.lab.example.com    : ok=6    changed=2    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2023-10-06 08:15:50,329 p=16 u=root n=ansible | {"/usr/share/ansible/collections/ansible_collections": {"amazon.aws": {"version": "3.2.0"}, "ansible.controller": {"version": "4.2.1"}, "ansible.netcommon": {"version": "3.0.0"}, "ansible.network": {"version": "1.2.0"}, "ansible.posix": {"version": "1.3.0"}, "ansible.security": {"version": "1.0.0"}, "ansible.utils": {"version": "2.6.1"}, "ansible.windows": {"version": "1.9.0"}, "ansible.yang": {"version": "1.0.0"}, "arista.eos": {"version": "5.0.0"}, "cisco.asa": {"version": "3.0.0"}, "cisco.ios": {"version": "3.0.0"}, "cisco.iosxr": {"version": "3.0.0"}, "cisco.nxos": {"version": "3.0.0"}, "cloud.common": {"version": "2.1.1"}, "frr.frr": {"version": "2.0.0"}, "ibm.qradar": {"version": "2.0.0"}, "junipernetworks.junos": {"version": "3.0.0"}, "kubernetes.core": {"version": "2.2.3"}, "openvswitch.openvswitch": {"version": "2.1.0"}, "redhat.insights": {"version": "1.0.7"}, "redhat.openshift": {"version": "2.1.0"}, "redhat.rhv": {"version": "1.6.5"}, "redhat.satellite": {"version": "3.3.0"}, "servicenow.itsm": {"version": "1.3.3"}, "splunk.es": {"version": "2.0.0"}, "trendmicro.deepsec": {"version": "2.0.0"}, "vmware.vmware_rest": {"version": "2.1.5"}, "vyos.vyos": {"version": "3.0.0"}}}
+2023-10-06 08:15:51,522 p=21 u=root n=ansible | PLAY [Install a samba server] *******************************************************************************************
+2023-10-06 08:15:51,538 p=21 u=root n=ansible | TASK [Gathering Facts] **************************************************************************************************
+2023-10-06 08:15:53,594 p=21 u=root n=ansible | ok: [servera.lab.example.com]
+2023-10-06 08:15:53,625 p=21 u=root n=ansible | TASK [Install samba] ****************************************************************************************************
+2023-10-06 08:15:55,317 p=21 u=root n=ansible | ok: [servera.lab.example.com]
+2023-10-06 08:15:55,330 p=21 u=root n=ansible | TASK [Install firewalld] ************************************************************************************************
+2023-10-06 08:15:56,726 p=21 u=root n=ansible | ok: [servera.lab.example.com]
+2023-10-06 08:15:56,737 p=21 u=root n=ansible | TASK [Debug install_state variable] *************************************************************************************
+2023-10-06 08:15:56,778 p=21 u=root n=ansible | ok: [servera.lab.example.com] => {
+    "msg": "The state for the samba service is installed"
+}
+2023-10-06 08:15:56,795 p=21 u=root n=ansible | TASK [Start firewalld] **************************************************************************************************
+2023-10-06 08:15:57,733 p=21 u=root n=ansible | ok: [servera.lab.example.com]
+2023-10-06 08:15:57,743 p=21 u=root n=ansible | TASK [Configure firewall for samba] *************************************************************************************
+2023-10-06 08:15:58,534 p=21 u=root n=ansible | ok: [servera.lab.example.com]
+2023-10-06 08:15:58,545 p=21 u=root n=ansible | TASK [Deliver samba config] *********************************************************************************************
+2023-10-06 08:15:59,817 p=21 u=root n=ansible | changed: [servera.lab.example.com]
+2023-10-06 08:15:59,828 p=21 u=root n=ansible | TASK [Start samba] ******************************************************************************************************
+2023-10-06 08:16:01,274 p=21 u=root n=ansible | changed: [servera.lab.example.com]
+2023-10-06 08:16:01,298 p=21 u=root n=ansible | PLAY RECAP **************************************************************************************************************
+2023-10-06 08:16:01,298 p=21 u=root n=ansible | servera.lab.example.com    : ok=8    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
