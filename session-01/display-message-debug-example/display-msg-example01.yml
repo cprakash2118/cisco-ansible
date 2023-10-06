@@ -1,0 +1,11 @@
+---
+- name: Display msg 
+  hosts: prod 
+  tasks:
+    - name: Display-01 
+      ansible.builtin.debug:
+         msg: "This is my 1st task - Display-01"
+    - name: Display-02 
+      ansible.builtin.debug:
+         msg: "This is my 2nd task - Display-02"
+...

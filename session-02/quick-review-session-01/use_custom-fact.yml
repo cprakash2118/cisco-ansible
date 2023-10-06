@@ -1,0 +1,12 @@
+---
+- name: Calling custom facts 
+  hosts: all 
+  tasks:
+     - name: Display 
+       ansible.builtin.debug:
+          msg: "Value = {{ ansible_local.custom.general.service }}"
+
+     - name: Start 
+       ansible.builtin.service:
+          name: "{{ ansible_local.custom.general.service }}"
+          state: restarted 

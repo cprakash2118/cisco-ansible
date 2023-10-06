@@ -1,0 +1,23 @@
+---
+- name: User & Group create 
+  hosts: dev
+  tasks:
+     - name: Create group
+       ansible.builtin.group:
+           name: sre_grp 
+           state: present 
+
+     - name: Create user 
+       ansible.builtin.user:
+           name: user112
+           group: sre_grp 
+           password: "{{ 'redhat' | password_hash('sha512') }}"
+
+- name: Validation part 
+  hosts: dev
+  become: false 
+  tasks:
+     - name: Validation 
+       ansible.builtin.shell: id user112 ; cat /etc/group | grep sre_grp  ; cat /etc/passwd | grep user112
+       changed_when: false 
+... 

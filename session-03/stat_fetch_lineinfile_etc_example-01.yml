@@ -1,0 +1,63 @@
+---
+- name: Stat example - play-01 
+  hosts: dev
+  tasks:
+    - name: Check the directory - /var/www/apache 
+      ansible.builtin.stat:
+         path: /var/www/apache
+      register: stat_output 
+
+    - name: Display stat outcome.
+      ansible.builtin.debug:
+         var: stat_output 
+
+    #- name: Display - Creating dir if not present.
+    #  ansible.builtin.debug:
+    #     msg: "Creating dir - /var/www/apache"
+    #  when: stat_output.stat.exists == false 
+
+    - name: Creating dir if not present.
+      ansible.builtin.file: 
+          path: /var/www/apache
+          state: directory
+          mode: '0755'
+          setype: httpd_sys_content_t
+      when: stat_output.stat.exists == false 
+
+
+    - name: Application deployment.
+      ansible.builtin.copy:
+          content: "This is my web server" 
+          dest: /var/www/apache/index.html 
+
+    - name: Fetch ops 
+      ansible.builtin.fetch:
+          src: /var/www/apache/index.html 
+          dest: current-index.html
+
+    - name: Ensure SELinux is set to enforcing mode
+      ansible.builtin.lineinfile:
+        path: /etc/selinux/config
+        regexp: '^SELINUX='
+        #line: SELINUX=enforcing
+        line: SELINUX=permissive
+
+    - name: Insert/Update "Match User" configuration block in /etc/ssh/sshd_config
+      ansible.builtin.blockinfile:
+          path: /root/sshd_config
+          block: |
+             Match User ansible-agent
+             PasswordAuthentication no
+
+
+    - name: Synchronization of src on the control machine to dest on the remote hosts
+      ansible.posix.synchronize:
+         src: /home/student/UNIT-5 
+         dest: /tmp
+
+    - name: Apply patch to one file
+      ansible.posix.patch:
+         src: index.html.patch
+         dest: /var/www/apache/index.html
+
+    

@@ -1,0 +1,9 @@
+---
+- name: Task
+  hosts: dev 
+  tasks:
+         - name: Fetch ops
+           ansible.builtin.fetch:
+              src: /tmp/hwreport.txt
+              dest: hwreport_workstaion.txt
+

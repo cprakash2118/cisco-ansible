@@ -1,0 +1,15 @@
+## Ansible managed:
+<VirtualHost *:80>
+ ServerAdmin webmaster@{{inventory_hostname}}.lab.example.com
+ ServerName {{inventory_hostname}}.lab.example.com
+ ErrorLog logs/{{inventory_hostname}}-error.log
+ CustomLog logs/{{inventory_hostname}}-common.log common
+ DocumentRoot /var/www/html/{{inventory_hostname}}/
+
+
+ <Directory /var/www/html/{{inventory_hostname}}/>
+ Options +Indexes +FollowSymlinks +Includes
+ Order allow,deny
+ Allow from all
+ </Directory>
+</VirtualHost>

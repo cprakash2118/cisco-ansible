@@ -1,0 +1,11 @@
+---
+- name: Root password update 
+  hosts: all 
+  vars_files:
+     - root_pass.yaml
+  tasks:
+     - name: "root password change."
+       ansible.builtin.user:
+          name: root 
+          #password: "{{ passwd_root | password_hash('sha512') }}" 
+          password: "{{ passwd_root | password_hash('sha256') }}" 

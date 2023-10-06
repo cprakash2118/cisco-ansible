@@ -1,0 +1,8 @@
+---
+- src: http://workstation/roles/apache.tar.gz
+  name: apache 
+
+- src: http://workstation/roles/firewalld.tar.gz
+  name: firewalld 
+
+

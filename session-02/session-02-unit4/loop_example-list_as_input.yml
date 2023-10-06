@@ -1,0 +1,16 @@
+---
+- name: Restart multiple services.
+  hosts: all 
+  vars: 
+     - service_list:
+          - sshd
+          - rsyslog 
+          - chronyd 
+          - httpd
+
+  tasks:
+    - name: Restart all below services.
+      ansible.builtin.service:
+          name: "{{ item }}"  
+          state: restarted 
+      loop: "{{ service_list }}" 

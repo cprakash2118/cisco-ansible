@@ -1,0 +1,4 @@
+---
+- src: http://workstation/roles/example-roles.tar.gz
+  name: example-roles
+...

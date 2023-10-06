@@ -1,0 +1,15 @@
+---
+- name: Display msg 
+  hosts: prod 
+  vars:
+    - name1: john
+  tasks:
+    - name: Display-01 
+      vars:
+        - name1: ram
+      ansible.builtin.debug:
+         msg: "This is my 1st task - Display-01 - {{ name1}}"
+    - name: Display-02 
+      ansible.builtin.debug:
+         msg: "This is my 2nd task - Display-02 - {{ name1}}"
+...
