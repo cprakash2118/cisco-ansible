@@ -1,0 +1,13 @@
+---
+- name: Include example
+  hosts: prod 
+  tasks:
+     - name: Include_tasks.
+       include_tasks: playbook.yml 
+
+     - name: This is from main playbook 
+       ansible.builtin.debug:
+          msg: "main playbook - task-03"
+
+- name: INclude playbook 
+  import_playbook: playbook_example.yml 

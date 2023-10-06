@@ -1,0 +1,5 @@
+ 1051  ansible-galaxy collection install --help 
+ 1052  #ansible-galaxy collection install -p mycollections redhat-rhel_system_roles-1.19.3.tar.gz 
+ 1057  ansible-galaxy collection install -p mycollections redhat-rhel_system_roles-1.19.3.tar.gz 
+ 1324  history | grep "collection install"
+ 1325  history | grep "collection install" > cisco-ansible/session-04/history.txt 

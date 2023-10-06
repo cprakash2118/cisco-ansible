@@ -1,0 +1,10 @@
+---
+- name: Selinux using collection-roles 
+  hosts: dev 
+  tasks:
+    - name: Applying SElinux 
+      include_role:
+          name: redhat.rhel_system_roles.selinux
+      vars:
+         - selinux_policy: targeted
+         - selinux_state: enforcing

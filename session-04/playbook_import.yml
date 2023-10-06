@@ -1,0 +1,10 @@
+---
+- name: Include example
+  hosts: dev 
+  tasks:
+     - name: Include_tasks.
+       import_tasks: playbook.yml 
+
+     - name: This is from main playbook 
+       ansible.builtin.debug:
+          msg: "main playbook - task-03"

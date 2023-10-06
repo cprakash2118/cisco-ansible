@@ -1,0 +1,8 @@
+---
+- name: Display01
+  ansible.builtin.debug:
+     msg: "This is display-01 - Task-01"
+
+- name: Display02
+  ansible.builtin.debug:
+     msg: "This is display-02 - Task-02"
