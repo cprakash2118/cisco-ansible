@@ -1,9 +1,0 @@
----
- - name: Playbook for gen_host.yml 
-   hosts: all
-   tasks:
-      - name: Using template to generate myhosts file.
-        ansible.builtin.template:
-              src: hosts.j2
-              dest: /etc/myhosts
-        #when: inventory_hostname in groups['dev']

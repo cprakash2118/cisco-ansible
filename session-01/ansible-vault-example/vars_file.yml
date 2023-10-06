@@ -1,7 +1,0 @@
-
-    - apache_pkg_name: httpd
-    - firewall_pkg_name: firewalld 
-    - apache_svc_name: httpd 
-    - firewall_svc_name: firewalld 
-    - fire_rule: http 
-    - apache_documentroot: "/var/www/html"

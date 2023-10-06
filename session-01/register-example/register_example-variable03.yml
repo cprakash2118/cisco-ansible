@@ -1,7 +1,0 @@
----
-- name: Register example.
-  hosts: all
-  tasks:
-    - name: Check status.
-      ansible.builtin.debug:
-         msg: "Hostname - {{ inventory_hostname }} , IP Address = {{ansible_default_ipv4.address }} , Mac address = {{ansible_default_ipv4.macaddress}}" 

@@ -1,8 +1,0 @@
----
-- name: Template - jinja use 
-  hosts: all 
-  tasks:
-     - name: Template module 
-       ansible.builtin.template:
-           src: file_example.j2
-           dest: /tmp/file_example 

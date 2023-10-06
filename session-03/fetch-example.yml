@@ -1,9 +1,0 @@
----
-- name: Fetch example
-  hosts: dev,prod,test
-  tasks:
-     - name: Fetch ops
-       ansible.builtin.fetch:
-          src: /etc/passwd
-          dest: current-passwd 
-

@@ -1,5 +1,0 @@
--- Inventory host name : serverc.lab.example.com 
--- Total memory in MB: 960
--- BIOS version:  1.14.0-1.module+el8.4.0+8855+a9e237a9 
--- Size of disk device vda:  10.00 GB 
--- Size of disk device vdb: 1.00 GB

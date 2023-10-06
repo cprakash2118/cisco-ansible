@@ -1,8 +1,0 @@
----
-- service_list: 
-          - sshd
-          - rsyslog 
-          - chronyd 
-          - httpd
-
-

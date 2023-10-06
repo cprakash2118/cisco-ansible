@@ -1,7 +1,0 @@
----
-- name: Hw report 
-  hosts: all 
-  tasks:
-    - name: "Get report."
-      ansible.builtin.debug:
-          msg: " Hostname= {{ ansible_hostname }} , FQDN  = {{ansible_fqdn}}"
